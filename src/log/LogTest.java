@@ -31,15 +31,13 @@ public class LogTest {
 		} catch (Exception e) {
 			// Exceptionのスタックトレースを出力
 			log.error("Error Occurs:", e);
-		}
-
-		int[] ary = new int[10000];
-
-		if (log.isDebugEnabled()) {
-			for (int i = 0; i < 10000; i++) {
-				log.debug("array[" + i + "]=" + ary[i]);
+		} finally {
+			int[] ary = new int[10000];
+			if (log.isDebugEnabled()) {
+				for (int i = 0; i < 10000; i++) {
+					log.debug("array[" + i + "]=" + ary[i]);
+				}
 			}
 		}
 	}
-
 }
