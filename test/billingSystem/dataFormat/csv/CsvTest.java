@@ -5,6 +5,15 @@ package billingSystem.dataFormat.csv;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import junitx.framework.FileAssert;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 /**
@@ -18,16 +27,36 @@ public class CsvTest extends Csv {
 	 */
 	@Test
 	public final void testCsv() {
-		fail("まだ実装されていません"); // TODO
-	}
+		Csv csv = new Csv();
 
-	/**
-	 * {@link billingSystem.dataFormat.csv.Csv#Csv(billingSystem.dataFormat.csv.CsvConfiguration)}
-	 * のためのテスト・メソッド。
-	 */
-	@Test
-	public final void testCsvCsvConfiguration() {
-		fail("まだ実装されていません"); // TODO
-	}
+		String file1 = new String("dat/callInfo/20130421_callInfor.csv");
+		String file2 = new String("dat/callInfo/out.csv");
 
+		try {
+			csv.readFrom(new FileReader(file1));
+
+			Cell cell = csv.getCell(0, 0);
+			assertEquals(cell.toString(), "09076228838");
+
+			csv.writeTo(new FileWriter(file2));
+
+			// commons-ioを使用する例
+			// TODO ファイル差分時のExceptionに対するTest
+			assertTrue("The files differ!",
+					FileUtils.contentEquals(new File(file1), new File(file2)));
+
+			// JUnit-Addonsを使用する例
+			FileAssert.assertEquals(new File(file1), new File(file2));
+
+		} catch (FileNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (Throwable e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+	}
 }

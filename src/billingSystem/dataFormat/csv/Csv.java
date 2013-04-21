@@ -32,6 +32,10 @@ public class Csv {
 		return cell;
 	}
 
+	public void setCell(Cell cell, int row, int column) {
+		// TODO 未実装
+	}
+
 	public void readFrom(Reader reader) throws IOException {
 		String line;
 		LineNumberReader lineNumberReader = new LineNumberReader(reader);
@@ -43,7 +47,9 @@ public class Csv {
 	public void writeTo(Writer writer) throws IOException {
 		for (int i = 0; i < cellArray.size(); i++) {
 			writer.write(toStringOfLine(i));
+			writer.write('\n');
 		}
+		writer.flush();
 	}
 
 	private List<Cell> getCellOfLine(String line) {
