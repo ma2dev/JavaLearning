@@ -23,4 +23,15 @@ public class Cell {
 	public int length() {
 		return data.length();
 	}
+
+	/*
+	 * (非 Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return data;
+	}
+
 }
