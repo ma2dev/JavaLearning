@@ -22,13 +22,13 @@ public class CellTest extends Cell {
 
 		assertEquals(c.getData(), null);
 		c.setData("abc");
-		assertEquals(c.getData(), "abc");
+		assertEquals("abc", c.getData());
 
 		c = new Cell("xyz123");
-		assertEquals(c.getData(), "xyz123");
+		assertEquals("xyz123", c.getData());
 
-		assertEquals(c.length(), "xyz123".length());
-		assertEquals(c.toString(), "xyz123");
+		assertEquals("xyz123".length(), c.length());
+		assertEquals("xyz123", c.toString());
 	}
 
 }

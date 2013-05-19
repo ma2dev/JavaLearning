@@ -20,7 +20,7 @@ public class CsvConfigurationTest extends CsvConfiguration {
 	@Test
 	public final void testCsvConfigurationデフォルトコンストラクタ() {
 		CsvConfiguration csvConfiguration = new CsvConfiguration();
-		assertEquals(csvConfiguration.getDelimiter(), ",");
+		assertEquals(",", csvConfiguration.getDelimiter());
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class CsvConfigurationTest extends CsvConfiguration {
 	@Test
 	public final void testCsvConfigurationStringコンストラクタ() {
 		CsvConfiguration csvConfiguration = new CsvConfiguration("XYZ");
-		assertEquals(csvConfiguration.getDelimiter(), "XYZ");
+		assertEquals("XYZ", csvConfiguration.getDelimiter());
 		assertFalse(csvConfiguration.getDelimiter().equals("ABC"));
 	}
 
@@ -42,10 +42,10 @@ public class CsvConfigurationTest extends CsvConfiguration {
 	public final void testデリミタのアクセッサ() {
 		CsvConfiguration csvConfiguration = new CsvConfiguration();
 
-		assertEquals(csvConfiguration.getDelimiter(), ",");
+		assertEquals(",", csvConfiguration.getDelimiter());
 
 		csvConfiguration.setDelimiter("XYZ");
-		assertEquals(csvConfiguration.getDelimiter(), "XYZ");
+		assertEquals("XYZ", csvConfiguration.getDelimiter());
 	}
 
 }

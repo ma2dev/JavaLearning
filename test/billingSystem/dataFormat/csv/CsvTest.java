@@ -36,7 +36,7 @@ public class CsvTest extends Csv {
 			csv.readFrom(new FileReader(file1));
 
 			Cell cell = csv.getCell(0, 0);
-			assertEquals(cell.toString(), "09076228838");
+			assertEquals("09076228838", cell.toString());
 
 			csv.writeTo(new FileWriter(file2));
 

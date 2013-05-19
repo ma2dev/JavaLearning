@@ -29,7 +29,7 @@ public class CallInformation {
 		long start = startTime.getTime();
 		long end = endTime.getTime();
 
-		long result = (end - start) * 1000;
+		long result = (end - start) / 1000;
 
 		return result;
 	}
