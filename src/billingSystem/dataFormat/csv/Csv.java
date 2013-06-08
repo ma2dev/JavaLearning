@@ -14,22 +14,51 @@ public class Csv {
 	private List<List<Cell>> cellArray;
 
 	public Csv() {
-		config = new CsvConfiguration();
-		cellArray = new ArrayList<List<Cell>>();
+		this(new CsvConfiguration());
 	}
 
 	public Csv(CsvConfiguration config) {
 		this.config = config;
+		cellArray = new ArrayList<List<Cell>>();
 	}
 
 	public CsvConfiguration getConfiguration() {
 		return config;
 	}
 
+	/**
+	 * 行と列を指定して情報を取得する。
+	 *
+	 * @param row
+	 *            行
+	 * @param column
+	 *            列
+	 * @return 情報
+	 */
 	public Cell getCell(int row, int column) {
 		List<Cell> line = cellArray.get(row);
 		Cell cell = line.get(column);
 		return cell;
+	}
+
+	/**
+	 * 行を指定して情報を取得する。
+	 *
+	 * @param row
+	 *            行番号
+	 * @return 行の情報のcellのList
+	 */
+	public List<Cell> getCells(int row) {
+		return cellArray.get(row);
+	}
+
+	/**
+	 * 行数を取得する。
+	 *
+	 * @return 行数
+	 */
+	public int getRowSize() {
+		return cellArray.size();
 	}
 
 	public void setCell(Cell cell, int row, int column) {
