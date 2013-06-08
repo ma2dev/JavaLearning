@@ -28,7 +28,7 @@ public class CallInformationManagerTest {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		callManager.printOn();
+		//callManager.printOn();
 	}
 
 }
