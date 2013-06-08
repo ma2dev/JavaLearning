@@ -42,8 +42,7 @@ public class CsvTest extends Csv {
 
 			// commons-ioを使用する例
 			// TODO ファイル差分時のExceptionに対するTest
-			assertTrue("The files differ!",
-					FileUtils.contentEquals(new File(file1), new File(file2)));
+			assertTrue("The files differ!", FileUtils.contentEquals(new File(file1), new File(file2)));
 
 			// JUnit-Addonsを使用する例
 			FileAssert.assertEquals(new File(file1), new File(file2));
@@ -58,5 +57,20 @@ public class CsvTest extends Csv {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public final void testコンストラクタ() {
+		Csv csv = new Csv();
+
+		assertNotNull(csv);
+		assertNotNull(csv.getConfiguration());
+		assertEquals(0, csv.getRowSize());
+
+		csv = new Csv(new CsvConfiguration());
+		assertNotNull(csv);
+		assertNotNull(csv.getConfiguration());
+		assertEquals(0, csv.getRowSize());
+
 	}
 }
