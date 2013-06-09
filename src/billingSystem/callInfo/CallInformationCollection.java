@@ -82,6 +82,7 @@ public class CallInformationCollection {
 	 * デバッグプリント
 	 */
 	public void printOn() {
+		//TODO 後で消す
 		subscriber.printOn();
 		for (CallInformation info : callInforList) {
 			info.printOn();

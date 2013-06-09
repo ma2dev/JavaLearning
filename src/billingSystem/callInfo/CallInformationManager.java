@@ -81,6 +81,7 @@ public class CallInformationManager {
 	 * デバッグプリント
 	 */
 	public void printOn() {
+		//TODO 後で消す
 		Set<Subscriber> keys = callMap.keySet();
 		for (Subscriber subscriber : keys) {
 			CallInformationCollection collection = callMap.get(subscriber);

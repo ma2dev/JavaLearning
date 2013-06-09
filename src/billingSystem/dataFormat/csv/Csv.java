@@ -8,20 +8,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * CSVファイルを表現する。 コンフィグを設定できるが、設定はコンストラクタでのみ可能。
+ *
+ * @author ma2dev
+ *
+ */
 public class Csv {
 
 	private CsvConfiguration config;
 	private List<List<Cell>> cellArray;
 
+	/**
+	 * コンストラクタ
+	 */
 	public Csv() {
 		this(new CsvConfiguration());
 	}
 
+	/**
+	 * コンストラクタ<br>
+	 * コンフィグを設定できる。
+	 *
+	 * @param config
+	 *            コンフィグ
+	 */
 	public Csv(CsvConfiguration config) {
 		this.config = config;
 		cellArray = new ArrayList<List<Cell>>();
 	}
 
+	/**
+	 * コンフィグを取得する。
+	 *
+	 * @return コンフィグ
+	 */
 	public CsvConfiguration getConfiguration() {
 		return config;
 	}
@@ -65,6 +86,14 @@ public class Csv {
 		// TODO 未実装
 	}
 
+	/**
+	 * Readerから読み込む。
+	 *
+	 * @param reader
+	 *            Readerオブジェクト
+	 * @throws IOException
+	 *             読み込みに失敗した場合
+	 */
 	public void readFrom(Reader reader) throws IOException {
 		String line;
 		LineNumberReader lineNumberReader = new LineNumberReader(reader);
@@ -73,6 +102,14 @@ public class Csv {
 		}
 	}
 
+	/**
+	 * Writerに書き込む。
+	 *
+	 * @param writer
+	 *            Writerオブジェクト
+	 * @throws IOException
+	 *             書き込みに失敗した場合
+	 */
 	public void writeTo(Writer writer) throws IOException {
 		for (int i = 0; i < cellArray.size(); i++) {
 			writer.write(toStringOfLine(i));
@@ -87,8 +124,7 @@ public class Csv {
 
 		Cell c;
 		while (st.hasMoreElements()) {
-			c = new Cell();
-			c.setData(st.nextToken());
+			c = new Cell(st.nextToken());
 			list.add(c);
 		}
 

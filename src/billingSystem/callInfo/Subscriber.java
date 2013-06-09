@@ -10,10 +10,20 @@ public class Subscriber {
 
 	private String telNum;
 
+	/**
+	 * コンストラクタ
+	 */
 	public Subscriber() {
 		telNum = null;
 	}
 
+	/**
+	 * コンストラクタ<br>
+	 * 契約者電話番号を指定できる。
+	 *
+	 * @param telNum
+	 *            契約者電話番号
+	 */
 	public Subscriber(String telNum) {
 		this.setTelNum(telNum);
 	}
@@ -41,6 +51,7 @@ public class Subscriber {
 	 * デバッグプリント
 	 */
 	public void printOn() {
+		//TODO 後で消す
 		System.out.println(telNum);
 	}
 
