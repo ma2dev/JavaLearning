@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import java.util.Set;
  * @author ma2dev
  *
  */
-@SuppressWarnings("unused")
 public class CallInformationManager {
 
 	private Map<Subscriber, CallInformationCollection> callMap;
@@ -81,7 +79,7 @@ public class CallInformationManager {
 	 * デバッグプリント
 	 */
 	public void printOn() {
-		//TODO 後で消す
+		// TODO 後で消す
 		Set<Subscriber> keys = callMap.keySet();
 		for (Subscriber subscriber : keys) {
 			CallInformationCollection collection = callMap.get(subscriber);
