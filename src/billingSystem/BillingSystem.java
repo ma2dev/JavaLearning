@@ -94,7 +94,7 @@ public class BillingSystem {
 		CallInformationManager callInformationManager = new CallInformationManager();
 		try {
 			callInformationManager.buildFromCsv(callInfoFile);
-			callInformationManager.printOn();
+			callInformationManager.printOn(); // TODO 料金計算処理の作成
 		} catch (FileNotFoundException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
