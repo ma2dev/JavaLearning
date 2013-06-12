@@ -1,0 +1,5 @@
+本プログラムは以下のOSS製品を使用しています。
+
+1. Commons CLI
+   Commons CLIはApache License Version 2.0のもと配布されています。
+   Commons CLIのLICENSE文は license/commons-cli配下にあります。
