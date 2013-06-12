@@ -15,8 +15,9 @@ import org.apache.commons.cli.ParseException;
 import billingSystem.callInfo.CallInformationManager;
 
 /**
- *
- *
+ * 料金計算システム<br>
+ * 呼情報ファイルを入力値として、通話料金の計算を行う。<br>
+ * Javaの勉強を目的としたプログラム課題。
  *
  * @author ma2dev
  *
@@ -26,7 +27,7 @@ public class BillingSystem {
 	public static final String VERSION = "0.1";
 
 	/**
-	 * @param args
+	 * @param args オプションについては実行時に表示されるUsage参照。
 	 */
 	public static void main(String[] args) {
 
@@ -59,13 +60,13 @@ public class BillingSystem {
 		} catch (ParseException e) {
 			System.out.println("error");
 			// オプションの指定が誤っている場合
-			showHelp(options);
+			showUsage(options);
 			return;
 		}
 
 		// 「-h」の場合
 		if (commandLine.hasOption("h")) {
-			showHelp(options);
+			showUsage(options);
 			return;
 		}
 
@@ -111,7 +112,7 @@ public class BillingSystem {
 	 *
 	 * @param options
 	 */
-	private static void showHelp(Options options) {
+	private static void showUsage(Options options) {
 		HelpFormatter help = new HelpFormatter();
 		// ヘルプを出力
 		help.printHelp("BillingSystem", options, true);
