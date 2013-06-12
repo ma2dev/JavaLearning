@@ -64,6 +64,12 @@ public class BillingSystem {
 			return;
 		}
 
+		// オプションが無い場合
+		if (commandLine.getArgs().length == 0) {
+			showUsage(options);
+			return;
+		}
+
 		// 「-h」の場合
 		if (commandLine.hasOption("h")) {
 			showUsage(options);
