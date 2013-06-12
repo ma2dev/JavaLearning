@@ -33,6 +33,8 @@ public class CallInformationManager {
 	 * @throws IOException
 	 *             ファイル読み込みに失敗した場合
 	 * @throws ParseException
+	 *             CSVの解釈に失敗した場合<br>
+	 *             主に時刻情報の解釈に失敗した場合
 	 */
 	public void buildFromCsv(String csvfile) throws FileNotFoundException, IOException, ParseException {
 		List<CallInformation> list = CallInformationReader.readFromCsv(new FileReader(csvfile));
