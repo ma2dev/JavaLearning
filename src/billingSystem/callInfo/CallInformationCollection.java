@@ -3,8 +3,10 @@ package billingSystem.callInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import billingSystem.subscriber.Subscriber;
+
 /**
- * 特定契約者の呼情報集合を提供する。
+ * 特定契約者の呼情報集合を提供します。
  *
  * @author ma2dev
  *
@@ -24,7 +26,7 @@ public class CallInformationCollection {
 
 	/**
 	 * コンストラクタ。<br>
-	 * 引数として呼情報を設定する。
+	 * 引数として呼情報を設定します。
 	 *
 	 * @param callInformation
 	 *            呼情報

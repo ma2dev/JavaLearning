@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import billingSystem.subscriber.Subscriber;
+
 /**
- * 通話情報を管理する。
+ * 通話情報を管理します。
  *
  * @author ma2dev
  *
@@ -24,7 +26,7 @@ public class CallInformationManager {
 	}
 
 	/**
-	 * csvファイルから呼情報を構築する。
+	 * csvファイルから呼情報を構築します。
 	 *
 	 * @param csvfile
 	 *            csvファイル
@@ -45,12 +47,26 @@ public class CallInformationManager {
 	}
 
 	/**
-	 * 呼情報を追加する。
+	 * 特定契約者電話番号の呼情報をリスト形式で取得します。<br>
+	 * 対象の呼情報が存在しない場合はnullを返却します。
+	 *
+	 * @param telNum
+	 *            契約者電話番号
+	 * @return 呼情報のリスト。<br>
+	 *         対象の呼情報が存在しない場合はnullを返却します。
+	 */
+	public List<CallInformation> get(String telNum) {
+		// TODO 未実装
+		return null;
+	}
+
+	/**
+	 * 呼情報を追加します。
 	 *
 	 * @param callInformation
 	 *            呼情報
 	 */
-	public void add(CallInformation callInformation) {
+	private void add(CallInformation callInformation) {
 		CallInformationCollection targetCollection = callMap.get(callInformation.getSrcSubscriber());
 
 		if (targetCollection == null) {
@@ -61,20 +77,6 @@ public class CallInformationManager {
 		} else {
 			targetCollection.add(callInformation);
 		}
-	}
-
-	/**
-	 * 特定契約者電話番号の呼情報をリスト形式で取得する。<br>
-	 * 対象の呼情報が存在しない場合はnullを返却する。
-	 *
-	 * @param telNum
-	 *            契約者電話番号
-	 * @return 呼情報のリスト。<br>
-	 *         対象の呼情報が存在しない場合はnullを返却する。
-	 */
-	public List<CallInformation> get(String telNum) {
-		// TODO 未実装
-		return null;
 	}
 
 	/**

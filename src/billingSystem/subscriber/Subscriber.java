@@ -1,4 +1,4 @@
-package billingSystem.callInfo;
+package billingSystem.subscriber;
 
 /**
  * 契約者の情報を提供します。
@@ -43,7 +43,7 @@ public class Subscriber {
 	 * @param telNum
 	 *            契約者電話番号
 	 */
-	public void setTelNum(String telNum) {
+	protected void setTelNum(String telNum) {
 		this.telNum = telNum;
 	}
 
@@ -51,7 +51,7 @@ public class Subscriber {
 	 * デバッグプリント
 	 */
 	public void printOn() {
-		//TODO 後で消す
+		// TODO 後で消す
 		System.out.println(telNum);
 	}
 

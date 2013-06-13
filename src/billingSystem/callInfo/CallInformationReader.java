@@ -37,8 +37,7 @@ public class CallInformationReader {
 	 *             csvファイル中の日付情報の変換に失敗した場合
 	 */
 	public static List<CallInformation> readFromCsv(Reader reader) throws IOException, ParseException {
-		CsvConfiguration csvConfiguration = new CsvConfiguration();
-		Csv csv = new Csv(csvConfiguration);
+		Csv csv = new Csv();
 		csv.readFrom(reader);
 
 		List<CallInformation> list = new ArrayList<CallInformation>();

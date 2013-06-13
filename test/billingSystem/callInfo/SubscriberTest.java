@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import billingSystem.subscriber.Subscriber;
+
 public class SubscriberTest extends Subscriber {
 
 	@Test

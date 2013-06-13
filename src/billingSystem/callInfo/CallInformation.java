@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import billingSystem.subscriber.Subscriber;
+
 /**
  * 呼情報を提供します。
  *
@@ -21,10 +23,30 @@ public class CallInformation {
 
 	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 
+	/**
+	 * コンストラクタ
+	 */
 	public CallInformation() {
 		this.clear();
 	}
 
+	/**
+	 * コンストラクタ<br>
+	 * 引数として、発信者電話番号、着信者電話番号、通話確立時刻、通話切断時刻、切断要因を設定します。
+	 *
+	 * @param srcSubscriber
+	 *            発信者電話番号
+	 * @param dstSubscriber
+	 *            着信者電話番号
+	 * @param startTime
+	 *            通話確立時刻
+	 * @param endTime
+	 *            通話切断時刻
+	 * @param reason
+	 *            切断要因
+	 * @throws ParseException
+	 *             日付文字列の解析に失敗した場合
+	 */
 	public CallInformation(String srcSubscriber, String dstSubscriber, String startTime, String endTime, String reason)
 			throws ParseException {
 		this();
@@ -70,19 +92,19 @@ public class CallInformation {
 	}
 
 	/**
-	 * 通話開始時刻を取得する。
+	 * 通話確立時刻を取得する。
 	 *
-	 * @return startTime 通話開始時刻
+	 * @return startTime 通話確立時刻
 	 */
 	public Date getStartTime() {
 		return startTime;
 	}
 
 	/**
-	 * 通話開始時刻を設定する。
+	 * 通話確立時刻を設定する。
 	 *
 	 * @param startTime
-	 *            通話開始時刻
+	 *            通話確立時刻
 	 * @throws ParseException
 	 *             日付文字列の解析に失敗した場合
 	 */
@@ -91,19 +113,19 @@ public class CallInformation {
 	}
 
 	/**
-	 * 通話終了時刻を取得する。
+	 * 通話切断時刻を取得する。
 	 *
-	 * @return endTime 通話終了時刻
+	 * @return endTime 通話切断時刻
 	 */
 	public Date getEndTime() {
 		return endTime;
 	}
 
 	/**
-	 * 通話終了時刻を設定する。
+	 * 通話切断時刻を設定する。
 	 *
 	 * @param endTime
-	 *            通話終了時刻 セットする endTime
+	 *            通話切断時刻
 	 * @throws ParseException
 	 *             日付文字列の解析に失敗した場合
 	 */
