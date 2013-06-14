@@ -34,7 +34,6 @@ public class CallInformationCollectionTest {
 			assertEquals(false, result);
 
 		} catch (ParseException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}

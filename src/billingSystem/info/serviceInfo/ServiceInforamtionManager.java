@@ -66,18 +66,6 @@ public class ServiceInforamtionManager implements IBillingServiceInformation {
 	}
 
 	/**
-	 * デバッグプリント
-	 */
-	public void printOn() {
-		// TODO 後で削除する
-		Set<Subscriber> keys = serviceInfoMap.keySet();
-		for (Subscriber subscriber : keys) {
-			ServiceInformation serviceInformation = serviceInfoMap.get(subscriber);
-			serviceInformation.printOn();
-		}
-	}
-
-	/**
 	 * サービス情報をmapに追加します。<br>
 	 * サービス情報の入力情報として契約者情報は一意であることを期待するため、mapに重複があった場合はfalseを返却します。<br>
 	 *

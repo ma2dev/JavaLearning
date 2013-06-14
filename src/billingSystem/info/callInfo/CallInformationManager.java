@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import billingSystem.billing.IBillingCallInformation;
 import billingSystem.billing.ICallCollection;
@@ -31,23 +30,7 @@ public class CallInformationManager implements IBillingCallInformation {
 
 	@Override
 	public ICallCollection find(IPersonalInformation personal) {
-		System.out.print("2-->");
-		personal.printOn();
 		CallInformationCollection collection = callMap.get(personal);
-		if (collection == null) {
-			System.out.println("CallInformationManager --> NULL");
-		} else {
-			System.out.println("CallInformationManager --> NOT NULL");
-		}
-
-		Subscriber tmpS = new Subscriber(personal.getTelNum());
-		tmpS.printOn();
-		collection = callMap.get(tmpS);
-		if (collection == null) {
-			System.out.println("CallInformationManager2 --> NULL");
-		} else {
-			System.out.println("CallInformationManager2 --> NOT NULL");
-		}
 
 		return collection;
 	}
@@ -93,17 +76,4 @@ public class CallInformationManager implements IBillingCallInformation {
 			targetCollection.add(callInformation);
 		}
 	}
-
-	/**
-	 * デバッグプリント
-	 */
-	public void printOn() {
-		// TODO 後で消す
-		Set<IPersonalInformation> keys = callMap.keySet();
-		for (IPersonalInformation subscriber : keys) {
-			CallInformationCollection collection = callMap.get(subscriber);
-			collection.printOn();
-		}
-	}
-
 }

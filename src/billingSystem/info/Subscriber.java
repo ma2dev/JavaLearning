@@ -35,11 +35,20 @@ public class Subscriber implements IPersonalInformation {
 		return telNum;
 	}
 
-	/**
-	 * デバッグプリント
-	 */
-	public void printOn() {
-		// TODO 後で消す
-		System.out.println(telNum);
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (obj instanceof Subscriber) {
+			Subscriber o = (Subscriber) obj;
+			if (this.telNum == null)
+				return o.telNum == null;
+			return this.telNum.equals(o.telNum);
+		}
+		return super.equals(obj);
+	}
+
+	public int hashCode() {
+		int h = (telNum==null) ? 0 : telNum.hashCode();
+		return h;
 	}
 }

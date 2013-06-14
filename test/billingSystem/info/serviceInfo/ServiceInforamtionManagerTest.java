@@ -22,13 +22,10 @@ public class ServiceInforamtionManagerTest {
 		try {
 			serviceManager.buildFromCsv(file);
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (BillingSystemServiceInformationBuildException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 

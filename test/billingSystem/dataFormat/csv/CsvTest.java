@@ -48,13 +48,10 @@ public class CsvTest extends Csv {
 			FileAssert.assertEquals(new File(file1), new File(file2));
 
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (Throwable e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}

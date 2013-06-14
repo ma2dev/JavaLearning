@@ -128,13 +128,10 @@ public class BillingSystem {
 		try {
 			callInformationManager.buildFromCsv(callInfoFile);
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (java.text.ParseException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
@@ -143,13 +140,10 @@ public class BillingSystem {
 		try {
 			serviceInforamtionManager.buildFromCsv(serviceInfoFile);
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (BillingSystemServiceInformationBuildException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
@@ -158,7 +152,6 @@ public class BillingSystem {
 		try {
 			billing.write(outputFile);
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}

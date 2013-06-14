@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Test;
 
+import billingSystem.billing.IPersonalInformation;
 import billingSystem.info.serviceInfo.ServiceInforamtionManager;
 import billingSystem.info.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
 
@@ -16,19 +18,18 @@ public class ServiceInforamtionManagerTest {
 	public final void testサービス情報構築() {
 		ServiceInforamtionManager manager = new ServiceInforamtionManager();
 		try {
-			manager.buildFromCsv("dat/billingSystem/serviceInfo/20130614_serviceInfo.csv");
+			manager.buildFromCsv("dat/billingSystem/serviceInfo/test_oneTelNum_serviceInfo.csv");
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (BillingSystemServiceInformationBuildException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
-		manager.printOn();
+		List<IPersonalInformation> list = manager.getPersonalList();
+		IPersonalInformation p = list.get(0);
+		assertEquals("09076228838", p.getTelNum());
 	}
 
 }

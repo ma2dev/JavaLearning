@@ -19,10 +19,8 @@ public class ServiceInforamtionReaderTest {
 		try {
 			list = ServiceInforamtionReader.readFromCsv(new FileReader(file));
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 

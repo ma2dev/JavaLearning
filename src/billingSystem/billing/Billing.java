@@ -28,7 +28,6 @@ public class Billing {
 		PersonalForm personalForm = null;
 		for (IPersonalInformation personal : personalList) {
 			personalForm = new PersonalForm(personal);
-			System.out.print("0-->");personal.printOn();
 
 			// 契約者の情報から対象契約者の通話情報の一覧を取得
 			ICallCollection callCollection = callInformation.find(personal);

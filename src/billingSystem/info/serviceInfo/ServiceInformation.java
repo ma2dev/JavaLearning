@@ -31,12 +31,4 @@ public class ServiceInformation {
 	public Subscriber getSrcSubscriber() {
 		return this.subscriber;
 	}
-
-	/**
-	 * デバッグプリント
-	 */
-	public void printOn() {
-		// TODO あとで削除する
-		this.subscriber.printOn();
-	}
 }

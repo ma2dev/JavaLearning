@@ -20,13 +20,10 @@ public class BillingTest {
 		try {
 			callInformationManager.buildFromCsv("dat/billingSystem/callInfo/20130421_callInfo.csv");
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (java.text.ParseException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
@@ -35,13 +32,10 @@ public class BillingTest {
 		try {
 			serviceInforamtionManager.buildFromCsv("dat/billingSystem/serviceInfo/20130614_serviceInfo.csv");
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (BillingSystemServiceInformationBuildException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 

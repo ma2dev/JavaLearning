@@ -164,14 +164,4 @@ public class CallInformation extends AbstractCall {
 
 		return e;
 	}
-
-	/**
-	 * デバッグプリント
-	 */
-	public void printOn() {
-		// TODO 後で消す
-		System.out.println(srcSubscriber.getTelNum() + ", " + dstSubscriber.getTelNum() + ", " + startTime.toString()
-				+ ", " + endTime.toString() + ", " + reason);
-	}
-
 }
