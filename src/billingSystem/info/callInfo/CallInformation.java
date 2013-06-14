@@ -28,9 +28,9 @@ public class CallInformation extends AbstractCall {
 	 * コンストラクタ<br>
 	 * 引数として、発信者電話番号、着信者電話番号、通話確立時刻、通話切断時刻、切断要因を設定します。
 	 *
-	 * @param srcSubscriber
+	 * @param srcTelNum
 	 *            発信者電話番号
-	 * @param dstSubscriber
+	 * @param dstTelNum
 	 *            着信者電話番号
 	 * @param startTime
 	 *            通話確立時刻
@@ -41,10 +41,10 @@ public class CallInformation extends AbstractCall {
 	 * @throws ParseException
 	 *             日付文字列の解析に失敗した場合
 	 */
-	public CallInformation(String srcSubscriber, String dstSubscriber, String startTime, String endTime, String reason)
+	public CallInformation(String srcTelNum, String dstTelNum, String startTime, String endTime, String reason)
 			throws ParseException {
-		this.srcSubscriber = new Subscriber(srcSubscriber); // TODO 生成器の作成が必要
-		this.dstSubscriber = new Subscriber(dstSubscriber); // TODO 生成器の作成が必要
+		this.srcSubscriber = new Subscriber(srcTelNum);
+		this.dstSubscriber = new Subscriber(dstTelNum);
 		this.setStartTime(startTime);
 		this.setEndTime(endTime);
 		this.setEndReason(reason);
@@ -77,14 +77,6 @@ public class CallInformation extends AbstractCall {
 		return startTime;
 	}
 
-	/**
-	 * 通話確立時刻を設定します。
-	 *
-	 * @param startTime
-	 *            通話確立時刻
-	 * @throws ParseException
-	 *             日付文字列の解析に失敗した場合
-	 */
 	public void setStartTime(String startTime) throws ParseException {
 		this.startTime = stringToDate(startTime);
 	}
@@ -98,14 +90,6 @@ public class CallInformation extends AbstractCall {
 		return endTime;
 	}
 
-	/**
-	 * 通話切断時刻を設定します。
-	 *
-	 * @param endTime
-	 *            通話切断時刻
-	 * @throws ParseException
-	 *             日付文字列の解析に失敗した場合
-	 */
 	public void setEndTime(String endTime) throws ParseException {
 		this.endTime = stringToDate(endTime);
 	}

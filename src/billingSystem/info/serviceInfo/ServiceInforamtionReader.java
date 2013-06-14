@@ -50,8 +50,6 @@ public class ServiceInforamtionReader {
 			String s1 = (String) cellList.get(SERVICEINFORMATION_DISPLAY_CONDITION).getData();
 			String s2 = (String) cellList.get(SERVICEINFORMATION_INTERRUPT_CONDITION).getData();
 
-			// TODO サービス登録処理の追加
-
 			serviceInformation = new ServiceInformation(new Subscriber(telNum));
 			serviceInformation.add(new NumberDisplayService(s1));
 			serviceInformation.add(new CallInterruptService(s2));
