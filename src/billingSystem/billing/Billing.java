@@ -1,15 +1,11 @@
 package billingSystem.billing;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import billingSystem.billing.output.PersonalForm;
 
 /**
- * 料金計算を提供する。
+ * 料金計算を提供します。
  *
  * @author ma2dev
  *
@@ -32,6 +28,9 @@ public class Billing {
 		this.serviceInformation = serviceInformation;
 	}
 
+	/**
+	 * 料金計算を実行します。
+	 */
 	public void calculate() {
 
 		// 契約者の一覧を取得
@@ -68,16 +67,11 @@ public class Billing {
 
 	}
 
-	public void write(String filename) throws IOException {
-
-		Writer writer = new FileWriter(filename);
-
-		// 明細を出力する
-		for (PersonalForm personalForm : personalFormList) {
-			personalForm.write(writer);
-		}
-		writer.flush();
-		writer.close();
+	/**
+	 *
+	 * @return
+	 */
+	protected List<PersonalForm> getPersonalFormList() {
+		return personalFormList;
 	}
-
 }

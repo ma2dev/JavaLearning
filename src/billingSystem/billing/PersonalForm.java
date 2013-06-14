@@ -1,9 +1,8 @@
-package billingSystem.billing.output;
+package billingSystem.billing;
 
 import java.io.IOException;
 import java.io.Writer;
 
-import billingSystem.billing.IPersonalInformation;
 
 /**
  * 個人の明細情報を提供します。

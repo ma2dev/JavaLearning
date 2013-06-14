@@ -14,6 +14,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import billingSystem.billing.Billing;
+import billingSystem.billing.PersonalFormWriter;
 import billingSystem.info.callInfo.CallInformationManager;
 import billingSystem.info.serviceInfo.ServiceInforamtionManager;
 import billingSystem.info.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
@@ -149,7 +150,7 @@ public class BillingSystem {
 		Billing billing = new Billing(callInformationManager, serviceInforamtionManager);
 		billing.calculate();
 		try {
-			billing.write(outputFile);
+			PersonalFormWriter.writeTo(outputFile, billing);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
