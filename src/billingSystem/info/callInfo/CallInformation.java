@@ -24,10 +24,6 @@ public class CallInformation extends AbstractCall {
 
 	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 
-	public CallInformation() {
-
-	}
-
 	/**
 	 * コンストラクタ<br>
 	 * 引数として、発信者電話番号、着信者電話番号、通話確立時刻、通話切断時刻、切断要因を設定します。
@@ -55,7 +51,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 発信者情報を返却する。
+	 * 発信者情報を返却します。
 	 *
 	 * @return 発信者
 	 */
@@ -64,7 +60,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 着信者情報を返却する。
+	 * 着信者情報を返却します。
 	 *
 	 * @return 着信者
 	 */
@@ -73,7 +69,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 通話確立時刻を取得する。
+	 * 通話確立時刻を取得します。
 	 *
 	 * @return startTime 通話確立時刻
 	 */
@@ -82,7 +78,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 通話確立時刻を設定する。
+	 * 通話確立時刻を設定します。
 	 *
 	 * @param startTime
 	 *            通話確立時刻
@@ -94,7 +90,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 通話切断時刻を取得する。
+	 * 通話切断時刻を取得します。
 	 *
 	 * @return endTime 通話切断時刻
 	 */
@@ -103,7 +99,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 通話切断時刻を設定する。
+	 * 通話切断時刻を設定します。
 	 *
 	 * @param endTime
 	 *            通話切断時刻
@@ -115,7 +111,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 切断要因を取得する。
+	 * 切断要因を取得します。
 	 *
 	 * @return endReason 切断要因
 	 */
@@ -124,7 +120,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 切断要因を設定する。
+	 * 切断要因を設定します。
 	 *
 	 * @param endReason
 	 *            切断要因
@@ -142,7 +138,7 @@ public class CallInformation extends AbstractCall {
 	}
 
 	/**
-	 * 切断要因を文字列から列挙型に変換する。
+	 * 切断要因を文字列から列挙型に変換します。
 	 *
 	 * @param s
 	 *            切断要因の文字列

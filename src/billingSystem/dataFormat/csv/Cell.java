@@ -1,12 +1,14 @@
 package billingSystem.dataFormat.csv;
 
+import billingSystem.dataFormat.IData;
+
 /**
- * CSVのセル情報を表現する。
+ * CSVのセル情報を表現します。
  *
  * @author ma2dev
  *
  */
-public class Cell {
+public class Cell implements IData {
 
 	private String data;
 
@@ -19,27 +21,39 @@ public class Cell {
 
 	/**
 	 * コンストラクタ<br>
-	 * セルに設定する文字列を指定できる。
+	 * セルに設定するデータを文字列として指定できます。
 	 *
 	 * @param data
+	 *            データ
 	 */
 	public Cell(String data) {
 		setData(data);
 	}
 
 	/**
-	 * セルに設定されている情報を文字列として取得する。
+	 * セルに設定されているデータを文字列として取得します。
 	 *
-	 * @return 情報
+	 * @return データ
 	 */
 	public String getData() {
 		return data;
 	}
 
+	/**
+	 * セルにデータをセットします。
+	 *
+	 * @param data
+	 *            データ
+	 */
 	public void setData(String data) {
 		this.data = data;
 	}
 
+	/**
+	 * データの文字列町を取得します。
+	 *
+	 * @return 文字列長
+	 */
 	public int length() {
 		return data.length();
 	}

@@ -1,7 +1,7 @@
 package billingSystem.billing;
 
 /**
- *
+ * 料金計算のためのインタフェース<br>
  * package内のみ
  *
  * @author ma2dev

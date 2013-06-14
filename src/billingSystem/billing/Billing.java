@@ -8,12 +8,24 @@ import java.util.List;
 
 import billingSystem.billing.output.PersonalForm;
 
+/**
+ * 料金計算を提供する。
+ *
+ * @author ma2dev
+ *
+ */
 public class Billing {
 
 	private List<PersonalForm> personalFormList;
 	private IBillingCallInformation callInformation;
 	private IBillingServiceInformation serviceInformation;
 
+	/**
+	 * コンストラクタ
+	 *
+	 * @param callInformation
+	 * @param serviceInformation
+	 */
 	public Billing(IBillingCallInformation callInformation, IBillingServiceInformation serviceInformation) {
 		personalFormList = new ArrayList<PersonalForm>();
 		this.callInformation = callInformation;

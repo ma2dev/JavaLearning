@@ -1,5 +1,11 @@
 package billingSystem.billing;
 
+/**
+ * 料金取得対象の通話情報のためのインタフェース
+ *
+ * @author ma2dev
+ *
+ */
 public interface IBillingCallInformation {
 
 	/**

@@ -6,7 +6,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import billingSystem.dataFormat.csv.Cell;
+import billingSystem.dataFormat.IData;
 import billingSystem.dataFormat.csv.Csv;
 import billingSystem.info.Subscriber;
 
@@ -31,12 +31,12 @@ public class ServiceInforamtionReader {
 	 */
 	public static List<ServiceInformation> readFromCsv(Reader reader) throws IOException {
 		Csv csv = new Csv();
-		csv.readFrom(reader);
+		csv.read(reader);
 
 		List<ServiceInformation> list = new ArrayList<ServiceInformation>();
 
 		ServiceInformation serviceInformation = null;
-		List<Cell> cellList = null;
+		List<IData> cellList = null;
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			cellList = csv.getCells(i);
 
@@ -44,9 +44,9 @@ public class ServiceInforamtionReader {
 				return null;
 			}
 
-			String telNum = cellList.get(SERVICEINFORMATION_TEL_NUM).getData();
-			String s1 = cellList.get(SERVICEINFORMATION_DISPLAY_CONDITION).getData();
-			String s2 = cellList.get(SERVICEINFORMATION_INTERRUPT_CONDITION).getData();
+			String telNum = (String) cellList.get(SERVICEINFORMATION_TEL_NUM).getData();
+			String s1 = (String) cellList.get(SERVICEINFORMATION_DISPLAY_CONDITION).getData();
+			String s2 = (String) cellList.get(SERVICEINFORMATION_INTERRUPT_CONDITION).getData();
 
 			// TODO サービス登録処理の追加
 
@@ -63,7 +63,7 @@ public class ServiceInforamtionReader {
 	 * @param list
 	 * @return
 	 */
-	private static boolean checkFormat(List<Cell> list) {
+	private static boolean checkFormat(List<IData> list) {
 		// 最小パラメータ数(必須のみ)
 		if (list.size() < SERVICEINFORMATION_NUM_OF_MINPARAM) {
 			return false;

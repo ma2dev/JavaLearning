@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import billingSystem.info.callInfo.CallInformation;
 
-public class CallInformationTest extends CallInformation {
+public class CallInformationTest {
 
 	@Test
 	public final void test通話料金計算() {
