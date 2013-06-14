@@ -6,6 +6,8 @@ import java.text.ParseException;
 
 import org.junit.Test;
 
+import billingSystem.info.callInfo.CallInformation;
+
 public class CallInformationTest extends CallInformation {
 
 	@Test

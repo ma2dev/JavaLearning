@@ -1,4 +1,4 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import billingSystem.subscriber.Subscriber;
+import billingSystem.info.Subscriber;
 
 /**
  * 通話情報を管理します。

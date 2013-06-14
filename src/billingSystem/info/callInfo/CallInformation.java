@@ -1,11 +1,11 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import billingSystem.subscriber.Subscriber;
+import billingSystem.info.Subscriber;
 
 /**
  * 呼情報を提供します。

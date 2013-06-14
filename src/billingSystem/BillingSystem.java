@@ -12,7 +12,10 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import billingSystem.callInfo.CallInformationManager;
+
+import billingSystem.info.callInfo.CallInformationManager;
+import billingSystem.info.serviceInfo.ServiceInforamtionManager;
+import billingSystem.info.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
 
 /**
  * 料金計算システム<br>
@@ -118,6 +121,7 @@ public class BillingSystem {
 		}
 
 		// main --------------------------------------------------------------
+		// CallInfo
 		CallInformationManager callInformationManager = new CallInformationManager();
 		try {
 			callInformationManager.buildFromCsv(callInfoFile);
@@ -132,8 +136,24 @@ public class BillingSystem {
 			e.printStackTrace();
 		}
 
+		// ServiceInfo
+		ServiceInforamtionManager serviceInforamtionManager = new ServiceInforamtionManager();
+		try {
+			serviceInforamtionManager.buildFromCsv(serviceInfoFile);
+		} catch (FileNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (BillingSystemServiceInformationBuildException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 
+		System.out.println("serviceInfo---");
+		serviceInforamtionManager.printOn();
 		System.out.println("callInfo---");
 		callInformationManager.printOn(); // TODO 料金計算処理の作成
 	}

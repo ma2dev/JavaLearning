@@ -1,6 +1,6 @@
-package billingSystem.serviceInfo;
+package billingSystem.info.serviceInfo;
 
-import billingSystem.subscriber.Subscriber;
+import billingSystem.info.Subscriber;
 
 /**
  * サービス情報を提供します。

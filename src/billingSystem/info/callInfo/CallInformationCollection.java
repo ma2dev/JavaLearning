@@ -1,9 +1,9 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import billingSystem.subscriber.Subscriber;
+import billingSystem.info.Subscriber;
 
 /**
  * 特定契約者の呼情報集合を提供します。

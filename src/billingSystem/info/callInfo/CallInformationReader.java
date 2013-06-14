@@ -1,4 +1,4 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import java.io.IOException;
 import java.io.Reader;

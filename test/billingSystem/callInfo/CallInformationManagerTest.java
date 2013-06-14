@@ -8,6 +8,8 @@ import java.text.ParseException;
 
 import org.junit.Test;
 
+import billingSystem.info.callInfo.CallInformationManager;
+
 @SuppressWarnings("unused")
 public class CallInformationManagerTest {
 

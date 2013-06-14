@@ -1,4 +1,4 @@
-package billingSystem.subscriber;
+package billingSystem.info;
 
 /**
  * 契約者の情報を提供します。

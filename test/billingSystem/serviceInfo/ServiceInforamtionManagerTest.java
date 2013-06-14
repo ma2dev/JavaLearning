@@ -7,7 +7,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import billingSystem.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
+import billingSystem.info.serviceInfo.ServiceInforamtionManager;
+import billingSystem.info.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
 
 public class ServiceInforamtionManagerTest {
 

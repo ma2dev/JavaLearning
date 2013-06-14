@@ -10,6 +10,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import billingSystem.info.callInfo.CallInformation;
+import billingSystem.info.callInfo.CallInformationReader;
+
 public class CallInformationReaderTest {
 
 	@Test
