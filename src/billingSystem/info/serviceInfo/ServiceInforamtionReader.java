@@ -1,4 +1,4 @@
-package billingSystem.serviceInfo;
+package billingSystem.info.serviceInfo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import billingSystem.dataFormat.csv.Cell;
 import billingSystem.dataFormat.csv.Csv;
-import billingSystem.subscriber.Subscriber;
+import billingSystem.info.Subscriber;
 
 public class ServiceInforamtionReader {
 

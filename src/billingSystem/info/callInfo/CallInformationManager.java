@@ -1,15 +1,18 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import billingSystem.subscriber.Subscriber;
+import billingSystem.billing.IBillingCallInformation;
+import billingSystem.billing.ICallCollection;
+import billingSystem.billing.IPersonalInformation;
+import billingSystem.info.Subscriber;
 
 /**
  * 通話情報を管理します。
@@ -17,12 +20,19 @@ import billingSystem.subscriber.Subscriber;
  * @author ma2dev
  *
  */
-public class CallInformationManager {
+public class CallInformationManager implements IBillingCallInformation {
 
-	private Map<Subscriber, CallInformationCollection> callMap;
+	private Map<IPersonalInformation, CallInformationCollection> callMap;
 
 	public CallInformationManager() {
-		callMap = new HashMap<Subscriber, CallInformationCollection>();
+		callMap = new HashMap<IPersonalInformation, CallInformationCollection>();
+	}
+
+	@Override
+	public ICallCollection find(IPersonalInformation personal) {
+		CallInformationCollection collection = callMap.get(personal);
+
+		return collection;
 	}
 
 	/**
@@ -39,25 +49,13 @@ public class CallInformationManager {
 	 *             主に時刻情報の解釈に失敗した場合
 	 */
 	public void buildFromCsv(String csvfile) throws FileNotFoundException, IOException, ParseException {
-		List<CallInformation> list = CallInformationReader.readFromCsv(new FileReader(csvfile));
+		Reader reader = new FileReader(csvfile);
+		List<CallInformation> list = CallInformationReader.readFromCsv(reader);
+		reader.close();
 
 		for (CallInformation callInfo : list) {
 			this.add(callInfo);
 		}
-	}
-
-	/**
-	 * 特定契約者電話番号の呼情報をリスト形式で取得します。<br>
-	 * 対象の呼情報が存在しない場合はnullを返却します。
-	 *
-	 * @param telNum
-	 *            契約者電話番号
-	 * @return 呼情報のリスト。<br>
-	 *         対象の呼情報が存在しない場合はnullを返却します。
-	 */
-	public List<CallInformation> get(String telNum) {
-		// TODO 未実装
-		return null;
 	}
 
 	/**
@@ -76,18 +74,6 @@ public class CallInformationManager {
 			callMap.put(subscriber, collection);
 		} else {
 			targetCollection.add(callInformation);
-		}
-	}
-
-	/**
-	 * デバッグプリント
-	 */
-	public void printOn() {
-		// TODO 後で消す
-		Set<Subscriber> keys = callMap.keySet();
-		for (Subscriber subscriber : keys) {
-			CallInformationCollection collection = callMap.get(subscriber);
-			collection.printOn();
 		}
 	}
 }

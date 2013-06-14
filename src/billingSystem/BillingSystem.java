@@ -12,7 +12,12 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import billingSystem.callInfo.CallInformationManager;
+
+import billingSystem.billing.Billing;
+import billingSystem.billing.IBillingServiceInformation;
+import billingSystem.info.callInfo.CallInformationManager;
+import billingSystem.info.serviceInfo.ServiceInforamtionManager;
+import billingSystem.info.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
 
 /**
  * 料金計算システム<br>
@@ -112,30 +117,43 @@ public class BillingSystem {
 		}
 
 		String outputFile = null;
-		if (commandLine.hasOption(SERVICEINFO_OPTION_C)) {
+		if (commandLine.hasOption(OUTPUT_OPTION_C)) {
 			// 引数を取得
-			outputFile = commandLine.getOptionValue(SERVICEINFO_OPTION_C);
+			outputFile = commandLine.getOptionValue(OUTPUT_OPTION_C);
 		}
 
 		// main --------------------------------------------------------------
+		// CallInfo
 		CallInformationManager callInformationManager = new CallInformationManager();
 		try {
 			callInformationManager.buildFromCsv(callInfoFile);
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (java.text.ParseException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
+		// ServiceInfo
+		ServiceInforamtionManager serviceInforamtionManager = new ServiceInforamtionManager();
+		try {
+			serviceInforamtionManager.buildFromCsv(serviceInfoFile);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (BillingSystemServiceInformationBuildException e) {
+			e.printStackTrace();
+		}
 
-
-		System.out.println("callInfo---");
-		callInformationManager.printOn(); // TODO 料金計算処理の作成
+		Billing billing = new Billing(callInformationManager, serviceInforamtionManager);
+		billing.calculate();
+		try {
+			billing.write(outputFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

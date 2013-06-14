@@ -232,10 +232,8 @@ public class LsReader {
 			bf.close();
 			fr.close();
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 

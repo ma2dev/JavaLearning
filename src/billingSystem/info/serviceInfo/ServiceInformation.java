@@ -1,6 +1,6 @@
-package billingSystem.serviceInfo;
+package billingSystem.info.serviceInfo;
 
-import billingSystem.subscriber.Subscriber;
+import billingSystem.info.Subscriber;
 
 /**
  * サービス情報を提供します。
@@ -30,13 +30,5 @@ public class ServiceInformation {
 	 */
 	public Subscriber getSrcSubscriber() {
 		return this.subscriber;
-	}
-
-	/**
-	 * デバッグプリント
-	 */
-	public void printOn() {
-		// TODO あとで削除する
-		this.subscriber.printOn();
 	}
 }

@@ -29,8 +29,8 @@ public class CsvTest extends Csv {
 	public final void testCsv() {
 		Csv csv = new Csv();
 
-		String file1 = new String("dat/callInfo/20130421_callInfor.csv");
-		String file2 = new String("dat/callInfo/out.csv");
+		String file1 = new String("dat/billingSystem/callInfo/20130421_callInfo.csv");
+		String file2 = new String("dat/billingSystem/callInfo/out.csv");
 
 		try {
 			csv.readFrom(new FileReader(file1));
@@ -48,13 +48,10 @@ public class CsvTest extends Csv {
 			FileAssert.assertEquals(new File(file1), new File(file2));
 
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (Throwable e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}

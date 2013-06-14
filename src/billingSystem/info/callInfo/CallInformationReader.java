@@ -1,4 +1,4 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -8,7 +8,6 @@ import java.util.List;
 
 import billingSystem.dataFormat.csv.Cell;
 import billingSystem.dataFormat.csv.Csv;
-import billingSystem.dataFormat.csv.CsvConfiguration;
 
 /**
  * 呼情報のデータの読み込みを行う。

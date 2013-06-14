@@ -1,9 +1,11 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import billingSystem.subscriber.Subscriber;
+import billingSystem.billing.AbstractCall;
+import billingSystem.billing.ICallCollection;
+import billingSystem.info.Subscriber;
 
 /**
  * 特定契約者の呼情報集合を提供します。
@@ -11,7 +13,7 @@ import billingSystem.subscriber.Subscriber;
  * @author ma2dev
  *
  */
-public class CallInformationCollection {
+public class CallInformationCollection implements ICallCollection {
 
 	private Subscriber subscriber;
 	private List<CallInformation> callInforList;
@@ -34,6 +36,16 @@ public class CallInformationCollection {
 	public CallInformationCollection(CallInformation callInformation) {
 		this();
 		this.add(callInformation);
+	}
+
+	@Override
+	public List<AbstractCall> getList() {
+		List<AbstractCall> list = new ArrayList<AbstractCall>();
+		for (AbstractCall abstractCall : callInforList) {
+			list.add(abstractCall);
+		}
+
+		return list;
 	}
 
 	/**
@@ -80,14 +92,4 @@ public class CallInformationCollection {
 		return subscriber;
 	}
 
-	/**
-	 * デバッグプリント
-	 */
-	public void printOn() {
-		//TODO 後で消す
-		subscriber.printOn();
-		for (CallInformation info : callInforList) {
-			info.printOn();
-		}
-	}
 }
