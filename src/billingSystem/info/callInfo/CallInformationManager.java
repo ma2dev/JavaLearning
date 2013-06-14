@@ -5,12 +5,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import billingSystem.billing.AbstractCall;
 import billingSystem.billing.IBillingCallInformation;
-import billingSystem.billing.ICallCollection;
 import billingSystem.billing.IPersonalInformation;
 import billingSystem.info.Subscriber;
 
@@ -24,15 +25,28 @@ public class CallInformationManager implements IBillingCallInformation {
 
 	private Map<IPersonalInformation, CallInformationCollection> callMap;
 
+	/**
+	 * コンストラクタ
+	 */
 	public CallInformationManager() {
 		callMap = new HashMap<IPersonalInformation, CallInformationCollection>();
 	}
 
 	@Override
-	public ICallCollection find(IPersonalInformation personal) {
+	public List<AbstractCall> find(IPersonalInformation personal) {
 		CallInformationCollection collection = callMap.get(personal);
 
-		return collection;
+		List<AbstractCall> list = null; // 通話情報が取得できなかった場合はこのままnullが返る
+		if (collection != null) {
+			// 通話情報が取得できた場合
+			// listの再構築(型変換のため)
+			list = new ArrayList<AbstractCall>();
+			for (AbstractCall call : collection.getList()) {
+				list.add(call);
+			}
+		}
+
+		return list;
 	}
 
 	/**

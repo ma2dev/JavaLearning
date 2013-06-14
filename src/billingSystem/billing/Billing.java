@@ -3,7 +3,6 @@ package billingSystem.billing;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * 料金計算を提供します。
  *
@@ -41,13 +40,12 @@ public class Billing {
 			personalForm = new PersonalForm(personal);
 
 			// 契約者の情報から対象契約者の通話情報の一覧を取得
-			ICallCollection callCollection = callInformation.find(personal);
+			List<AbstractCall> callList = callInformation.find(personal);
 
 			long callBilling = 0;
-
-			if (callCollection != null) {
+			if (callList != null) {
 				// 通話情報がある場合
-				for (IBilling call : callCollection.getList()) {
+				for (IBilling call : callList) {
 					// 契約者の通話時間から通話料金を算出
 					callBilling += call.calculate();
 				}

@@ -1,5 +1,7 @@
 package billingSystem.billing;
 
+import java.util.List;
+
 /**
  * 料金取得対象の通話情報のためのインタフェース
  *
@@ -15,6 +17,6 @@ public interface IBillingCallInformation {
 	 *            対象者
 	 * @return 対象者の通話情報集合を返却します。対象者の通話情報が無い場合はnullを返却します。
 	 */
-	public ICallCollection find(IPersonalInformation personal);
+	public List<AbstractCall> find(IPersonalInformation personal);
 
 }

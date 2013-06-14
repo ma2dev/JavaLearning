@@ -5,13 +5,13 @@ import static org.junit.Assert.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.security.auth.Subject;
 
 import org.junit.Test;
 
 import billingSystem.billing.AbstractCall;
-import billingSystem.billing.ICallCollection;
 import billingSystem.billing.IPersonalInformation;
 import billingSystem.info.Subscriber;
 import billingSystem.info.callInfo.CallInformationManager;
@@ -35,9 +35,8 @@ public class CallInformationManagerTest {
 		}
 
 		IPersonalInformation p = new Subscriber("09076228838");
-		ICallCollection collection = null;
-		collection = callManager.find(p);
-		assertNotNull(collection);
+		List<AbstractCall> list = callManager.find(p);
+		assertNotNull(list);
 	}
 
 }
