@@ -1,5 +1,8 @@
 package billingSystem.info.serviceInfo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import billingSystem.info.Subscriber;
 
 /**
@@ -11,6 +14,7 @@ import billingSystem.info.Subscriber;
 public class ServiceInformation {
 
 	private Subscriber subscriber;
+	private Map<Integer, AbstractService> serviceMap;
 
 	/**
 	 * コンストラクタ。<br>
@@ -21,6 +25,7 @@ public class ServiceInformation {
 	 */
 	public ServiceInformation(Subscriber subscriber) {
 		this.subscriber = subscriber;
+		serviceMap = new HashMap<Integer, AbstractService>();
 	}
 
 	/**
@@ -30,5 +35,27 @@ public class ServiceInformation {
 	 */
 	public Subscriber getSrcSubscriber() {
 		return this.subscriber;
+	}
+
+	/**
+	 * サービスを取得します。
+	 *
+	 * @param serviceId
+	 *            サービスID
+	 * @return サービス
+	 */
+	public AbstractService get(int serviceId) {
+		return serviceMap.get(new Integer(serviceId));
+	}
+
+	/**
+	 * サービス契約の追加<br>
+	 * 可視範囲はパッケージ内
+	 *
+	 * @param service
+	 *            サービス
+	 */
+	void add(AbstractService service) {
+		serviceMap.put(service.getId(), service);
 	}
 }

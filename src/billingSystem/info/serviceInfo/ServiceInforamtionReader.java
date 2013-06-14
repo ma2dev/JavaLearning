@@ -9,6 +9,8 @@ import java.util.List;
 import billingSystem.dataFormat.IData;
 import billingSystem.dataFormat.csv.Csv;
 import billingSystem.info.Subscriber;
+import billingSystem.info.serviceInfo.services.NumberDisplayService;
+import billingSystem.info.serviceInfo.services.CallInterruptService;
 
 public class ServiceInforamtionReader {
 
@@ -51,6 +53,9 @@ public class ServiceInforamtionReader {
 			// TODO サービス登録処理の追加
 
 			serviceInformation = new ServiceInformation(new Subscriber(telNum));
+			serviceInformation.add(new NumberDisplayService(s1));
+			serviceInformation.add(new CallInterruptService(s2));
+
 			list.add(serviceInformation);
 		}
 
