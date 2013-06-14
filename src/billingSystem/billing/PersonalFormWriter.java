@@ -30,7 +30,7 @@ public class PersonalFormWriter {
 		// 明細を出力する
 		List<PersonalForm> list = billing.getPersonalFormList();
 		for (PersonalForm personalForm : list) {
-			personalForm.write(writer);
+			writer.write(personalForm.toString() + "\n");
 		}
 		writer.flush();
 		writer.close();
