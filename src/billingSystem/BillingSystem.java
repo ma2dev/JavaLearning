@@ -34,6 +34,7 @@ public class BillingSystem {
 	 */
 	public static void main(String[] args) {
 
+		// オプションチェック ---------------------------------------------------------
 		Options options = new Options();
 
 		// 呼情報ファイルのオプション
@@ -116,10 +117,10 @@ public class BillingSystem {
 			outputFile = commandLine.getOptionValue(SERVICEINFO_OPTION_C);
 		}
 
+		// main --------------------------------------------------------------
 		CallInformationManager callInformationManager = new CallInformationManager();
 		try {
 			callInformationManager.buildFromCsv(callInfoFile);
-			callInformationManager.printOn(); // TODO 料金計算処理の作成
 		} catch (FileNotFoundException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -130,6 +131,11 @@ public class BillingSystem {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+
+
+
+		System.out.println("callInfo---");
+		callInformationManager.printOn(); // TODO 料金計算処理の作成
 	}
 
 	/**
