@@ -3,13 +3,16 @@ package billingSystem.info.serviceInfo;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import billingSystem.billing.IBillingServiceInformation;
+import billingSystem.billing.IPersonalInformation;
 import billingSystem.info.Subscriber;
-import billingSystem.info.callInfo.CallInformationCollection;
 
 /**
  * サービス情報を管理します。
@@ -17,7 +20,7 @@ import billingSystem.info.callInfo.CallInformationCollection;
  * @author ma2dev
  *
  */
-public class ServiceInforamtionManager {
+public class ServiceInforamtionManager implements IBillingServiceInformation {
 
 	private Map<Subscriber, ServiceInformation> serviceInfoMap;
 
@@ -26,6 +29,12 @@ public class ServiceInforamtionManager {
 	 */
 	public ServiceInforamtionManager() {
 		serviceInfoMap = new HashMap<Subscriber, ServiceInformation>();
+	}
+
+	@Override
+	public List<IPersonalInformation> getPersonalList() {
+		Set<Subscriber> keys = serviceInfoMap.keySet();
+		return new ArrayList<IPersonalInformation>(keys);
 	}
 
 	/**
@@ -44,7 +53,10 @@ public class ServiceInforamtionManager {
 	 */
 	public void buildFromCsv(String csvfile) throws FileNotFoundException, IOException,
 			BillingSystemServiceInformationBuildException {
-		List<ServiceInformation> list = ServiceInforamtionReader.readFromCsv(new FileReader(csvfile));
+
+		Reader reader = new FileReader(csvfile);
+		List<ServiceInformation> list = ServiceInforamtionReader.readFromCsv(reader);
+		reader.close();
 
 		for (ServiceInformation serviceInfo : list) {
 			if (this.add(serviceInfo) == false) {
@@ -97,4 +109,5 @@ public class ServiceInforamtionManager {
 
 		private static final long serialVersionUID = -7182950861212206707L;
 	}
+
 }

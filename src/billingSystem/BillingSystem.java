@@ -13,6 +13,8 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import billingSystem.billing.Billing;
+import billingSystem.billing.IBillingServiceInformation;
 import billingSystem.info.callInfo.CallInformationManager;
 import billingSystem.info.serviceInfo.ServiceInforamtionManager;
 import billingSystem.info.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
@@ -115,9 +117,9 @@ public class BillingSystem {
 		}
 
 		String outputFile = null;
-		if (commandLine.hasOption(SERVICEINFO_OPTION_C)) {
+		if (commandLine.hasOption(OUTPUT_OPTION_C)) {
 			// 引数を取得
-			outputFile = commandLine.getOptionValue(SERVICEINFO_OPTION_C);
+			outputFile = commandLine.getOptionValue(OUTPUT_OPTION_C);
 		}
 
 		// main --------------------------------------------------------------
@@ -151,11 +153,14 @@ public class BillingSystem {
 			e.printStackTrace();
 		}
 
-
-		System.out.println("serviceInfo---");
-		serviceInforamtionManager.printOn();
-		System.out.println("callInfo---");
-		callInformationManager.printOn(); // TODO 料金計算処理の作成
+		Billing billing = new Billing(callInformationManager, serviceInforamtionManager);
+		billing.calculate();
+		try {
+			billing.write(outputFile);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 	/**

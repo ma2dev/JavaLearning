@@ -1,20 +1,18 @@
 package billingSystem.info;
 
+import billingSystem.billing.IPersonalInformation;
+
 /**
  * 契約者の情報を提供します。
  *
  * @author ma2dev
  *
  */
-public class Subscriber {
+public class Subscriber implements IPersonalInformation {
 
 	private String telNum;
 
-	/**
-	 * コンストラクタ
-	 */
 	public Subscriber() {
-		telNum = null;
 	}
 
 	/**
@@ -25,7 +23,7 @@ public class Subscriber {
 	 *            契約者電話番号
 	 */
 	public Subscriber(String telNum) {
-		this.setTelNum(telNum);
+		this.telNum = telNum;
 	}
 
 	/**
@@ -38,21 +36,10 @@ public class Subscriber {
 	}
 
 	/**
-	 * 契約者電話番号を設定します。
-	 *
-	 * @param telNum
-	 *            契約者電話番号
-	 */
-	protected void setTelNum(String telNum) {
-		this.telNum = telNum;
-	}
-
-	/**
 	 * デバッグプリント
 	 */
 	public void printOn() {
 		// TODO 後で消す
 		System.out.println(telNum);
 	}
-
 }

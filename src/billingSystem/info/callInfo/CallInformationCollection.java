@@ -3,6 +3,8 @@ package billingSystem.info.callInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import billingSystem.billing.AbstractCall;
+import billingSystem.billing.ICallCollection;
 import billingSystem.info.Subscriber;
 
 /**
@@ -11,7 +13,7 @@ import billingSystem.info.Subscriber;
  * @author ma2dev
  *
  */
-public class CallInformationCollection {
+public class CallInformationCollection implements ICallCollection {
 
 	private Subscriber subscriber;
 	private List<CallInformation> callInforList;
@@ -34,6 +36,16 @@ public class CallInformationCollection {
 	public CallInformationCollection(CallInformation callInformation) {
 		this();
 		this.add(callInformation);
+	}
+
+	@Override
+	public List<AbstractCall> getList() {
+		List<AbstractCall> list = new ArrayList<AbstractCall>();
+		for (AbstractCall abstractCall : callInforList) {
+			list.add(abstractCall);
+		}
+
+		return list;
 	}
 
 	/**
@@ -84,10 +96,11 @@ public class CallInformationCollection {
 	 * デバッグプリント
 	 */
 	public void printOn() {
-		//TODO 後で消す
+		// TODO 後で消す
 		subscriber.printOn();
 		for (CallInformation info : callInforList) {
 			info.printOn();
 		}
 	}
+
 }

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import billingSystem.billing.AbstractCall;
 import billingSystem.info.Subscriber;
 
 /**
@@ -13,21 +14,18 @@ import billingSystem.info.Subscriber;
  * @author ma2dev
  *
  */
-public class CallInformation {
+public class CallInformation extends AbstractCall {
 
 	private Subscriber srcSubscriber;
 	private Subscriber dstSubscriber;
-	private Date startTime;
-	private Date endTime;
+	// private Date startTime;
+	// private Date endTime;
 	private Enum<EndReason> reason;
 
 	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 
-	/**
-	 * コンストラクタ
-	 */
 	public CallInformation() {
-		this.clear();
+
 	}
 
 	/**
@@ -49,28 +47,11 @@ public class CallInformation {
 	 */
 	public CallInformation(String srcSubscriber, String dstSubscriber, String startTime, String endTime, String reason)
 			throws ParseException {
-		this();
-
 		this.srcSubscriber = new Subscriber(srcSubscriber); // TODO 生成器の作成が必要
 		this.dstSubscriber = new Subscriber(dstSubscriber); // TODO 生成器の作成が必要
 		this.setStartTime(startTime);
 		this.setEndTime(endTime);
 		this.setEndReason(reason);
-	}
-
-	/**
-	 * 通話時間を求めます。<br>
-	 * 通話時間は秒で返却されます。
-	 *
-	 * @return 通話時間(秒)
-	 */
-	public long computeTalkTime() {
-		long start = startTime.getTime();
-		long end = endTime.getTime();
-
-		long result = (end - start) / 1000;
-
-		return result;
 	}
 
 	/**
@@ -153,6 +134,10 @@ public class CallInformation {
 	}
 
 	private Date stringToDate(String s) throws ParseException {
+		if (s == null) {
+			return null;
+		}
+
 		return df.parse(s);
 	}
 
@@ -165,6 +150,10 @@ public class CallInformation {
 	 */
 	private Enum<EndReason> stringToEndReason(String s) {
 
+		if (s == null) {
+			return null;
+		}
+
 		Enum<EndReason> e;
 
 		if (s.compareTo("0") == 0) {
@@ -174,16 +163,6 @@ public class CallInformation {
 		}
 
 		return e;
-	}
-
-	/**
-	 * clear
-	 */
-	private void clear() {
-		srcSubscriber = new Subscriber();
-		dstSubscriber = new Subscriber();
-		startTime = new Date();
-		endTime = new Date();
 	}
 
 	/**
