@@ -21,7 +21,7 @@ public class CallInformationCollection implements ICallCollection {
 	/**
 	 * コンストラクタ。
 	 */
-	public CallInformationCollection() {
+	private CallInformationCollection() {
 		subscriber = null;
 		callInforList = new ArrayList<CallInformation>();
 	}

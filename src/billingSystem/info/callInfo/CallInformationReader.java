@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import billingSystem.dataFormat.csv.Cell;
+import billingSystem.dataFormat.IData;
 import billingSystem.dataFormat.csv.Csv;
 
 /**
@@ -37,12 +37,12 @@ public class CallInformationReader {
 	 */
 	public static List<CallInformation> readFromCsv(Reader reader) throws IOException, ParseException {
 		Csv csv = new Csv();
-		csv.readFrom(reader);
+		csv.read(reader);
 
 		List<CallInformation> list = new ArrayList<CallInformation>();
 
 		CallInformation callInformation = null;
-		List<Cell> cellList = null;
+		List<IData> cellList = null;
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			cellList = csv.getCells(i);
 
@@ -50,11 +50,11 @@ public class CallInformationReader {
 				return null;
 			}
 
-			String srcTelNum = cellList.get(CALLINFORMATION_COLOUMN_SRC_TEL_NUM).getData();
-			String dstTelNum = cellList.get(CALLINFORMATION_COLOUMN_DST_TEL_NUM).getData();
-			String startTime = cellList.get(CALLINFORMATION_COLOUMN_START_TIME).getData();
-			String endTime = cellList.get(CALLINFORMATION_COLOUMN_END_TIME).getData();
-			String reason = cellList.get(CALLINFORMATION_COLOUMN_REASON).getData();
+			String srcTelNum = (String) cellList.get(CALLINFORMATION_COLOUMN_SRC_TEL_NUM).getData();
+			String dstTelNum = (String) cellList.get(CALLINFORMATION_COLOUMN_DST_TEL_NUM).getData();
+			String startTime = (String) cellList.get(CALLINFORMATION_COLOUMN_START_TIME).getData();
+			String endTime = (String) cellList.get(CALLINFORMATION_COLOUMN_END_TIME).getData();
+			String reason = (String) cellList.get(CALLINFORMATION_COLOUMN_REASON).getData();
 
 			callInformation = new CallInformation(srcTelNum, dstTelNum, startTime, endTime, reason);
 			list.add(callInformation);
@@ -69,7 +69,7 @@ public class CallInformationReader {
 	 * @param list
 	 * @return
 	 */
-	private static boolean checkFormat(List<Cell> list) {
+	private static boolean checkFormat(List<IData> list) {
 		// カラム数
 		if (list.size() != CALLINFORMATION_NUM_OF_PARAM) {
 			return false;

@@ -12,9 +12,6 @@ public class Subscriber implements IPersonalInformation {
 
 	private String telNum;
 
-	public Subscriber() {
-	}
-
 	/**
 	 * コンストラクタ<br>
 	 * 契約者電話番号を指定できる。

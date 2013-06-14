@@ -16,11 +16,13 @@ import junitx.framework.FileAssert;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
+import billingSystem.dataFormat.IData;
+
 /**
  * @author ma2dev
  *
  */
-public class CsvTest extends Csv {
+public class CsvTest {
 
 	/**
 	 * {@link billingSystem.dataFormat.csv.Csv#Csv()} のためのテスト・メソッド。
@@ -33,12 +35,12 @@ public class CsvTest extends Csv {
 		String file2 = new String("dat/billingSystem/callInfo/out.csv");
 
 		try {
-			csv.readFrom(new FileReader(file1));
+			csv.read(new FileReader(file1));
 
-			Cell cell = csv.getCell(0, 0);
+			IData cell = csv.getCell(0, 0);
 			assertEquals("09076228838", cell.toString());
 
-			csv.writeTo(new FileWriter(file2));
+			csv.write(new FileWriter(file2));
 
 			// commons-ioを使用する例
 			// TODO ファイル差分時のExceptionに対するTest

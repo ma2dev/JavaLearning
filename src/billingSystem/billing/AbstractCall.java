@@ -15,11 +15,34 @@ public abstract class AbstractCall implements IBilling {
 	// 1秒あたりの料金(円)
 	private static final BigDecimal RatePerSec = new BigDecimal(8.0 / 60.0);
 
+	/**
+	 * 通話確立時刻
+	 */
 	protected Date startTime;
+
+	/**
+	 * 通話切断時刻
+	 */
 	protected Date endTime;
 
+	/**
+	 * 通話確立時刻を設定します。
+	 *
+	 * @param startTime
+	 *            通話確立時刻
+	 * @throws ParseException
+	 *             日付文字列の解析に失敗した場合
+	 */
 	protected abstract void setStartTime(String startTime) throws ParseException;
 
+	/**
+	 * 通話切断時刻を設定します。
+	 *
+	 * @param endTime
+	 *            通話切断時刻
+	 * @throws ParseException
+	 *             日付文字列の解析に失敗した場合
+	 */
 	protected abstract void setEndTime(String endTime) throws ParseException;
 
 	@Override
