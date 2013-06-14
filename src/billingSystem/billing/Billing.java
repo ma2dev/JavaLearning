@@ -40,9 +40,6 @@ public class Billing {
 					// 契約者の通話時間から通話料金を算出
 					callBilling += call.calculate();
 				}
-				System.out.println("-->" + callBilling);
-			} else {
-				System.out.println("NULL!!!");
 			}
 
 			// 算出した通話料金を明細に設定
