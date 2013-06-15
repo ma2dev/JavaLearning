@@ -10,7 +10,7 @@ import java.util.Date;
  * @author ma2dev
  *
  */
-public abstract class AbstractCall implements IBilling {
+public abstract class AbstractBillingCall implements IBilling {
 
 	// 1秒あたりの料金(円)
 	private static final BigDecimal RatePerSec = new BigDecimal(8.0 / 60.0);

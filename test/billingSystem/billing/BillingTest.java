@@ -2,47 +2,49 @@ package billingSystem.billing;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.junit.Test;
 
-import billingSystem.info.callInfo.CallInformationManager;
-import billingSystem.info.serviceInfo.ServiceInforamtionManager;
-import billingSystem.info.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
+import billingSystem.info.callInfo.CallInformationManagerFactory;
+import billingSystem.info.serviceInfo.ServiceInformationBuildException;
+import billingSystem.info.serviceInfo.ServiceInformationManagerFactory;
 
 public class BillingTest {
 
 	@Test
 	public final void test料金計算() {
 		// CallInfo
-		CallInformationManager callInformationManager = new CallInformationManager();
+		IBillingCallInformation callInformationManager = null;
 		try {
-			callInformationManager.buildFromCsv("dat/billingSystem/callInfo/20130421_callInfo.csv");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
+			callInformationManager = CallInformationManagerFactory.create(
+					CallInformationManagerFactory.FACTORY_KIND_CSV, "dat/billingSystem/callInfo/20130421_callInfo.csv");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
 
 		// ServiceInfo
-		ServiceInforamtionManager serviceInforamtionManager = new ServiceInforamtionManager();
+		IBillingServiceInformation serviceInforamtionManager = null;
 		try {
-			serviceInforamtionManager.buildFromCsv("dat/billingSystem/serviceInfo/20130614_serviceInfo.csv");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			serviceInforamtionManager = ServiceInformationManagerFactory.create(
+					ServiceInformationManagerFactory.FACTORY_KIND_CSV,
+					"dat/billingSystem/serviceInfo/20130614_serviceInfo.csv");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (BillingSystemServiceInformationBuildException e) {
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (ServiceInformationBuildException e) {
 			e.printStackTrace();
 		}
+		IBillingPersonalInformation personalInformation = (IBillingPersonalInformation) serviceInforamtionManager;
 
-		Billing billing = new Billing(callInformationManager, serviceInforamtionManager);
+		Billing billing = new Billing(personalInformation, callInformationManager, serviceInforamtionManager);
 
 		billing.calculate();
+		assertNotNull(billing.getPersonalFormList());
 
 	}
-
 }

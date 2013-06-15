@@ -3,6 +3,7 @@ package billingSystem.info.serviceInfo;
 import java.util.HashMap;
 import java.util.Map;
 
+import billingSystem.billing.AbstractBillingService;
 import billingSystem.info.Subscriber;
 
 /**
@@ -11,7 +12,7 @@ import billingSystem.info.Subscriber;
  * @author ma2dev
  *
  */
-public class ServiceInformation {
+public class ServiceInformation extends AbstractBillingService {
 
 	private Subscriber subscriber;
 	private Map<Integer, AbstractService> serviceMap;
@@ -45,7 +46,7 @@ public class ServiceInformation {
 	 * @return サービス
 	 */
 	public AbstractService get(int serviceId) {
-		return serviceMap.get(new Integer(serviceId));
+		return serviceMap.get(serviceId);
 	}
 
 	/**
@@ -56,6 +57,6 @@ public class ServiceInformation {
 	 *            サービス
 	 */
 	void add(AbstractService service) {
-		serviceMap.put(service.getId(), service);
+		serviceMap.put(service.getId(), service); // IneterはAutoboxingで処理
 	}
 }

@@ -1,33 +1,27 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-
-import javax.security.auth.Subject;
+import java.util.List;
 
 import org.junit.Test;
 
-import billingSystem.billing.AbstractCall;
-import billingSystem.billing.ICallCollection;
+import billingSystem.billing.AbstractBillingCall;
+import billingSystem.billing.IBillingCallInformation;
 import billingSystem.billing.IPersonalInformation;
 import billingSystem.info.Subscriber;
-import billingSystem.info.callInfo.CallInformationManager;
 
-@SuppressWarnings("unused")
 public class CallInformationManagerTest {
 
 	@Test
 	public final void testCSVファイル読み込み() {
 		String file = new String("dat/billingSystem/callInfo/tset_oneTelNum_callInfo.csv");
 
-		CallInformationManager callManager = new CallInformationManager();
+		IBillingCallInformation callManager = null;
 		try {
-			callManager.buildFromCsv(file);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			callManager = CallInformationManagerFactory.create(CallInformationManagerFactory.FACTORY_KIND_CSV, file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -35,9 +29,8 @@ public class CallInformationManagerTest {
 		}
 
 		IPersonalInformation p = new Subscriber("09076228838");
-		ICallCollection collection = null;
-		collection = callManager.find(p);
-		assertNotNull(collection);
+		List<AbstractBillingCall> list = callManager.find(p);
+		assertNotNull(list);
 	}
 
 }

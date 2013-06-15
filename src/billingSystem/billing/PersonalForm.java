@@ -1,9 +1,4 @@
-package billingSystem.billing.output;
-
-import java.io.IOException;
-import java.io.Writer;
-
-import billingSystem.billing.IPersonalInformation;
+package billingSystem.billing;
 
 /**
  * 個人の明細情報を提供します。
@@ -37,17 +32,7 @@ public class PersonalForm {
 		callCalculate = callBilling;
 	}
 
-	/**
-	 * 帳票出力
-	 *
-	 * @param writer
-	 *            出力先
-	 * @throws IOException
-	 *             書き込みに失敗した場合
-	 */
-	public void write(Writer writer) throws IOException {
-		writer.write(personalInformation.getTelNum() + "," + "," + callCalculate + "," + ",");
-		writer.write("\n");
+	public String toString() {
+		return new String(personalInformation.getTelNum() + "," + "," + callCalculate + "," + ",");
 	}
-
 }

@@ -10,9 +10,6 @@ import billingSystem.info.serviceInfo.AbstractService;
  */
 public class NumberDisplayService extends AbstractService {
 
-	private boolean flag;
-	private Integer id = new Integer(Services.NUMBERDISPLAY_SERVICE);
-
 	/**
 	 * コンストラクタ
 	 *
@@ -30,16 +27,7 @@ public class NumberDisplayService extends AbstractService {
 			// その他の文字列の場合は未契約とする
 			flag = false;
 		}
-	}
 
-	@Override
-	public boolean isSubscribing() {
-		return flag;
+		serviceId = Services.NUMBERDISPLAY_SERVICE;
 	}
-
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
 }
