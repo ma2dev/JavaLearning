@@ -28,7 +28,7 @@ public class CallInformationManager implements IBillingCallInformation {
 	}
 
 	@Override
-	public List<AbstractBillingCall> find(IPersonalInformation personal) {
+	public List<AbstractBillingCall> find(final IPersonalInformation personal) {
 		CallInformationCollection collection = callMap.get(personal);
 
 		List<AbstractBillingCall> list = null; // 通話情報が取得できなかった場合はこのままnullが返る
@@ -51,7 +51,7 @@ public class CallInformationManager implements IBillingCallInformation {
 	 * @param callInformation
 	 *            呼情報
 	 */
-	void add(CallInformation callInformation) {
+	void add(final CallInformation callInformation) {
 		CallInformationCollection targetCollection = callMap.get(callInformation.getSrcSubscriber());
 
 		if (targetCollection == null) {

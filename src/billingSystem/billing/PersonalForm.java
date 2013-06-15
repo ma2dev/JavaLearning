@@ -17,7 +17,7 @@ public class PersonalForm {
 	 * @param personal
 	 *            帳票対象の個人
 	 */
-	public PersonalForm(IPersonalInformation personal) {
+	public PersonalForm(final IPersonalInformation personal) {
 		personalInformation = personal;
 		callCalculate = 0;
 	}
@@ -28,11 +28,11 @@ public class PersonalForm {
 	 * @param callBilling
 	 *            対象個人の通話料金
 	 */
-	public void addCallBilling(long callBilling) {
+	public final void addCallBilling(final long callBilling) {
 		callCalculate = callBilling;
 	}
 
-	public String toString() {
+	public final String toString() {
 		return new String(personalInformation.getTelNum() + "," + "," + callCalculate + "," + ",");
 	}
 }

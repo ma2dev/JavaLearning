@@ -29,7 +29,7 @@ public class ServiceInforamtionReader {
 	 * @throws IOException
 	 *             ファイル読み込みに失敗した場合
 	 */
-	public static List<ServiceInformation> readFromCsv(Reader reader) throws IOException {
+	public static List<ServiceInformation> readFromCsv(final Reader reader) throws IOException {
 		Csv csv = new Csv();
 		csv.read(reader);
 
@@ -65,7 +65,7 @@ public class ServiceInforamtionReader {
 	 *            呼情報のリスト
 	 * @return 問題が無ければtrueを、問題があればfalseを返却します。
 	 */
-	private static boolean checkFormat(List<IData> list) {
+	private static boolean checkFormat(final List<IData> list) {
 		// 最小パラメータ数(必須のみ)
 		if (list.size() < SERVICEINFORMATION_NUM_OF_MINPARAM) {
 			return false;

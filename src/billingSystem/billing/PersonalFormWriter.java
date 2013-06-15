@@ -23,7 +23,7 @@ public class PersonalFormWriter {
 	 * @throws IOException
 	 *             ファイル出力に失敗した場合
 	 */
-	public static void writeTo(String filename, Billing billing) throws IOException {
+	public static void writeTo(final String filename, final Billing billing) throws IOException {
 
 		Writer writer = new FileWriter(filename);
 

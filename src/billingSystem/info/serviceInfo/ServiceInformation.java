@@ -24,7 +24,7 @@ public class ServiceInformation extends AbstractBillingService {
 	 * @param subscriber
 	 *            契約者情報
 	 */
-	public ServiceInformation(Subscriber subscriber) {
+	public ServiceInformation(final Subscriber subscriber) {
 		this.subscriber = subscriber;
 		serviceMap = new HashMap<Integer, AbstractService>();
 	}
@@ -45,7 +45,7 @@ public class ServiceInformation extends AbstractBillingService {
 	 *            サービスID
 	 * @return サービス
 	 */
-	public AbstractService get(int serviceId) {
+	public AbstractService get(final int serviceId) {
 		return serviceMap.get(serviceId);
 	}
 
@@ -56,7 +56,7 @@ public class ServiceInformation extends AbstractBillingService {
 	 * @param service
 	 *            サービス
 	 */
-	void add(AbstractService service) {
+	void add(final AbstractService service) {
 		serviceMap.put(service.getId(), service); // IneterはAutoboxingで処理
 	}
 }

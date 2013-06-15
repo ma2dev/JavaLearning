@@ -39,7 +39,7 @@ public class BillingSystem {
 	 * @param args
 	 *            オプションについては実行時に表示されるUsage参照。
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		// オプションチェック ---------------------------------------------------------
 		Options options = new Options();
@@ -167,7 +167,7 @@ public class BillingSystem {
 	 * @param options
 	 *            オプション情報
 	 */
-	private static void showUsage(Options options) {
+	private static void showUsage(final Options options) {
 		HelpFormatter help = new HelpFormatter();
 		// ヘルプを出力
 		help.printHelp("BillingSystem", options, true);

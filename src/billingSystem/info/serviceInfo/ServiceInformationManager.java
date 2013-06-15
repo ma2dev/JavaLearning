@@ -44,7 +44,7 @@ public class ServiceInformationManager implements IBillingServiceInformation, IB
 	 *            サービス情報
 	 * @return 正常にmapに登録できた場合はtrueを、mapにすでに同一契約者のサービス情報が設定されていた場合はfalseを返却します。
 	 */
-	boolean add(ServiceInformation serviceInfo) {
+	boolean add(final ServiceInformation serviceInfo) {
 		Subscriber subscriber = serviceInfo.getSrcSubscriber();
 
 		boolean contain = serviceInfoMap.containsKey(subscriber);

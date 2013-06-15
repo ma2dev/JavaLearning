@@ -19,7 +19,7 @@ public class Subscriber implements IPersonalInformation {
 	 * @param telNum
 	 *            契約者電話番号
 	 */
-	public Subscriber(String telNum) {
+	public Subscriber(final String telNum) {
 		this.telNum = telNum;
 	}
 
@@ -32,7 +32,7 @@ public class Subscriber implements IPersonalInformation {
 		return telNum;
 	}
 
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (obj == null) {
 			return false;
 		}

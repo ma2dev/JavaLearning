@@ -36,7 +36,7 @@ public class ConfigurePeriodCount {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public ConfigurePeriodCount(String filename) throws FileNotFoundException, IOException {
+	public ConfigurePeriodCount(final String filename) throws FileNotFoundException, IOException {
 		dataList = readFromCsv(filename);
 	}
 
@@ -88,7 +88,7 @@ public class ConfigurePeriodCount {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	private List<IData> readFromCsv(String filename) throws FileNotFoundException, IOException {
+	private List<IData> readFromCsv(final String filename) throws FileNotFoundException, IOException {
 		Csv csv = new Csv();
 		csv.read(new FileReader(filename));
 
@@ -106,7 +106,7 @@ public class ConfigurePeriodCount {
 	 *            index
 	 * @return 値を取得します。値が正しく取得できなかった場合は0を返却します。
 	 */
-	private int getDay(int index) {
+	private int getDay(final int index) {
 		int day = 0;
 		String data = null;
 

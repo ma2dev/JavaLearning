@@ -14,7 +14,7 @@ import billingSystem.billing.IBillingServiceInformation;
  * @author ma2dev
  *
  */
-public class ServiceInformationManagerFactory {
+public final class ServiceInformationManagerFactory {
 
 	/**
 	 * 生成元のデータ種別がCSVファイルの場合
@@ -41,8 +41,8 @@ public class ServiceInformationManagerFactory {
 	 * @throws ServiceInformationBuildException
 	 *             サービス情報の構築に失敗した場合
 	 */
-	public static IBillingServiceInformation create(int kind, Object obj) throws IOException, ParseException,
-			ServiceInformationBuildException {
+	public static IBillingServiceInformation create(final int kind, final Object obj) throws IOException,
+			ParseException, ServiceInformationBuildException {
 		IBillingServiceInformation manager = null;
 
 		switch (kind) {
@@ -70,7 +70,7 @@ public class ServiceInformationManagerFactory {
 	 * @throws ServiceInformationBuildException
 	 *             サービス情報の構築に失敗した場合
 	 */
-	private static final IBillingServiceInformation fromCsv(String file) throws IOException, ParseException,
+	private static IBillingServiceInformation fromCsv(final String file) throws IOException, ParseException,
 			ServiceInformationBuildException {
 		ServiceInformationManager manager = new ServiceInformationManager();
 

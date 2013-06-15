@@ -38,7 +38,7 @@ public class ConfigureServiceFee {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public ConfigureServiceFee(String filename) throws FileNotFoundException, IOException {
+	public ConfigureServiceFee(final String filename) throws FileNotFoundException, IOException {
 		dataList = readFromCsv(filename);
 	}
 
@@ -49,7 +49,7 @@ public class ConfigureServiceFee {
 	 *            サービス種別
 	 * @return 料金
 	 */
-	public long getPrice(int serviceKind) {
+	public long getPrice(final int serviceKind) {
 		long price = 0;
 
 		switch (serviceKind) {
@@ -80,7 +80,7 @@ public class ConfigureServiceFee {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	private List<IData> readFromCsv(String filename) throws FileNotFoundException, IOException {
+	private List<IData> readFromCsv(final String filename) throws FileNotFoundException, IOException {
 		Csv csv = new Csv();
 		csv.read(new FileReader(filename));
 
@@ -98,7 +98,7 @@ public class ConfigureServiceFee {
 	 *            index
 	 * @return 値を返却します。正しく値が取得できない場合は-1を返却します。
 	 */
-	private long getLongValueFromData(int index) {
+	private long getLongValueFromData(final int index) {
 		String data = null;
 		long l = 0;
 

@@ -26,8 +26,8 @@ public class Billing {
 	 * @param serviceInformation
 	 *            サービス情報
 	 */
-	public Billing(IBillingPersonalInformation personalInformation, IBillingCallInformation callInformation,
-			IBillingServiceInformation serviceInformation) {
+	public Billing(final IBillingPersonalInformation personalInformation,
+			final IBillingCallInformation callInformation, final IBillingServiceInformation serviceInformation) {
 		personalFormList = new ArrayList<PersonalForm>();
 		this.callInformation = callInformation;
 		this.serviceInformation = serviceInformation;
@@ -37,7 +37,7 @@ public class Billing {
 	/**
 	 * 料金計算を実行します。
 	 */
-	public void calculate() {
+	public final void calculate() {
 
 		// 契約者の一覧を取得
 		List<IPersonalInformation> personalList = personalInformation.getPersonalList();
@@ -77,7 +77,7 @@ public class Billing {
 	 *
 	 * @return 明細情報のリスト
 	 */
-	protected List<PersonalForm> getPersonalFormList() {
+	protected final List<PersonalForm> getPersonalFormList() {
 		return personalFormList;
 	}
 }

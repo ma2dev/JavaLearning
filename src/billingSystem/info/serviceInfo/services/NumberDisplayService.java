@@ -16,7 +16,7 @@ public class NumberDisplayService extends AbstractService {
 	 * @param condition
 	 *            サービス契約状態
 	 */
-	public NumberDisplayService(String condition) {
+	public NumberDisplayService(final String condition) {
 		if (condition.equals("0") == true) {
 			// 未契約
 			flag = false;
