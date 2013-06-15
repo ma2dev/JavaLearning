@@ -31,8 +31,8 @@ public class CsvTest {
 	public final void testCsv() {
 		Csv csv = new Csv();
 
-		String file1 = new String("dat/billingSystem/callInfo/20130421_callInfo.csv");
-		String file2 = new String("dat/billingSystem/callInfo/out.csv");
+		String file1 = new String("dat/test/billingSystem/callInfo/template_callInfo.csv");
+		String file2 = new String("dat/test/billingSystem/callInfo/testCsv_out.csv");
 
 		try {
 			csv.read(new FileReader(file1));

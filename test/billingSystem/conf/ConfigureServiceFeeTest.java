@@ -13,7 +13,7 @@ public class ConfigureServiceFeeTest {
 
 	@Test
 	public final void testサービス料金定義ファイル読み込み() {
-		String filename = new String("dat/billingSystem/conf/test.properties");
+		String filename = new String("dat/test/billingSystem/conf/template.properties");
 		Configure properties = null;
 		ConfigureServiceFee config = null;
 

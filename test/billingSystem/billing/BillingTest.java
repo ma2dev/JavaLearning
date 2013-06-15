@@ -19,7 +19,7 @@ public class BillingTest {
 		IBillingCallInformation callInformationManager = null;
 		try {
 			callInformationManager = CallInformationManagerFactory.create(
-					CallInformationManagerFactory.FACTORY_KIND_CSV, "dat/billingSystem/callInfo/20130421_callInfo.csv");
+					CallInformationManagerFactory.FACTORY_KIND_CSV, "dat/test/billingSystem/callInfo/template_callInfo.csv");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} catch (ParseException e1) {
@@ -31,7 +31,7 @@ public class BillingTest {
 		try {
 			serviceInforamtionManager = ServiceInformationManagerFactory.create(
 					ServiceInformationManagerFactory.FACTORY_KIND_CSV,
-					"dat/billingSystem/serviceInfo/20130614_serviceInfo.csv");
+					"dat/test/billingSystem/serviceInfo/template_serviceInfo.csv");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {

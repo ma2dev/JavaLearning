@@ -15,7 +15,7 @@ public class ServiceInforamtionReaderTest {
 
 	@Test
 	public final void testファイル読み込み() {
-		String file = new String("dat/billingSystem/serviceInfo/20130614_serviceInfo.csv");
+		String file = new String("dat/test/billingSystem/serviceInfo/template_serviceInfo.csv");
 
 		List<ServiceInformation> list = null;
 		try {
@@ -32,7 +32,7 @@ public class ServiceInforamtionReaderTest {
 
 	@Test
 	public final void testサービス契約状態確認() {
-		String file = new String("dat/billingSystem/serviceInfo/test_oneTelNum_serviceInfo.csv");
+		String file = new String("dat/test/billingSystem/serviceInfo/test_oneTelNum_serviceInfo.csv");
 
 		List<ServiceInformation> list = null;
 		try {

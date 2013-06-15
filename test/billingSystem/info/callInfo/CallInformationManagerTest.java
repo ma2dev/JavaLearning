@@ -17,7 +17,7 @@ public class CallInformationManagerTest {
 
 	@Test
 	public final void testCSVファイル読み込み() {
-		String file = new String("dat/billingSystem/callInfo/tset_oneTelNum_callInfo.csv");
+		String file = new String("dat/test/billingSystem/callInfo/tset_oneTelNum_callInfo.csv");
 
 		IBillingCallInformation callManager = null;
 		try {

@@ -11,7 +11,7 @@ public class ConfigurePeriodCountTest {
 
 	@Test
 	public final void test集計期間定義ファイル読み込み() {
-		String propetiesfile = new String("dat/billingSystem/conf/test.properties");
+		String propetiesfile = new String("dat/test/billingSystem/conf/template.properties");
 		Configure properties = null;
 		ConfigurePeriodCount periodCount = null;
 

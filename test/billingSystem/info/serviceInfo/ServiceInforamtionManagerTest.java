@@ -16,7 +16,7 @@ public class ServiceInforamtionManagerTest {
 
 	@Test
 	public final void test個人情報明細() {
-		String file = new String("dat/billingSystem/serviceInfo/test_oneTelNum_serviceInfo.csv");
+		String file = new String("dat/test/billingSystem/serviceInfo/test_oneTelNum_serviceInfo.csv");
 
 		IBillingServiceInformation serviceManager = null;
 		try {
