@@ -33,19 +33,24 @@ public class Subscriber implements IPersonalInformation {
 	}
 
 	public boolean equals(Object obj) {
-		if (obj == null)
+		if (obj == null) {
 			return false;
+		}
+
 		if (obj instanceof Subscriber) {
 			Subscriber o = (Subscriber) obj;
-			if (this.telNum == null)
+
+			if (this.telNum == null) {
 				return o.telNum == null;
+			}
+
 			return this.telNum.equals(o.telNum);
 		}
 		return super.equals(obj);
 	}
 
 	public int hashCode() {
-		int h = (telNum==null) ? 0 : telNum.hashCode();
+		int h = (telNum == null) ? 0 : telNum.hashCode();
 		return h;
 	}
 }

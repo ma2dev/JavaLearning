@@ -165,6 +165,7 @@ public class BillingSystem {
 	 * Usage出力
 	 *
 	 * @param options
+	 *            オプション情報
 	 */
 	private static void showUsage(Options options) {
 		HelpFormatter help = new HelpFormatter();

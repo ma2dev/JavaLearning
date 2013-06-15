@@ -67,7 +67,8 @@ public class CallInformationReader {
 	 * 呼情報のパラメータチェック
 	 *
 	 * @param list
-	 * @return
+	 *            呼情報のリスト
+	 * @return 問題が無ければtrueを、問題があればfalseを返却します。
 	 */
 	private static boolean checkFormat(List<IData> list) {
 		// カラム数

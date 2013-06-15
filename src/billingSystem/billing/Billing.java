@@ -73,8 +73,9 @@ public class Billing {
 	}
 
 	/**
+	 * 明細情報のリストを返却します。
 	 *
-	 * @return
+	 * @return 明細情報のリスト
 	 */
 	protected List<PersonalForm> getPersonalFormList() {
 		return personalFormList;
