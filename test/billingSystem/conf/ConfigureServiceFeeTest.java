@@ -14,10 +14,12 @@ public class ConfigureServiceFeeTest {
 	@Test
 	public final void testサービス料金定義ファイル読み込み() {
 		String filename = new String("dat/billingSystem/conf/test.properties");
+		Configure properties = null;
 		ConfigureServiceFee config = null;
 
 		try {
-			config = new ConfigureServiceFee(filename);
+			properties = new Configure(filename);
+			config = new ConfigureServiceFee(properties.get(Configure.CONFIGURE_SERVICE_FEE_FILEPATH));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

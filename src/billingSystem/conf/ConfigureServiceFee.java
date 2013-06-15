@@ -15,12 +15,7 @@ import billingSystem.info.serviceInfo.services.Services;
  * @author ma2dev
  *
  */
-public class ConfigureServiceFee extends Configure {
-
-	/**
-	 * サービス料金の定義ファイルパス
-	 */
-	public static final String CONFIGURE_SERVICE_FEE_FILENAME = "configure.servicefee.filepath";
+public class ConfigureServiceFee {
 
 	private List<IData> dataList;
 
@@ -36,17 +31,15 @@ public class ConfigureServiceFee extends Configure {
 	/**
 	 * コンストラクタ
 	 *
-	 * @param propetiesfile
-	 *            confへの情報が記載されたpropatiesファイル
+	 * @param filename
+	 *            confファイル
 	 * @throws FileNotFoundException
 	 *             ファイルが無い場合
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public ConfigureServiceFee(String propetiesfile) throws FileNotFoundException, IOException {
-		super(propetiesfile);
-
-		dataList = readFromCsv(super.get(CONFIGURE_SERVICE_FEE_FILENAME));
+	public ConfigureServiceFee(String filename) throws FileNotFoundException, IOException {
+		dataList = readFromCsv(filename);
 	}
 
 	/**
@@ -57,21 +50,17 @@ public class ConfigureServiceFee extends Configure {
 	 * @return 料金
 	 */
 	public long getPrice(int serviceKind) {
-		String data = null;
 		long price = 0;
 
 		switch (serviceKind) {
 		case Services.NUMBERDISPLAY_SERVICE:
-			data = (String) dataList.get(Services.NUMBERDISPLAY_SERVICE).getData();
-			price = Long.parseLong(data);
+			price = getLongValueFromData(Services.NUMBERDISPLAY_SERVICE);
 			break;
 		case Services.CALLINTERRUPT_SERVICE:
-			data = (String) dataList.get(Services.CALLINTERRUPT_SERVICE).getData();
-			price = Long.parseLong(data);
+			price = getLongValueFromData(Services.CALLINTERRUPT_SERVICE);
 			break;
 		case Services.FAMILYCALLFREE_SERVICE:
-			data = (String) dataList.get(Services.FAMILYCALLFREE_SERVICE).getData();
-			price = Long.parseLong(data);
+			price = getLongValueFromData(Services.FAMILYCALLFREE_SERVICE);
 			break;
 		default:
 			break;
@@ -100,5 +89,30 @@ public class ConfigureServiceFee extends Configure {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * 値をlong値で取得します。
+	 *
+	 * @param index
+	 *            index
+	 * @return 値を返却します。正しく値が取得できない場合は-1を返却します。
+	 */
+	private long getLongValueFromData(int index) {
+		String data = null;
+		long l = 0;
+
+		data = (String) dataList.get(index).getData();
+		if (data == null) {
+			return -1;
+		}
+
+		try {
+			l = Long.parseLong(data);
+		} catch (NumberFormatException e) {
+			return -1;
+		}
+
+		return l;
 	}
 }

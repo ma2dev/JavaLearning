@@ -12,6 +12,14 @@ import java.util.Properties;
  *
  */
 public class Configure {
+	/**
+	 * 集計期間の定義ファイルパス
+	 */
+	public static final String CONFIGURE_PERIOD_COUNT_FILEPATH = "configure.periodcount.filepath";
+	/**
+	 * サービス料金の定義ファイルパス
+	 */
+	public static final String CONFIGURE_SERVICE_FEE_FILEPATH = "configure.servicefee.filepath";
 
 	private Properties properties;
 
