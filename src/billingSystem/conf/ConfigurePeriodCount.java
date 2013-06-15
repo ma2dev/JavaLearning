@@ -1,6 +1,5 @@
 package billingSystem.conf;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -8,6 +7,13 @@ import java.util.List;
 import billingSystem.dataFormat.IData;
 import billingSystem.dataFormat.csv.Csv;
 
+/**
+ * 集計期間定義を提供します。<br>
+ * 定義値として、小数点を含む場合、整数を表現していない文字列、負値についてはエラーと判定します。
+ *
+ * @author ma2dev
+ *
+ */
 public class ConfigurePeriodCount {
 
 	private List<IData> dataList;
@@ -31,12 +37,10 @@ public class ConfigurePeriodCount {
 	 *
 	 * @param filename
 	 *            confファイル
-	 * @throws FileNotFoundException
-	 *             ファイルが無い場合
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public ConfigurePeriodCount(String filename) throws FileNotFoundException, IOException {
+	public ConfigurePeriodCount(final String filename) throws IOException {
 		dataList = readFromCsv(filename);
 	}
 
@@ -83,12 +87,10 @@ public class ConfigurePeriodCount {
 	 * @param filename
 	 *            confファイル
 	 * @return データのListを返却します。データが無かった場合はnullを返却します。
-	 * @throws FileNotFoundException
-	 *             ファイルが無い場合
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	private List<IData> readFromCsv(String filename) throws FileNotFoundException, IOException {
+	private List<IData> readFromCsv(final String filename) throws IOException {
 		Csv csv = new Csv();
 		csv.read(new FileReader(filename));
 
@@ -106,7 +108,7 @@ public class ConfigurePeriodCount {
 	 *            index
 	 * @return 値を取得します。値が正しく取得できなかった場合は0を返却します。
 	 */
-	private int getDay(int index) {
+	private int getDay(final int index) {
 		int day = 0;
 		String data = null;
 
@@ -118,6 +120,11 @@ public class ConfigurePeriodCount {
 		try {
 			day = Integer.parseInt(data);
 		} catch (NumberFormatException e) {
+			return 0;
+		}
+
+		// 日付情報であるため1より小さい場合、もしくは31より大きな数値の場合エラーとする
+		if (day < 1 || 31 < day) {
 			return 0;
 		}
 

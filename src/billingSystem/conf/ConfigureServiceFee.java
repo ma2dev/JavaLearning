@@ -1,6 +1,5 @@
 package billingSystem.conf;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -10,7 +9,8 @@ import billingSystem.dataFormat.csv.Csv;
 import billingSystem.info.serviceInfo.services.Services;
 
 /**
- * サービス料金定義ファイルを提供します。
+ * サービス料金定義を提供します。<br>
+ * 定義値として、小数点を含む場合、整数を表現していない文字列、負値についてはエラーと判定します。
  *
  * @author ma2dev
  *
@@ -33,12 +33,10 @@ public class ConfigureServiceFee {
 	 *
 	 * @param filename
 	 *            confファイル
-	 * @throws FileNotFoundException
-	 *             ファイルが無い場合
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public ConfigureServiceFee(String filename) throws FileNotFoundException, IOException {
+	public ConfigureServiceFee(final String filename) throws IOException {
 		dataList = readFromCsv(filename);
 	}
 
@@ -49,7 +47,7 @@ public class ConfigureServiceFee {
 	 *            サービス種別
 	 * @return 料金
 	 */
-	public long getPrice(int serviceKind) {
+	public long getPrice(final int serviceKind) {
 		long price = 0;
 
 		switch (serviceKind) {
@@ -75,12 +73,10 @@ public class ConfigureServiceFee {
 	 * @param filename
 	 *            confファイル
 	 * @return データのListを返却します。データが無かった場合はnullを返却します。
-	 * @throws FileNotFoundException
-	 *             ファイルが無い場合
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	private List<IData> readFromCsv(String filename) throws FileNotFoundException, IOException {
+	private List<IData> readFromCsv(final String filename) throws IOException {
 		Csv csv = new Csv();
 		csv.read(new FileReader(filename));
 
@@ -98,7 +94,7 @@ public class ConfigureServiceFee {
 	 *            index
 	 * @return 値を返却します。正しく値が取得できない場合は-1を返却します。
 	 */
-	private long getLongValueFromData(int index) {
+	private long getLongValueFromData(final int index) {
 		String data = null;
 		long l = 0;
 
@@ -110,6 +106,10 @@ public class ConfigureServiceFee {
 		try {
 			l = Long.parseLong(data);
 		} catch (NumberFormatException e) {
+			return -1;
+		}
+
+		if (l < 0) {
 			return -1;
 		}
 

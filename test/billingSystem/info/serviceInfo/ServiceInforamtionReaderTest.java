@@ -2,7 +2,6 @@ package billingSystem.info.serviceInfo;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -15,13 +14,11 @@ public class ServiceInforamtionReaderTest {
 
 	@Test
 	public final void testファイル読み込み() {
-		String file = new String("dat/billingSystem/serviceInfo/20130614_serviceInfo.csv");
+		String file = new String("dat/test/billingSystem/serviceInfo/template_serviceInfo.csv");
 
 		List<ServiceInformation> list = null;
 		try {
 			list = ServiceInforamtionReader.readFromCsv(new FileReader(file));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -32,13 +29,11 @@ public class ServiceInforamtionReaderTest {
 
 	@Test
 	public final void testサービス契約状態確認() {
-		String file = new String("dat/billingSystem/serviceInfo/test_oneTelNum_serviceInfo.csv");
+		String file = new String("dat/test/billingSystem/serviceInfo/test_oneTelNum_serviceInfo.csv");
 
 		List<ServiceInformation> list = null;
 		try {
 			list = ServiceInforamtionReader.readFromCsv(new FileReader(file));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

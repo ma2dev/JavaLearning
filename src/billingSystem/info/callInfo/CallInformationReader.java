@@ -35,7 +35,7 @@ public class CallInformationReader {
 	 * @throws ParseException
 	 *             csvファイル中の日付情報の変換に失敗した場合
 	 */
-	public static List<CallInformation> readFromCsv(Reader reader) throws IOException, ParseException {
+	public static List<CallInformation> readFromCsv(final Reader reader) throws IOException, ParseException {
 		Csv csv = new Csv();
 		csv.read(reader);
 
@@ -67,9 +67,10 @@ public class CallInformationReader {
 	 * 呼情報のパラメータチェック
 	 *
 	 * @param list
-	 * @return
+	 *            呼情報のリスト
+	 * @return 問題が無ければtrueを、問題があればfalseを返却します。
 	 */
-	private static boolean checkFormat(List<IData> list) {
+	private static boolean checkFormat(final List<IData> list) {
 		// カラム数
 		if (list.size() != CALLINFORMATION_NUM_OF_PARAM) {
 			return false;

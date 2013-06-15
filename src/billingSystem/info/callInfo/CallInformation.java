@@ -52,8 +52,8 @@ public class CallInformation extends AbstractBillingCall {
 	 * @throws ParseException
 	 *             日付文字列の解析に失敗した場合
 	 */
-	public CallInformation(String srcTelNum, String dstTelNum, String startTime, String endTime, String reason)
-			throws ParseException {
+	public CallInformation(final String srcTelNum, final String dstTelNum, final String startTime,
+			final String endTime, final String reason) throws ParseException {
 		this.srcSubscriber = new Subscriber(srcTelNum);
 		this.dstSubscriber = new Subscriber(dstTelNum);
 		this.setStartTime(startTime);
@@ -88,7 +88,7 @@ public class CallInformation extends AbstractBillingCall {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) throws ParseException {
+	public void setStartTime(final String startTime) throws ParseException {
 		this.startTime = stringToDate(startTime);
 	}
 
@@ -101,7 +101,7 @@ public class CallInformation extends AbstractBillingCall {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) throws ParseException {
+	public void setEndTime(final String endTime) throws ParseException {
 		this.endTime = stringToDate(endTime);
 	}
 
@@ -120,11 +120,11 @@ public class CallInformation extends AbstractBillingCall {
 	 * @param endReason
 	 *            切断要因
 	 */
-	public void setEndReason(String endReason) {
+	public void setEndReason(final String endReason) {
 		this.reason = stringToEndReason(endReason);
 	}
 
-	private Date stringToDate(String s) throws ParseException {
+	private Date stringToDate(final String s) throws ParseException {
 		if (s == null) {
 			return null;
 		}
@@ -139,7 +139,7 @@ public class CallInformation extends AbstractBillingCall {
 	 *            切断要因の文字列
 	 * @return 切断要因
 	 */
-	private int stringToEndReason(String s) {
+	private int stringToEndReason(final String s) {
 		int reason = CallInformation.END_REASON_ERROR;
 
 		if (s == null) {

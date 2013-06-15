@@ -6,7 +6,6 @@ package billingSystem.dataFormat.csv;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,8 +30,8 @@ public class CsvTest {
 	public final void testCsv() {
 		Csv csv = new Csv();
 
-		String file1 = new String("dat/billingSystem/callInfo/20130421_callInfo.csv");
-		String file2 = new String("dat/billingSystem/callInfo/out.csv");
+		String file1 = new String("dat/test/billingSystem/callInfo/template_callInfo.csv");
+		String file2 = new String("dat/test/billingSystem/callInfo/testCsv_out.csv");
 
 		try {
 			csv.read(new FileReader(file1));
@@ -48,9 +47,6 @@ public class CsvTest {
 
 			// JUnit-Addonsを使用する例
 			FileAssert.assertEquals(new File(file1), new File(file2));
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Throwable e) {

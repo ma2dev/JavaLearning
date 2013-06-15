@@ -11,7 +11,6 @@ import java.util.Date;
  *
  */
 public abstract class AbstractBillingCall implements IBilling {
-
 	// 1秒あたりの料金(円)
 	private static final BigDecimal RatePerSec = new BigDecimal(8.0 / 60.0);
 

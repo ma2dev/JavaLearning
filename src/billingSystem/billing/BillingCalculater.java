@@ -1,7 +1,12 @@
 package billingSystem.billing;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import billingSystem.conf.Configure;
+import billingSystem.conf.ConfigurePeriodCount;
+import billingSystem.conf.ConfigureServiceFee;
 
 /**
  * 料金計算を提供します。
@@ -9,35 +14,45 @@ import java.util.List;
  * @author ma2dev
  *
  */
-public class Billing {
+public class BillingCalculater {
 
 	private List<PersonalForm> personalFormList;
 	private IBillingCallInformation callInformation;
 	private IBillingServiceInformation serviceInformation;
 	private IBillingPersonalInformation personalInformation;
 
+	private ConfigurePeriodCount configurePeriodCount;
+	private ConfigureServiceFee configureServiceFee;
+
 	/**
 	 * コンストラクタ
 	 *
+	 * @param configure
+	 *            プロパティ情報
 	 * @param personalInformation
 	 *            契約者情報
 	 * @param callInformation
 	 *            通話情報
 	 * @param serviceInformation
 	 *            サービス情報
+	 * @throws IOException
 	 */
-	public Billing(IBillingPersonalInformation personalInformation, IBillingCallInformation callInformation,
-			IBillingServiceInformation serviceInformation) {
+	public BillingCalculater(Configure configure, final IBillingPersonalInformation personalInformation,
+			final IBillingCallInformation callInformation, final IBillingServiceInformation serviceInformation)
+			throws IOException {
 		personalFormList = new ArrayList<PersonalForm>();
 		this.callInformation = callInformation;
 		this.serviceInformation = serviceInformation;
 		this.personalInformation = personalInformation;
+
+		configurePeriodCount = new ConfigurePeriodCount(configure.get(Configure.CONFIGURE_PERIOD_COUNT_FILEPATH));
+		configureServiceFee = new ConfigureServiceFee(configure.get(Configure.CONFIGURE_SERVICE_FEE_FILEPATH));
 	}
 
 	/**
 	 * 料金計算を実行します。
 	 */
-	public void calculate() {
+	public final void calculate() {
 
 		// 契約者の一覧を取得
 		List<IPersonalInformation> personalList = personalInformation.getPersonalList();
@@ -73,10 +88,11 @@ public class Billing {
 	}
 
 	/**
+	 * 明細情報のリストを返却します。
 	 *
-	 * @return
+	 * @return 明細情報のリスト
 	 */
-	protected List<PersonalForm> getPersonalFormList() {
+	protected final List<PersonalForm> getPersonalFormList() {
 		return personalFormList;
 	}
 }

@@ -16,7 +16,7 @@ public class CallInterruptService extends AbstractService {
 	 * @param condition
 	 *            サービス契約状態
 	 */
-	public CallInterruptService(String condition) {
+	public CallInterruptService(final String condition) {
 		if (condition.equals("0") == true) {
 			// 未契約
 			flag = false;

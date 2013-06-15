@@ -31,7 +31,7 @@ public class CallInformationCollection {
 	 * @param callInformation
 	 *            呼情報
 	 */
-	public CallInformationCollection(CallInformation callInformation) {
+	public CallInformationCollection(final CallInformation callInformation) {
 		this();
 		this.add(callInformation);
 	}
@@ -45,7 +45,7 @@ public class CallInformationCollection {
 	 *            呼情報
 	 * @return 正常時はtrueを、呼情報の契約者電話番号が呼情報集合の対象と異なる場合はfalseを返却します。
 	 */
-	public boolean add(CallInformation callInformation) {
+	public boolean add(final CallInformation callInformation) {
 		if (subscriber == null) {
 			subscriber = callInformation.getSrcSubscriber();
 		}

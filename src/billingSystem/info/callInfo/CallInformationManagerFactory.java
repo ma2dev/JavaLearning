@@ -14,7 +14,7 @@ import billingSystem.billing.IBillingCallInformation;
  * @author ma2dev
  *
  */
-public class CallInformationManagerFactory {
+public final class CallInformationManagerFactory {
 
 	/**
 	 * 生成元のデータ種別がCSVファイルの場合
@@ -38,7 +38,7 @@ public class CallInformationManagerFactory {
 	 * @throws ParseException
 	 *             時刻情報の解釈に失敗した場合
 	 */
-	public static IBillingCallInformation create(int kind, Object obj) throws IOException, ParseException {
+	public static IBillingCallInformation create(final int kind, final Object obj) throws IOException, ParseException {
 		IBillingCallInformation manager = null;
 
 		switch (kind) {
@@ -64,7 +64,7 @@ public class CallInformationManagerFactory {
 	 * @throws ParseException
 	 *             時刻情報の解釈に失敗した場合
 	 */
-	private static final IBillingCallInformation fromCsv(String file) throws IOException, ParseException {
+	private static final IBillingCallInformation fromCsv(final String file) throws IOException, ParseException {
 		CallInformationManager manager = new CallInformationManager();
 
 		Reader reader = new FileReader(file);

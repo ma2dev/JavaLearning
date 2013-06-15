@@ -2,7 +2,6 @@ package billingSystem.info.callInfo;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,15 +16,13 @@ public class CallInformationReaderTest {
 
 	@Test
 	public final void testCSVファイル読み込み() {
-		String file = new String("dat/billingSystem/callInfo/20130421_callInfo.csv");
+		String file = new String("dat/test/billingSystem/callInfo/template_callInfo.csv");
 
 		List<CallInformation> list = null;
 		try {
 			list = CallInformationReader.readFromCsv(new FileReader(file));
 
 			assertNotNull(list);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {

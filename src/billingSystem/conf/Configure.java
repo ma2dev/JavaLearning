@@ -1,6 +1,5 @@
 package billingSystem.conf;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -28,12 +27,10 @@ public class Configure {
 	 *
 	 * @param propetiesfile
 	 *            propatiesファイル名
-	 * @throws FileNotFoundException
-	 *             ファイルが無かった場合
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public Configure(String propetiesfile) throws FileNotFoundException, IOException {
+	public Configure(final String propetiesfile) throws IOException {
 		properties = new Properties();
 		properties.load(new FileReader(propetiesfile));
 	}
@@ -46,7 +43,7 @@ public class Configure {
 	 *            key
 	 * @return 設定値
 	 */
-	public String get(String key) {
+	public String get(final String key) {
 		return properties.getProperty(key);
 	}
 }

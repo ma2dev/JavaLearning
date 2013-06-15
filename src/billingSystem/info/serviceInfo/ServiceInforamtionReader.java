@@ -1,6 +1,5 @@
 package billingSystem.info.serviceInfo;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -24,14 +23,13 @@ public class ServiceInforamtionReader {
 	/**
 	 * csvファイルからサービス情報を構築します。
 	 *
-	 * @param csvfile
-	 *            csvファイル
-	 * @throws FileNotFoundException
-	 *             対象のファイルが存在しない場合
+	 * @param reader
+	 *            csvファイルのReaderオブジェクト
+	 * @return サービス情報のリスト
 	 * @throws IOException
 	 *             ファイル読み込みに失敗した場合
 	 */
-	public static List<ServiceInformation> readFromCsv(Reader reader) throws IOException {
+	public static List<ServiceInformation> readFromCsv(final Reader reader) throws IOException {
 		Csv csv = new Csv();
 		csv.read(reader);
 
@@ -64,9 +62,10 @@ public class ServiceInforamtionReader {
 	 * サービス情報のパラメータチェック
 	 *
 	 * @param list
-	 * @return
+	 *            呼情報のリスト
+	 * @return 問題が無ければtrueを、問題があればfalseを返却します。
 	 */
-	private static boolean checkFormat(List<IData> list) {
+	private static boolean checkFormat(final List<IData> list) {
 		// 最小パラメータ数(必須のみ)
 		if (list.size() < SERVICEINFORMATION_NUM_OF_MINPARAM) {
 			return false;

@@ -19,7 +19,7 @@ public class Subscriber implements IPersonalInformation {
 	 * @param telNum
 	 *            契約者電話番号
 	 */
-	public Subscriber(String telNum) {
+	public Subscriber(final String telNum) {
 		this.telNum = telNum;
 	}
 
@@ -32,20 +32,25 @@ public class Subscriber implements IPersonalInformation {
 		return telNum;
 	}
 
-	public boolean equals(Object obj) {
-		if (obj == null)
+	public boolean equals(final Object obj) {
+		if (obj == null) {
 			return false;
+		}
+
 		if (obj instanceof Subscriber) {
 			Subscriber o = (Subscriber) obj;
-			if (this.telNum == null)
+
+			if (this.telNum == null) {
 				return o.telNum == null;
+			}
+
 			return this.telNum.equals(o.telNum);
 		}
 		return super.equals(obj);
 	}
 
 	public int hashCode() {
-		int h = (telNum==null) ? 0 : telNum.hashCode();
+		int h = (telNum == null) ? 0 : telNum.hashCode();
 		return h;
 	}
 }
