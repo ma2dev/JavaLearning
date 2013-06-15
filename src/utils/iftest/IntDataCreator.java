@@ -1,4 +1,4 @@
-package iftest;
+package utils.iftest;
 
 public class IntDataCreator extends AbstractDataCreator {
 

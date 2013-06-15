@@ -1,7 +1,7 @@
 /**
  *
  */
-package ls;
+package utils.ls;
 
 /**
  * @author ma2dev

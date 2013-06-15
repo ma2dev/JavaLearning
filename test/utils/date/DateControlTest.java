@@ -1,8 +1,10 @@
-package utils;
+package utils.date;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import utils.date.DateControl;
 
 public class DateControlTest {
 
