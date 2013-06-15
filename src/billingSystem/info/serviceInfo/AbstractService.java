@@ -15,9 +15,9 @@ public abstract class AbstractService {
 
 	/**
 	 * サービスを表すID<br>
-	 * サービス毎にユニークな整数型オブジェクトを設定スル必要があります。
+	 * サービス毎にユニークな整数型を設定する必要があります。
 	 */
-	protected Integer serviceId;
+	protected int serviceId;
 
 	/**
 	 * 契約有無を取得します。
@@ -33,7 +33,7 @@ public abstract class AbstractService {
 	 *
 	 * @return サービスを示すID
 	 */
-	public Integer getId() {
+	public int getId() {
 		return serviceId;
 	}
 

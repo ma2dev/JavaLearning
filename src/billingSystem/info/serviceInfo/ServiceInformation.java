@@ -45,7 +45,7 @@ public class ServiceInformation {
 	 * @return サービス
 	 */
 	public AbstractService get(int serviceId) {
-		return serviceMap.get(new Integer(serviceId));
+		return serviceMap.get(serviceId);
 	}
 
 	/**
@@ -56,6 +56,6 @@ public class ServiceInformation {
 	 *            サービス
 	 */
 	void add(AbstractService service) {
-		serviceMap.put(service.getId(), service);
+		serviceMap.put(service.getId(), service); // IneterはAutoboxingで処理
 	}
 }

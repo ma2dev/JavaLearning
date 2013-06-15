@@ -1,4 +1,4 @@
-package billingSystem.callInfo;
+package billingSystem.info;
 
 import static org.junit.Assert.*;
 

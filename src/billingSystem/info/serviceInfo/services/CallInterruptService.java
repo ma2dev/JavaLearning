@@ -28,6 +28,6 @@ public class CallInterruptService extends AbstractService {
 			flag = false;
 		}
 
-		serviceId = new Integer(Services.CALLINTERRUPT_SERVICE);
+		serviceId = Services.CALLINTERRUPT_SERVICE;
 	}
 }

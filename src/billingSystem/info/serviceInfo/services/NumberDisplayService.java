@@ -28,6 +28,6 @@ public class NumberDisplayService extends AbstractService {
 			flag = false;
 		}
 
-		serviceId = new Integer(Services.NUMBERDISPLAY_SERVICE);
+		serviceId = Services.NUMBERDISPLAY_SERVICE;
 	}
 }

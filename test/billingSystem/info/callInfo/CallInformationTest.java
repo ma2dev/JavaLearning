@@ -1,4 +1,4 @@
-package billingSystem.callInfo;
+package billingSystem.info.callInfo;
 
 import static org.junit.Assert.*;
 
@@ -36,5 +36,27 @@ public class CallInformationTest {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public final void test切断要因の設定と取得() {
+
+		CallInformation callInformation = null;
+		try {
+			callInformation = new CallInformation(null, null, null, null, "0");
+		} catch (ParseException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		assertEquals(CallInformation.END_REASON_NORMAL, callInformation.getEndReason());
+
+		callInformation.setEndReason("0");
+		assertEquals(CallInformation.END_REASON_NORMAL, callInformation.getEndReason());
+		callInformation.setEndReason("1");
+		assertEquals(CallInformation.END_REASON_ERROR, callInformation.getEndReason());
+		callInformation.setEndReason("2");
+		assertEquals(CallInformation.END_REASON_ERROR, callInformation.getEndReason());
+		callInformation.setEndReason(null);
+		assertEquals(CallInformation.END_REASON_ERROR, callInformation.getEndReason());
 	}
 }

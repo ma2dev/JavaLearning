@@ -20,7 +20,18 @@ public class CallInformation extends AbstractCall {
 	private Subscriber dstSubscriber;
 	// private Date startTime;
 	// private Date endTime;
-	private Enum<EndReason> reason;
+	private int reason;
+
+	/**
+	 * 切断要因 正常
+	 */
+	public static final int END_REASON_NORMAL = 0;
+	private static final String END_REASON_NOMAL_STRING = "0"; // 文字列定義
+	/**
+	 * 切断要因 異常
+	 */
+	public static final int END_REASON_ERROR = 1;
+	private static final String END_REASON_ERROR_STRING = "1"; // 文字列定義
 
 	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 
@@ -99,7 +110,7 @@ public class CallInformation extends AbstractCall {
 	 *
 	 * @return endReason 切断要因
 	 */
-	public Enum<EndReason> getEndReason() {
+	public int getEndReason() {
 		return reason;
 	}
 
@@ -128,20 +139,23 @@ public class CallInformation extends AbstractCall {
 	 *            切断要因の文字列
 	 * @return 切断要因
 	 */
-	private Enum<EndReason> stringToEndReason(String s) {
+	private int stringToEndReason(String s) {
+		int reason = CallInformation.END_REASON_ERROR;
 
 		if (s == null) {
-			return null;
+			// 切断要因が設定されていない場合エラーと判定する
+			return reason;
 		}
 
-		Enum<EndReason> e;
-
-		if (s.compareTo("0") == 0) {
-			e = EndReason.NORMAL;
+		if (s.compareTo(END_REASON_NOMAL_STRING) == 0) {
+			reason = CallInformation.END_REASON_NORMAL;
+		} else if (s.compareTo(END_REASON_ERROR_STRING) == 0) {
+			reason = CallInformation.END_REASON_ERROR;
 		} else {
-			e = EndReason.ERROR;
+			// 未定義の値の場合エラーと判定する
+			reason = CallInformation.END_REASON_ERROR;
 		}
 
-		return e;
+		return reason;
 	}
 }
