@@ -1,7 +1,7 @@
 /**
  * 
  */
-package iftest;
+package utils.iftest;
 
 /**
  * @author akimitsu

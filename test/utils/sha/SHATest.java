@@ -1,11 +1,13 @@
 /**
  *
  */
-package sha;
+package utils.sha;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import utils.sha.SHA;
 
 /**
  * @author ma2dev

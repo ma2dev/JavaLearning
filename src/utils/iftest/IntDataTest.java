@@ -1,4 +1,4 @@
-package iftest;
+package utils.iftest;
 
 import static org.junit.Assert.*;
 

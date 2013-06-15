@@ -1,4 +1,4 @@
-package sha;
+package utils.sha;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
