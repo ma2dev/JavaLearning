@@ -36,7 +36,6 @@ public class BillingCalculater {
 	 * @param serviceInformation
 	 *            サービス情報
 	 * @throws IOException
-	 * @throws
 	 */
 	public BillingCalculater(Configure configure, final IBillingPersonalInformation personalInformation,
 			final IBillingCallInformation callInformation, final IBillingServiceInformation serviceInformation)
