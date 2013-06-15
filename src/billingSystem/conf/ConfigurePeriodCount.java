@@ -8,6 +8,13 @@ import java.util.List;
 import billingSystem.dataFormat.IData;
 import billingSystem.dataFormat.csv.Csv;
 
+/**
+ * 集計期間定義を提供します。<br>
+ * 定義値として、小数点を含む場合、整数を表現していない文字列、負値についてはエラーと判定します。
+ *
+ * @author ma2dev
+ *
+ */
 public class ConfigurePeriodCount {
 
 	private List<IData> dataList;
@@ -118,6 +125,11 @@ public class ConfigurePeriodCount {
 		try {
 			day = Integer.parseInt(data);
 		} catch (NumberFormatException e) {
+			return 0;
+		}
+
+		// 日付情報であるため1より小さい場合、もしくは31より大きな数値の場合エラーとする
+		if (day < 1 || 31 < day) {
 			return 0;
 		}
 

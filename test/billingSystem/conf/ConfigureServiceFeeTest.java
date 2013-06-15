@@ -36,4 +36,28 @@ public class ConfigureServiceFeeTest {
 		assertEquals(0, price);
 	}
 
+	@Test
+	public final void testエラーパターン() {
+		String filename = new String("dat/test/billingSystem/conf/error.properties");
+		Configure properties = null;
+		ConfigureServiceFee config = null;
+
+		try {
+			properties = new Configure(filename);
+			config = new ConfigureServiceFee(properties.get(Configure.CONFIGURE_SERVICE_FEE_FILEPATH));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// ABC,-3000,12.3
+		long price = 0;
+		price = config.getPrice(Services.NUMBERDISPLAY_SERVICE);
+		assertEquals(-1, price);
+		price = config.getPrice(Services.CALLINTERRUPT_SERVICE);
+		assertEquals(-1, price);
+		price = config.getPrice(Services.FAMILYCALLFREE_SERVICE);
+		assertEquals(-1, price);
+	}
 }

@@ -10,7 +10,8 @@ import billingSystem.dataFormat.csv.Csv;
 import billingSystem.info.serviceInfo.services.Services;
 
 /**
- * サービス料金定義ファイルを提供します。
+ * サービス料金定義を提供します。<br>
+ * 定義値として、小数点を含む場合、整数を表現していない文字列、負値についてはエラーと判定します。
  *
  * @author ma2dev
  *
@@ -110,6 +111,10 @@ public class ConfigureServiceFee {
 		try {
 			l = Long.parseLong(data);
 		} catch (NumberFormatException e) {
+			return -1;
+		}
+
+		if (l < 0) {
 			return -1;
 		}
 
