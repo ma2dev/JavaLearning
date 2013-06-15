@@ -1,7 +1,6 @@
 package billingSystem;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.commons.cli.BasicParser;
@@ -14,10 +13,12 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import billingSystem.billing.Billing;
+import billingSystem.billing.IBillingCallInformation;
+import billingSystem.billing.IBillingServiceInformation;
 import billingSystem.billing.PersonalFormWriter;
-import billingSystem.info.callInfo.CallInformationManager;
-import billingSystem.info.serviceInfo.ServiceInforamtionManager;
-import billingSystem.info.serviceInfo.ServiceInforamtionManager.BillingSystemServiceInformationBuildException;
+import billingSystem.info.callInfo.CallInformationManagerFactory;
+import billingSystem.info.serviceInfo.BillingSystemServiceInformationBuildException;
+import billingSystem.info.serviceInfo.ServiceInformationManagerFactory;
 
 /**
  * 料金計算システム<br>
@@ -124,30 +125,30 @@ public class BillingSystem {
 
 		// main --------------------------------------------------------------
 		// CallInfo
-		CallInformationManager callInformationManager = new CallInformationManager();
+		IBillingCallInformation callInfoManager = null;
 		try {
-			callInformationManager.buildFromCsv(callInfoFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
+			callInfoManager = CallInformationManagerFactory.create(CallInformationManagerFactory.FACTORY_KIND_CSV,
+					callInfoFile);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (java.text.ParseException e1) {
+			e1.printStackTrace();
 		}
 
 		// ServiceInfo
-		ServiceInforamtionManager serviceInforamtionManager = new ServiceInforamtionManager();
+		IBillingServiceInformation serviceInfoManager = null;
 		try {
-			serviceInforamtionManager.buildFromCsv(serviceInfoFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (BillingSystemServiceInformationBuildException e) {
-			e.printStackTrace();
+			serviceInfoManager = ServiceInformationManagerFactory.create(
+					ServiceInformationManagerFactory.FACTORY_KIND_CSV, serviceInfoFile);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (java.text.ParseException e1) {
+			e1.printStackTrace();
+		} catch (BillingSystemServiceInformationBuildException e1) {
+			e1.printStackTrace();
 		}
 
-		Billing billing = new Billing(callInformationManager, serviceInforamtionManager);
+		Billing billing = new Billing(callInfoManager, serviceInfoManager);
 		billing.calculate();
 		try {
 			PersonalFormWriter.writeTo(outputFile, billing);
