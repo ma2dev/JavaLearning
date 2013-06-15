@@ -47,7 +47,7 @@ public class Billing {
 			personalForm = new PersonalForm(personal);
 
 			// 契約者の情報から対象契約者の通話情報の一覧を取得
-			List<AbstractCall> callList = callInformation.find(personal);
+			List<AbstractBillingCall> callList = callInformation.find(personal);
 
 			long callBilling = 0;
 			if (callList != null) {

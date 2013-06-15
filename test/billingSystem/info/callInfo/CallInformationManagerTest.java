@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import billingSystem.billing.AbstractCall;
+import billingSystem.billing.AbstractBillingCall;
 import billingSystem.billing.IBillingCallInformation;
 import billingSystem.billing.IPersonalInformation;
 import billingSystem.info.Subscriber;
@@ -29,7 +29,7 @@ public class CallInformationManagerTest {
 		}
 
 		IPersonalInformation p = new Subscriber("09076228838");
-		List<AbstractCall> list = callManager.find(p);
+		List<AbstractBillingCall> list = callManager.find(p);
 		assertNotNull(list);
 	}
 

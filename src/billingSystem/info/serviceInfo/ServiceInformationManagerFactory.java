@@ -38,11 +38,11 @@ public class ServiceInformationManagerFactory {
 	 *             IOに失敗した場合
 	 * @throws ParseException
 	 *             時刻情報の解釈に失敗した場合
-	 * @throws BillingSystemServiceInformationBuildException
+	 * @throws ServiceInformationBuildException
 	 *             サービス情報の構築に失敗した場合
 	 */
 	public static IBillingServiceInformation create(int kind, Object obj) throws IOException, ParseException,
-			BillingSystemServiceInformationBuildException {
+			ServiceInformationBuildException {
 		IBillingServiceInformation manager = null;
 
 		switch (kind) {
@@ -67,11 +67,11 @@ public class ServiceInformationManagerFactory {
 	 *             ファイル読み込みに失敗した場合
 	 * @throws ParseException
 	 *             時刻情報の解釈に失敗した場合
-	 * @throws BillingSystemServiceInformationBuildException
+	 * @throws ServiceInformationBuildException
 	 *             サービス情報の構築に失敗した場合
 	 */
 	private static final IBillingServiceInformation fromCsv(String file) throws IOException, ParseException,
-			BillingSystemServiceInformationBuildException {
+			ServiceInformationBuildException {
 		ServiceInformationManager manager = new ServiceInformationManager();
 
 		Reader reader = new FileReader(file);
@@ -80,7 +80,7 @@ public class ServiceInformationManagerFactory {
 
 		for (ServiceInformation serviceInfo : list) {
 			if (manager.add(serviceInfo) == false) {
-				throw new BillingSystemServiceInformationBuildException();
+				throw new ServiceInformationBuildException();
 			}
 		}
 

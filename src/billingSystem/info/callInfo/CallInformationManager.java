@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import billingSystem.billing.AbstractCall;
+import billingSystem.billing.AbstractBillingCall;
 import billingSystem.billing.IBillingCallInformation;
 import billingSystem.billing.IPersonalInformation;
 import billingSystem.info.Subscriber;
@@ -28,15 +28,15 @@ public class CallInformationManager implements IBillingCallInformation {
 	}
 
 	@Override
-	public List<AbstractCall> find(IPersonalInformation personal) {
+	public List<AbstractBillingCall> find(IPersonalInformation personal) {
 		CallInformationCollection collection = callMap.get(personal);
 
-		List<AbstractCall> list = null; // 通話情報が取得できなかった場合はこのままnullが返る
+		List<AbstractBillingCall> list = null; // 通話情報が取得できなかった場合はこのままnullが返る
 		if (collection != null) {
 			// 通話情報が取得できた場合
 			// listの再構築(型変換のため)
-			list = new ArrayList<AbstractCall>();
-			for (AbstractCall call : collection.getList()) {
+			list = new ArrayList<AbstractBillingCall>();
+			for (AbstractBillingCall call : collection.getList()) {
 				list.add(call);
 			}
 		}

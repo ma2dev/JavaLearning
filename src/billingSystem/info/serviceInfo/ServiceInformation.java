@@ -3,6 +3,7 @@ package billingSystem.info.serviceInfo;
 import java.util.HashMap;
 import java.util.Map;
 
+import billingSystem.billing.AbstractBillingService;
 import billingSystem.info.Subscriber;
 
 /**
@@ -11,7 +12,7 @@ import billingSystem.info.Subscriber;
  * @author ma2dev
  *
  */
-public class ServiceInformation {
+public class ServiceInformation extends AbstractBillingService {
 
 	private Subscriber subscriber;
 	private Map<Integer, AbstractService> serviceMap;

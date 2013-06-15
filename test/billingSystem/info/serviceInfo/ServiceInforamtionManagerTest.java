@@ -26,7 +26,7 @@ public class ServiceInforamtionManagerTest {
 			e.printStackTrace();
 		} catch (ParseException e) {
 			e.printStackTrace();
-		} catch (BillingSystemServiceInformationBuildException e) {
+		} catch (ServiceInformationBuildException e) {
 			e.printStackTrace();
 		}
 		IBillingPersonalInformation personalInformation = (IBillingPersonalInformation) serviceManager;

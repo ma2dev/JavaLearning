@@ -7,7 +7,7 @@ package billingSystem.info.serviceInfo;
  * @author ma2dev
  *
  */
-public class BillingSystemServiceInformationBuildException extends Exception {
+public class ServiceInformationBuildException extends Exception {
 
 	private static final long serialVersionUID = -7182950861212206707L;
 }

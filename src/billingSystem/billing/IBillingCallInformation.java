@@ -17,6 +17,6 @@ public interface IBillingCallInformation {
 	 *            対象者
 	 * @return 対象者の通話情報集合を返却します。対象者の通話情報が無い場合はnullを返却します。
 	 */
-	public List<AbstractCall> find(IPersonalInformation personal);
+	public List<AbstractBillingCall> find(IPersonalInformation personal);
 
 }

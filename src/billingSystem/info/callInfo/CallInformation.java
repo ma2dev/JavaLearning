@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import billingSystem.billing.AbstractCall;
+import billingSystem.billing.AbstractBillingCall;
 import billingSystem.info.Subscriber;
 
 /**
@@ -14,7 +14,7 @@ import billingSystem.info.Subscriber;
  * @author ma2dev
  *
  */
-public class CallInformation extends AbstractCall {
+public class CallInformation extends AbstractBillingCall {
 
 	private Subscriber srcSubscriber;
 	private Subscriber dstSubscriber;

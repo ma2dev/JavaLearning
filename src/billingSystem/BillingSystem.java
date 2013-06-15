@@ -16,10 +16,9 @@ import billingSystem.billing.Billing;
 import billingSystem.billing.IBillingCallInformation;
 import billingSystem.billing.IBillingPersonalInformation;
 import billingSystem.billing.IBillingServiceInformation;
-import billingSystem.billing.IPersonalInformation;
 import billingSystem.billing.PersonalFormWriter;
 import billingSystem.info.callInfo.CallInformationManagerFactory;
-import billingSystem.info.serviceInfo.BillingSystemServiceInformationBuildException;
+import billingSystem.info.serviceInfo.ServiceInformationBuildException;
 import billingSystem.info.serviceInfo.ServiceInformationManagerFactory;
 
 /**
@@ -146,7 +145,7 @@ public class BillingSystem {
 			e1.printStackTrace();
 		} catch (java.text.ParseException e1) {
 			e1.printStackTrace();
-		} catch (BillingSystemServiceInformationBuildException e1) {
+		} catch (ServiceInformationBuildException e1) {
 			e1.printStackTrace();
 		}
 

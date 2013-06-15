@@ -8,7 +8,7 @@ import java.text.ParseException;
 import org.junit.Test;
 
 import billingSystem.info.callInfo.CallInformationManagerFactory;
-import billingSystem.info.serviceInfo.BillingSystemServiceInformationBuildException;
+import billingSystem.info.serviceInfo.ServiceInformationBuildException;
 import billingSystem.info.serviceInfo.ServiceInformationManagerFactory;
 
 public class BillingTest {
@@ -36,7 +36,7 @@ public class BillingTest {
 			e.printStackTrace();
 		} catch (ParseException e) {
 			e.printStackTrace();
-		} catch (BillingSystemServiceInformationBuildException e) {
+		} catch (ServiceInformationBuildException e) {
 			e.printStackTrace();
 		}
 		IBillingPersonalInformation personalInformation = (IBillingPersonalInformation) serviceInforamtionManager;

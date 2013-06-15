@@ -1,7 +1,9 @@
 package billingSystem.conf;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * 設定値を管理します。
@@ -11,37 +13,32 @@ import java.util.Map;
  */
 public class Configure {
 
-	/**
-	 * 集計期間を示すID
-	 */
-	public static final int CONFIGURE_PERIOD_COUNT_FILENAME = 1;
-
-	private Map<Integer, String> configMap = new HashMap<Integer, String>();
+	private Properties properties;
 
 	/**
-	 * IDに対応する設定値を文字列として設定します。<br>
-	 * IDに対応する設定値がすでに設定されている場合、新たな値として置き換えられます。<br>
-	 * <br>
-	 * 本メソッドの公開範囲はpackage内です。
+	 * コンストラクタ
 	 *
-	 * @param elementID
-	 *            ID
-	 * @param elementValue
-	 *            設定値
+	 * @param propetiesfile
+	 *            propatiesファイル名
+	 * @throws FileNotFoundException
+	 *             ファイルが無かった場合
+	 * @throws IOException
+	 *             ファイル入力に失敗した場合
 	 */
-	void add(int elementID, String elementValue) {
-		configMap.put(elementID, elementValue);
+	public Configure(String propetiesfile) throws FileNotFoundException, IOException {
+		properties = new Properties();
+		properties.load(new FileReader(propetiesfile));
 	}
 
 	/**
-	 * IDに対応する設定値を取得します。<br>
+	 * keyに対応する設定値を取得します。<br>
 	 * 該当する設定値が無い場合はnullを返却します。
 	 *
-	 * @param elementID
-	 *            ID
+	 * @param key
+	 *            key
 	 * @return 設定値
 	 */
-	public String get(int elementID) {
-		return configMap.get(elementID);
+	public String get(String key) {
+		return properties.getProperty(key);
 	}
 }
