@@ -8,13 +8,14 @@ import java.util.List;
 
 import org.junit.Test;
 
+import billingSystem.billing.IBillingPersonalInformation;
 import billingSystem.billing.IBillingServiceInformation;
 import billingSystem.billing.IPersonalInformation;
 
 public class ServiceInforamtionManagerTest {
 
 	@Test
-	public final void testサービス明細() {
+	public final void test個人情報明細() {
 		String file = new String("dat/billingSystem/serviceInfo/test_oneTelNum_serviceInfo.csv");
 
 		IBillingServiceInformation serviceManager = null;
@@ -28,8 +29,9 @@ public class ServiceInforamtionManagerTest {
 		} catch (BillingSystemServiceInformationBuildException e) {
 			e.printStackTrace();
 		}
+		IBillingPersonalInformation personalInformation = (IBillingPersonalInformation) serviceManager;
 
-		List<IPersonalInformation> list = serviceManager.getPersonalList();
+		List<IPersonalInformation> list = personalInformation.getPersonalList();
 		IPersonalInformation p = list.get(0);
 		assertEquals("09076228838", p.getTelNum());
 	}

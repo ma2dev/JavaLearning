@@ -39,8 +39,9 @@ public class BillingTest {
 		} catch (BillingSystemServiceInformationBuildException e) {
 			e.printStackTrace();
 		}
+		IBillingPersonalInformation personalInformation = (IBillingPersonalInformation) serviceInforamtionManager;
 
-		Billing billing = new Billing(callInformationManager, serviceInforamtionManager);
+		Billing billing = new Billing(personalInformation, callInformationManager, serviceInforamtionManager);
 
 		billing.calculate();
 		assertNotNull(billing.getPersonalFormList());

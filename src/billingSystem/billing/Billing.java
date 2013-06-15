@@ -14,17 +14,24 @@ public class Billing {
 	private List<PersonalForm> personalFormList;
 	private IBillingCallInformation callInformation;
 	private IBillingServiceInformation serviceInformation;
+	private IBillingPersonalInformation personalInformation;
 
 	/**
 	 * コンストラクタ
 	 *
+	 * @param personalInformation
+	 *            契約者情報
 	 * @param callInformation
+	 *            通話情報
 	 * @param serviceInformation
+	 *            サービス情報
 	 */
-	public Billing(IBillingCallInformation callInformation, IBillingServiceInformation serviceInformation) {
+	public Billing(IBillingPersonalInformation personalInformation, IBillingCallInformation callInformation,
+			IBillingServiceInformation serviceInformation) {
 		personalFormList = new ArrayList<PersonalForm>();
 		this.callInformation = callInformation;
 		this.serviceInformation = serviceInformation;
+		this.personalInformation = personalInformation;
 	}
 
 	/**
@@ -33,7 +40,7 @@ public class Billing {
 	public void calculate() {
 
 		// 契約者の一覧を取得
-		List<IPersonalInformation> personalList = serviceInformation.getPersonalList();
+		List<IPersonalInformation> personalList = personalInformation.getPersonalList();
 
 		PersonalForm personalForm = null;
 		for (IPersonalInformation personal : personalList) {

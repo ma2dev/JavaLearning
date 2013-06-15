@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import billingSystem.billing.IBillingPersonalInformation;
 import billingSystem.billing.IBillingServiceInformation;
 import billingSystem.billing.IPersonalInformation;
 import billingSystem.info.Subscriber;
@@ -16,7 +17,7 @@ import billingSystem.info.Subscriber;
  * @author ma2dev
  *
  */
-public class ServiceInformationManager implements IBillingServiceInformation {
+public class ServiceInformationManager implements IBillingServiceInformation, IBillingPersonalInformation {
 
 	private Map<Subscriber, ServiceInformation> serviceInfoMap;
 
