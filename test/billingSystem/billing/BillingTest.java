@@ -51,9 +51,9 @@ public class BillingTest {
 		}
 		IBillingPersonalInformation personalInformation = (IBillingPersonalInformation) serviceInforamtionManager;
 
-		Billing billing = null;
+		BillingHandler billing = null;
 		try {
-			billing = new Billing(configure, personalInformation, callInformationManager, serviceInforamtionManager);
+			billing = new BillingHandler(configure, personalInformation, callInformationManager, serviceInforamtionManager);
 			billing.calculate();
 			assertNotNull(billing.getPersonalFormList());
 		} catch (IOException e) {

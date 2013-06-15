@@ -12,7 +12,7 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import billingSystem.billing.Billing;
+import billingSystem.billing.BillingHandler;
 import billingSystem.billing.IBillingCallInformation;
 import billingSystem.billing.IBillingPersonalInformation;
 import billingSystem.billing.IBillingServiceInformation;
@@ -191,9 +191,9 @@ public class BillingSystem {
 		IBillingPersonalInformation personalInformation = (IBillingPersonalInformation) serviceInfoManager;
 
 		// 料金計算
-		Billing billing = null;
+		BillingHandler billing = null;
 		try {
-			billing = new Billing(configure, personalInformation, callInfoManager, serviceInfoManager);
+			billing = new BillingHandler(configure, personalInformation, callInfoManager, serviceInfoManager);
 			billing.calculate();
 		} catch (IOException e) {
 			e.printStackTrace();

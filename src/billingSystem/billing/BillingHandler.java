@@ -14,7 +14,7 @@ import billingSystem.conf.ConfigureServiceFee;
  * @author ma2dev
  *
  */
-public class Billing {
+public class BillingHandler {
 
 	private List<PersonalForm> personalFormList;
 	private IBillingCallInformation callInformation;
@@ -38,7 +38,7 @@ public class Billing {
 	 * @throws IOException
 	 * @throws
 	 */
-	public Billing(Configure configure, final IBillingPersonalInformation personalInformation,
+	public BillingHandler(Configure configure, final IBillingPersonalInformation personalInformation,
 			final IBillingCallInformation callInformation, final IBillingServiceInformation serviceInformation)
 			throws IOException {
 		personalFormList = new ArrayList<PersonalForm>();
