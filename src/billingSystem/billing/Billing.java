@@ -1,7 +1,12 @@
 package billingSystem.billing;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import billingSystem.conf.Configure;
+import billingSystem.conf.ConfigurePeriodCount;
+import billingSystem.conf.ConfigureServiceFee;
 
 /**
  * 料金計算を提供します。
@@ -16,22 +21,33 @@ public class Billing {
 	private IBillingServiceInformation serviceInformation;
 	private IBillingPersonalInformation personalInformation;
 
+	private ConfigurePeriodCount configurePeriodCount;
+	private ConfigureServiceFee configureServiceFee;
+
 	/**
 	 * コンストラクタ
 	 *
+	 * @param configure
+	 *            プロパティ情報
 	 * @param personalInformation
 	 *            契約者情報
 	 * @param callInformation
 	 *            通話情報
 	 * @param serviceInformation
 	 *            サービス情報
+	 * @throws IOException
+	 * @throws
 	 */
-	public Billing(final IBillingPersonalInformation personalInformation,
-			final IBillingCallInformation callInformation, final IBillingServiceInformation serviceInformation) {
+	public Billing(Configure configure, final IBillingPersonalInformation personalInformation,
+			final IBillingCallInformation callInformation, final IBillingServiceInformation serviceInformation)
+			throws IOException {
 		personalFormList = new ArrayList<PersonalForm>();
 		this.callInformation = callInformation;
 		this.serviceInformation = serviceInformation;
 		this.personalInformation = personalInformation;
+
+		configurePeriodCount = new ConfigurePeriodCount(configure.get(Configure.CONFIGURE_PERIOD_COUNT_FILEPATH));
+		configureServiceFee = new ConfigureServiceFee(configure.get(Configure.CONFIGURE_SERVICE_FEE_FILEPATH));
 	}
 
 	/**

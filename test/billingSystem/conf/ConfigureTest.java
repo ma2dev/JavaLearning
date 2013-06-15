@@ -2,7 +2,6 @@ package billingSystem.conf;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Test;
@@ -16,8 +15,6 @@ public class ConfigureTest {
 		Configure configure = null;
 		try {
 			configure = new Configure(filename);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

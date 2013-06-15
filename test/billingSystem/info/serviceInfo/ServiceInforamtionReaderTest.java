@@ -2,7 +2,6 @@ package billingSystem.info.serviceInfo;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -20,8 +19,6 @@ public class ServiceInforamtionReaderTest {
 		List<ServiceInformation> list = null;
 		try {
 			list = ServiceInforamtionReader.readFromCsv(new FileReader(file));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,8 +34,6 @@ public class ServiceInforamtionReaderTest {
 		List<ServiceInformation> list = null;
 		try {
 			list = ServiceInforamtionReader.readFromCsv(new FileReader(file));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

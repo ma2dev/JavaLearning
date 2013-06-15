@@ -1,6 +1,5 @@
 package billingSystem.conf;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -34,12 +33,10 @@ public class ConfigureServiceFee {
 	 *
 	 * @param filename
 	 *            confファイル
-	 * @throws FileNotFoundException
-	 *             ファイルが無い場合
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public ConfigureServiceFee(final String filename) throws FileNotFoundException, IOException {
+	public ConfigureServiceFee(final String filename) throws IOException {
 		dataList = readFromCsv(filename);
 	}
 
@@ -76,12 +73,10 @@ public class ConfigureServiceFee {
 	 * @param filename
 	 *            confファイル
 	 * @return データのListを返却します。データが無かった場合はnullを返却します。
-	 * @throws FileNotFoundException
-	 *             ファイルが無い場合
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	private List<IData> readFromCsv(final String filename) throws FileNotFoundException, IOException {
+	private List<IData> readFromCsv(final String filename) throws IOException {
 		Csv csv = new Csv();
 		csv.read(new FileReader(filename));
 

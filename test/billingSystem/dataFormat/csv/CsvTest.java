@@ -6,7 +6,6 @@ package billingSystem.dataFormat.csv;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,9 +47,6 @@ public class CsvTest {
 
 			// JUnit-Addonsを使用する例
 			FileAssert.assertEquals(new File(file1), new File(file2));
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Throwable e) {

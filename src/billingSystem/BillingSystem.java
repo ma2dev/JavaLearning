@@ -17,6 +17,7 @@ import billingSystem.billing.IBillingCallInformation;
 import billingSystem.billing.IBillingPersonalInformation;
 import billingSystem.billing.IBillingServiceInformation;
 import billingSystem.billing.PersonalFormWriter;
+import billingSystem.conf.Configure;
 import billingSystem.info.callInfo.CallInformationManagerFactory;
 import billingSystem.info.serviceInfo.ServiceInformationBuildException;
 import billingSystem.info.serviceInfo.ServiceInformationManagerFactory;
@@ -34,6 +35,7 @@ public class BillingSystem {
 	public static final String CALLINFO_OPTION_C = "c";
 	public static final String SERVICEINFO_OPTION_C = "s";
 	public static final String OUTPUT_OPTION_C = "o";
+	public static final String PROPERTIES_OPTION_C = "p";
 
 	/**
 	 * @param args
@@ -77,6 +79,17 @@ public class BillingSystem {
 		outputfileOpt.setRequired(true);
 		options.addOption(outputfileOpt);
 
+		// プロパティファイルのオプション
+		@SuppressWarnings("static-access")
+		Option propertiesfileOpt = OptionBuilder // OptionBuilder
+				.hasArg(true) // オプションの後にパラメータが必須か
+				.withDescription("プロパティファイルを指定します。") // Usage出力用の説明
+				.withArgName("properties") // パラメータ名
+				.withLongOpt("prop") // オプションの別名
+				.create(PROPERTIES_OPTION_C); // オプション作成
+		propertiesfileOpt.setRequired(true);
+		options.addOption(propertiesfileOpt);
+
 		CommandLineParser parser = new BasicParser();
 		CommandLine commandLine = null;
 
@@ -97,13 +110,14 @@ public class BillingSystem {
 
 			File file = new File(callInfoFile);
 			String result = "指定された呼情報ファイルは存在しません。";
-			if (file.exists() == false) {
+			if (file.exists() == false || file.isFile() == false) {
 				// ファイル無し
 				System.err.println(result);
 				return;
 			}
 		}
 
+		// 「-s」の場合
 		String serviceInfoFile = null;
 		if (commandLine.hasOption(SERVICEINFO_OPTION_C)) {
 			// 引数を取得
@@ -111,29 +125,53 @@ public class BillingSystem {
 
 			File file = new File(serviceInfoFile);
 			String result = "指定されたサービス情報ファイルは存在しません。";
-			if (file.exists() == false) {
+			if (file.exists() == false || file.isFile() == false) {
 				// ファイル無し
 				System.err.println(result);
 				return;
 			}
 		}
 
+		// 「-o」の場合
 		String outputFile = null;
 		if (commandLine.hasOption(OUTPUT_OPTION_C)) {
 			// 引数を取得
 			outputFile = commandLine.getOptionValue(OUTPUT_OPTION_C);
 		}
 
+		// 「-p」の場合
+		String propertiesFile = null;
+		if (commandLine.hasOption(PROPERTIES_OPTION_C)) {
+			// 引数を取得
+			propertiesFile = commandLine.getOptionValue(PROPERTIES_OPTION_C);
+
+			File file = new File(propertiesFile);
+			String result = "指定されたプロパティファイルは存在しません。";
+			if (file.exists() == false || file.isFile() == false) {
+				// ファイル無し
+				System.err.println(result);
+				return;
+			}
+		}
+
 		// main --------------------------------------------------------------
+		// Properties
+		Configure configure = null;
+		try {
+			configure = new Configure(propertiesFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		// CallInfo
 		IBillingCallInformation callInfoManager = null;
 		try {
 			callInfoManager = CallInformationManagerFactory.create(CallInformationManagerFactory.FACTORY_KIND_CSV,
 					callInfoFile);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (java.text.ParseException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
 		}
 
 		// ServiceInfo
@@ -141,19 +179,27 @@ public class BillingSystem {
 		try {
 			serviceInfoManager = ServiceInformationManagerFactory.create(
 					ServiceInformationManagerFactory.FACTORY_KIND_CSV, serviceInfoFile);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (java.text.ParseException e1) {
-			e1.printStackTrace();
-		} catch (ServiceInformationBuildException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		} catch (ServiceInformationBuildException e) {
+			e.printStackTrace();
 		}
 
 		// PersonalInfo
 		IBillingPersonalInformation personalInformation = (IBillingPersonalInformation) serviceInfoManager;
 
-		Billing billing = new Billing(personalInformation, callInfoManager, serviceInfoManager);
-		billing.calculate();
+		// 料金計算
+		Billing billing = null;
+		try {
+			billing = new Billing(configure, personalInformation, callInfoManager, serviceInfoManager);
+			billing.calculate();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// 明細出力
 		try {
 			PersonalFormWriter.writeTo(outputFile, billing);
 		} catch (IOException e) {

@@ -2,7 +2,6 @@ package billingSystem.conf;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Test;
@@ -20,8 +19,6 @@ public class ConfigureServiceFeeTest {
 		try {
 			properties = new Configure(filename);
 			config = new ConfigureServiceFee(properties.get(Configure.CONFIGURE_SERVICE_FEE_FILEPATH));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,8 +42,6 @@ public class ConfigureServiceFeeTest {
 		try {
 			properties = new Configure(filename);
 			config = new ConfigureServiceFee(properties.get(Configure.CONFIGURE_SERVICE_FEE_FILEPATH));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

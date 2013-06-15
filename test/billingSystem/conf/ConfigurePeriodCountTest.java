@@ -2,7 +2,6 @@ package billingSystem.conf;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Test;
@@ -18,8 +17,6 @@ public class ConfigurePeriodCountTest {
 		try {
 			properties = new Configure(propetiesfile);
 			periodCount = new ConfigurePeriodCount(properties.get(Configure.CONFIGURE_PERIOD_COUNT_FILEPATH));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -49,8 +46,6 @@ public class ConfigurePeriodCountTest {
 		try {
 			properties = new Configure(propetiesfile);
 			periodCount = new ConfigurePeriodCount(properties.get(Configure.CONFIGURE_PERIOD_COUNT_FILEPATH));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

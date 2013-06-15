@@ -2,7 +2,6 @@ package billingSystem.info.callInfo;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -24,8 +23,6 @@ public class CallInformationReaderTest {
 			list = CallInformationReader.readFromCsv(new FileReader(file));
 
 			assertNotNull(list);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
