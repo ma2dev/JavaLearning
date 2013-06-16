@@ -36,8 +36,9 @@ public class BillingCalculater {
 	 * @param serviceInformation
 	 *            サービス情報
 	 * @throws IOException
+	 *             ファイル入力に失敗した場合
 	 */
-	public BillingCalculater(Configure configure, final IBillingPersonalInformation personalInformation,
+	public BillingCalculater(final Configure configure, final IBillingPersonalInformation personalInformation,
 			final IBillingCallInformation callInformation, final IBillingServiceInformation serviceInformation)
 			throws IOException {
 		personalFormList = new ArrayList<PersonalForm>();
@@ -65,6 +66,7 @@ public class BillingCalculater {
 			List<AbstractBillingCall> callList = callInformation.find(personal);
 
 			long callBilling = 0;
+			long serviceBilling = 0;
 			if (callList != null) {
 				// 通話情報がある場合
 				for (IBilling call : callList) {
@@ -74,12 +76,18 @@ public class BillingCalculater {
 			}
 
 			// 算出した通話料金を明細に設定
-			personalForm.addCallBilling(callBilling);
+			personalForm.setCallBilling(callBilling);
 
 			// TODO サービス情報の料金計算処理
 			// 契約者のサービス契約情報を取得
 			// サービス契約料金を算出
+			AbstractBillingService service = null;
+			service = serviceInformation.get(personal);
+			service.setPriceList(configureServiceFee);
+			serviceBilling = service.calculate();
+
 			// 算出したサービス料金を明細に設定
+			personalForm.setServiceBilling(serviceBilling);
 
 			// 個人明細をリストに追加
 			personalFormList.add(personalForm);

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import billingSystem.billing.AbstractBillingService;
 import billingSystem.billing.IBillingPersonalInformation;
 import billingSystem.billing.IBillingServiceInformation;
 import billingSystem.billing.IPersonalInformation;
@@ -19,18 +20,18 @@ import billingSystem.info.Subscriber;
  */
 public class ServiceInformationManager implements IBillingServiceInformation, IBillingPersonalInformation {
 
-	private Map<Subscriber, ServiceInformation> serviceInfoMap;
+	private Map<IPersonalInformation, ServiceInformation> serviceInfoMap;
 
 	/**
 	 * コンストラクタ
 	 */
 	public ServiceInformationManager() {
-		serviceInfoMap = new HashMap<Subscriber, ServiceInformation>();
+		serviceInfoMap = new HashMap<IPersonalInformation, ServiceInformation>();
 	}
 
 	@Override
 	public List<IPersonalInformation> getPersonalList() {
-		Set<Subscriber> keys = serviceInfoMap.keySet();
+		Set<IPersonalInformation> keys = serviceInfoMap.keySet();
 		return new ArrayList<IPersonalInformation>(keys);
 	}
 
@@ -57,6 +58,11 @@ public class ServiceInformationManager implements IBillingServiceInformation, IB
 		serviceInfoMap.put(subscriber, serviceInfo);
 
 		return true;
+	}
+
+	@Override
+	public AbstractBillingService get(final IPersonalInformation personal) {
+		return serviceInfoMap.get(personal);
 	}
 
 }

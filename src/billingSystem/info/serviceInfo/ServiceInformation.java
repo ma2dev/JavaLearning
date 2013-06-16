@@ -1,9 +1,12 @@
 package billingSystem.info.serviceInfo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import billingSystem.billing.AbstractBillingService;
+import billingSystem.conf.ConfigureServiceFee;
 import billingSystem.info.Subscriber;
 
 /**
@@ -58,5 +61,20 @@ public class ServiceInformation extends AbstractBillingService {
 	 */
 	void add(final AbstractService service) {
 		serviceMap.put(service.getId(), service); // IneterはAutoboxingで処理
+	}
+
+	@Override
+	public void setPriceList(ConfigureServiceFee priceList) {
+		super.priceList = priceList;
+	}
+
+	@Override
+	public void buildServiceList() {
+		super.serviceList = new ArrayList<AbstractService>();
+		Set<Integer> keys = serviceMap.keySet();
+		for (Integer key : keys) {
+			AbstractService service = serviceMap.get(key);
+			serviceList.add(service); // 契約状態にかかわらず設定
+		}
 	}
 }

@@ -10,6 +10,7 @@ public class PersonalForm {
 
 	private IPersonalInformation personalInformation;
 	private long callCalculate;
+	private long servicCalculate;
 
 	/**
 	 * コンストラクタ
@@ -28,11 +29,22 @@ public class PersonalForm {
 	 * @param callBilling
 	 *            対象個人の通話料金
 	 */
-	public final void addCallBilling(final long callBilling) {
+	public final void setCallBilling(final long callBilling) {
 		callCalculate = callBilling;
 	}
 
-	public final String toString() {
-		return new String(personalInformation.getTelNum() + "," + "," + callCalculate + "," + ",");
+	/**
+	 * サービス料金を設定します。
+	 *
+	 * @param serviceBilling
+	 *            対象個人のサービス料金
+	 */
+	public void setServiceBilling(final long serviceBilling) {
+		servicCalculate = serviceBilling;
 	}
+
+	public final String toString() {
+		return new String(personalInformation.getTelNum() + "," + "," + callCalculate + "," + servicCalculate + ",");
+	}
+
 }

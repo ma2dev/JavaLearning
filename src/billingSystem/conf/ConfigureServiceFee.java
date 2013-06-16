@@ -10,7 +10,7 @@ import billingSystem.info.serviceInfo.services.Services;
 
 /**
  * サービス料金定義を提供します。<br>
- * 定義値として、小数点を含む場合、整数を表現していない文字列、負値についてはエラーと判定します。
+ * 定義値として、小数点を含む場合、整数を表現していない文字列についてはエラーと判定します。
  *
  * @author ma2dev
  *
@@ -92,7 +92,7 @@ public class ConfigureServiceFee {
 	 *
 	 * @param index
 	 *            index
-	 * @return 値を返却します。正しく値が取得できない場合は-1を返却します。
+	 * @return 値を返却します。正しく値が取得できない場合はLong.MIN_VALUEを返却します。
 	 */
 	private long getLongValueFromData(final int index) {
 		String data = null;
@@ -100,17 +100,13 @@ public class ConfigureServiceFee {
 
 		data = (String) dataList.get(index).getData();
 		if (data == null) {
-			return -1;
+			return Long.MIN_VALUE;
 		}
 
 		try {
 			l = Long.parseLong(data);
 		} catch (NumberFormatException e) {
-			return -1;
-		}
-
-		if (l < 0) {
-			return -1;
+			return Long.MIN_VALUE;
 		}
 
 		return l;
