@@ -49,10 +49,10 @@ public class ConfigureServiceFeeTest {
 		// ABC,-3000,12.3
 		long price = 0;
 		price = config.getPrice(Services.NUMBERDISPLAY_SERVICE);
-		assertEquals(-1, price);
+		assertEquals(Long.MIN_VALUE, price);
 		price = config.getPrice(Services.CALLINTERRUPT_SERVICE);
-		assertEquals(-1, price);
+		assertEquals(-3000, price); // マイナス値はエラーとしない
 		price = config.getPrice(Services.FAMILYCALLFREE_SERVICE);
-		assertEquals(-1, price);
+		assertEquals(Long.MIN_VALUE, price);
 	}
 }
