@@ -13,7 +13,7 @@ public class CallHistory {
 	private Date endTime;
 	private int reason;
 
-	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+	private final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 
 	/**
 	 * 切断要因 正常
