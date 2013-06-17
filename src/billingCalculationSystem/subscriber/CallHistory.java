@@ -13,7 +13,15 @@ public class CallHistory {
 	private Date endTime;
 	private int reason;
 
+	// スレッド毎にインスタンスを保持
 	private final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+	/*
+	 * private static final ThreadLocal<DateFormat> df = new
+	 * ThreadLocal<DateFormat>() {
+	 *
+	 * @Override protected DateFormat initialValue() { return new
+	 * SimpleDateFormat("yyyyMMddHHmmss"); } };
+	 */
 
 	/**
 	 * 切断要因 正常
