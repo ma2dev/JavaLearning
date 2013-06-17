@@ -44,7 +44,7 @@ public class SubscriberManager {
 	public void execute() throws IOException {
 		for (Subscriber subscriber : subscriberList) {
 			subscriber.calculate();
-			outputFile.write(subscriber.toString());
+			outputFile.write(subscriber.toString() + "\n");
 		}
 		outputFile.flush();
 	}

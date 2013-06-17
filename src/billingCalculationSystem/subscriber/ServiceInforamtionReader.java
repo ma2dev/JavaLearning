@@ -51,6 +51,7 @@ public class ServiceInforamtionReader {
 
 			service = new Service(telNum);
 			service.setCondition(s1, s2, buildFamilyCallTelnumberArray(cellList));
+			service.setPriceList(servicePrice);
 
 			list.add(service);
 		}

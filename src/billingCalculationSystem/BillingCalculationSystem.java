@@ -156,6 +156,6 @@ public class BillingCalculationSystem {
 	private static void showUsage(final Options options) {
 		HelpFormatter help = new HelpFormatter();
 		// ヘルプを出力
-		help.printHelp("BillingSystem", options, true);
+		help.printHelp("BillingCalculationSystem", options, true);
 	}
 }
