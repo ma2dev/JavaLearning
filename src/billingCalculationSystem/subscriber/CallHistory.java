@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import billingSystem.info.callInfo.CallInformation;
+
 public class CallHistory {
 
 	private String srcTelnumber;
@@ -94,7 +96,7 @@ public class CallHistory {
 	 * @return 切断要因
 	 */
 	private int stringToEndReason(final String s) {
-		int reason = END_REASON_ERROR;
+		int reason = CallInformation.END_REASON_ERROR;
 
 		if (s == null) {
 			// 切断要因が設定されていない場合エラーと判定する
@@ -102,12 +104,12 @@ public class CallHistory {
 		}
 
 		if (s.compareTo(END_REASON_NOMAL_STRING) == 0) {
-			reason = END_REASON_NORMAL;
+			reason = CallInformation.END_REASON_NORMAL;
 		} else if (s.compareTo(END_REASON_ERROR_STRING) == 0) {
-			reason = END_REASON_ERROR;
+			reason = CallInformation.END_REASON_ERROR;
 		} else {
 			// 未定義の値の場合エラーと判定する
-			reason = END_REASON_ERROR;
+			reason = CallInformation.END_REASON_ERROR;
 		}
 
 		return reason;

@@ -4,8 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import billingCalculationSystem.dataFormat.IData;
-import billingCalculationSystem.dataFormat.csv.Csv;
+import billingSystem.dataFormat.IData;
+import billingSystem.dataFormat.csv.Csv;
 
 /**
  * 集計期間定義を提供します。<br>

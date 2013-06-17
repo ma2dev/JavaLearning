@@ -4,9 +4,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import billingCalculationSystem.dataFormat.IData;
-import billingCalculationSystem.dataFormat.csv.Csv;
-import billingCalculationSystem.subscriber.ServiceList;
+import billingSystem.dataFormat.IData;
+import billingSystem.dataFormat.csv.Csv;
+import billingSystem.info.serviceInfo.services.Services;
 
 /**
  * サービス料金定義を提供します。<br>
@@ -51,14 +51,14 @@ public class ConfigureServiceFee {
 		long price = 0;
 
 		switch (serviceKind) {
-		case ServiceList.NUMBERDISPLAY_SERVICE:
-			price = getLongValueFromData(ServiceList.NUMBERDISPLAY_SERVICE);
+		case Services.NUMBERDISPLAY_SERVICE:
+			price = getLongValueFromData(Services.NUMBERDISPLAY_SERVICE);
 			break;
-		case ServiceList.CALLINTERRUPT_SERVICE:
-			price = getLongValueFromData(ServiceList.CALLINTERRUPT_SERVICE);
+		case Services.CALLINTERRUPT_SERVICE:
+			price = getLongValueFromData(Services.CALLINTERRUPT_SERVICE);
 			break;
-		case ServiceList.FAMILYCALLFREE_SERVICE:
-			price = getLongValueFromData(ServiceList.FAMILYCALLFREE_SERVICE);
+		case Services.FAMILYCALLFREE_SERVICE:
+			price = getLongValueFromData(Services.FAMILYCALLFREE_SERVICE);
 			break;
 		default:
 			break;
