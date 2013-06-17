@@ -11,7 +11,7 @@ import org.junit.Test;
  * @author ma2dev
  *
  */
-public class CsvConfigurationTest extends CsvConfiguration {
+public class CsvConfigurationTest {
 
 	/**
 	 * {@link billingSystem.dataFormat.csv.CsvConfiguration#CsvConfiguration()}

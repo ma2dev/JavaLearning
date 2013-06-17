@@ -11,7 +11,7 @@ import org.junit.Test;
  * @author ma2dev
  *
  */
-public class CellTest extends Cell {
+public class CellTest {
 
 	/**
 	 * {@link billingSystem.dataFormat.csv.Cell#Cell()} のためのテスト・メソッド。

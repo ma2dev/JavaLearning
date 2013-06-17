@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import billingSystem.dataFormat.IData;
+
 /**
- * CSVファイルを表現する。 コンフィグを設定できるが、設定はコンストラクタでのみ可能。
+ * CSVファイルを表現します。<br>
+ * コンストラクタでコンフィグを設定可能です。
  *
  * @author ma2dev
  *
@@ -17,10 +20,12 @@ import java.util.StringTokenizer;
 public class Csv {
 
 	private CsvConfiguration config;
-	private List<List<Cell>> cellArray;
+	private List<List<IData>> cellArray;
 
 	/**
-	 * コンストラクタ
+	 * コンストラクタ<br>
+	 * 設定されるコンフィグはデフォルトです。
+	 *
 	 */
 	public Csv() {
 		this(new CsvConfiguration());
@@ -28,18 +33,18 @@ public class Csv {
 
 	/**
 	 * コンストラクタ<br>
-	 * コンフィグを設定できる。
+	 * コンフィグを設定できます。
 	 *
 	 * @param config
 	 *            コンフィグ
 	 */
-	public Csv(CsvConfiguration config) {
+	public Csv(final CsvConfiguration config) {
 		this.config = config;
-		cellArray = new ArrayList<List<Cell>>();
+		cellArray = new ArrayList<List<IData>>();
 	}
 
 	/**
-	 * コンフィグを取得する。
+	 * コンフィグを取得します。
 	 *
 	 * @return コンフィグ
 	 */
@@ -48,7 +53,7 @@ public class Csv {
 	}
 
 	/**
-	 * 行と列を指定して情報を取得する。
+	 * 行と列を指定して情報を取得します。
 	 *
 	 * @param row
 	 *            行
@@ -56,25 +61,25 @@ public class Csv {
 	 *            列
 	 * @return 情報
 	 */
-	public Cell getCell(int row, int column) {
-		List<Cell> line = cellArray.get(row);
-		Cell cell = line.get(column);
+	public IData getCell(final int row, final int column) {
+		List<IData> line = cellArray.get(row);
+		IData cell = line.get(column);
 		return cell;
 	}
 
 	/**
-	 * 行を指定して情報を取得する。
+	 * 行を指定して情報をListとして取得します。
 	 *
 	 * @param row
 	 *            行番号
 	 * @return 行の情報のcellのList
 	 */
-	public List<Cell> getCells(int row) {
+	public List<IData> getCells(final int row) {
 		return cellArray.get(row);
 	}
 
 	/**
-	 * 行数を取得する。
+	 * 行数を取得します。
 	 *
 	 * @return 行数
 	 */
@@ -82,19 +87,15 @@ public class Csv {
 		return cellArray.size();
 	}
 
-	public void setCell(Cell cell, int row, int column) {
-		// TODO 未実装
-	}
-
 	/**
-	 * Readerから読み込む。
+	 * Readerから読み込みます。
 	 *
 	 * @param reader
 	 *            Readerオブジェクト
 	 * @throws IOException
 	 *             読み込みに失敗した場合
 	 */
-	public void readFrom(Reader reader) throws IOException {
+	public void read(final Reader reader) throws IOException {
 		String line;
 		LineNumberReader lineNumberReader = new LineNumberReader(reader);
 		while ((line = lineNumberReader.readLine()) != null) {
@@ -103,14 +104,14 @@ public class Csv {
 	}
 
 	/**
-	 * Writerに書き込む。
+	 * Writerに書き込みます。
 	 *
 	 * @param writer
 	 *            Writerオブジェクト
 	 * @throws IOException
 	 *             書き込みに失敗した場合
 	 */
-	public void writeTo(Writer writer) throws IOException {
+	public void write(final Writer writer) throws IOException {
 		for (int i = 0; i < cellArray.size(); i++) {
 			writer.write(toStringOfLine(i));
 			writer.write('\n');
@@ -118,8 +119,15 @@ public class Csv {
 		writer.flush();
 	}
 
-	private List<Cell> getCellOfLine(String line) {
-		List<Cell> list = new ArrayList<Cell>();
+	/**
+	 * 1行のcsv形式の文字列を分解し、Cellのリストとして返却します。
+	 *
+	 * @param line
+	 *            1行のcsv形式の文字列
+	 * @return Cellのリスト
+	 */
+	private List<IData> getCellOfLine(final String line) {
+		List<IData> list = new ArrayList<IData>();
 		StringTokenizer st = new StringTokenizer(line, config.getDelimiter());
 
 		Cell c;
@@ -131,10 +139,17 @@ public class Csv {
 		return list;
 	}
 
-	private String toStringOfLine(int rowNumber) {
+	/**
+	 * 指定した行をcsv形式の文字列として返却します。
+	 *
+	 * @param rowNumber
+	 *            指定行
+	 * @return csv形式の文字列
+	 */
+	private String toStringOfLine(final int rowNumber) {
 		StringBuffer sb = new StringBuffer();
 
-		List<Cell> line = cellArray.get(rowNumber);
+		List<IData> line = cellArray.get(rowNumber);
 		for (int i = 0; i < line.size(); i++) {
 			sb.append(line.get(i).getData());
 
