@@ -1,4 +1,4 @@
-package billingCalculationSystem.conf;
+package com.github.ma2dev.bcs.conf;
 
 import java.io.FileReader;
 import java.io.IOException;

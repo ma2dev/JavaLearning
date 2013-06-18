@@ -1,4 +1,4 @@
-package billingCalculationSystem.subscriber;
+package com.github.ma2dev.bcs.call;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -1,12 +1,13 @@
-package billingCalculationSystem.conf;
+package com.github.ma2dev.bcs.conf;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import billingCalculationSystem.dataFormat.IData;
-import billingCalculationSystem.dataFormat.csv.Csv;
-import billingCalculationSystem.subscriber.ServiceList;
+import com.github.ma2dev.bcs.dataFormat.IData;
+import com.github.ma2dev.bcs.dataFormat.csv.Csv;
+import com.github.ma2dev.bcs.service.ServiceList;
+
 
 /**
  * サービス料金定義を提供します。<br>

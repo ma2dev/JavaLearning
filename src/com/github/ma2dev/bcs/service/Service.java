@@ -1,9 +1,10 @@
-package billingCalculationSystem.subscriber;
+package com.github.ma2dev.bcs.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import billingCalculationSystem.conf.ConfigureServiceFee;
+import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
+
 
 /**
  * サービスを管理します。

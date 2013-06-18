@@ -1,4 +1,4 @@
-package billingCalculationSystem.subscriber;
+package com.github.ma2dev.bcs.subscriber;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,8 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import billingCalculationSystem.conf.Configure;
-import billingCalculationSystem.conf.ConfigureServiceFee;
+import com.github.ma2dev.bcs.call.CallHistory;
+import com.github.ma2dev.bcs.call.CallInformationReader;
+import com.github.ma2dev.bcs.conf.Configure;
+import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
+import com.github.ma2dev.bcs.service.Service;
+import com.github.ma2dev.bcs.service.ServiceInforamtionReader;
+
 
 /**
  * 全契約者の情報を管理し、明細ファイルへの出力を行います。
