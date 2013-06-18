@@ -1,7 +1,4 @@
-/**
- *
- */
-package billingSystem.dataFormat.csv;
+package com.github.ma2dev.bcs.dataFormat.csv;
 
 import static org.junit.Assert.*;
 
@@ -15,23 +12,16 @@ import junitx.framework.FileAssert;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
-import billingSystem.dataFormat.IData;
+import com.github.ma2dev.bcs.dataFormat.IData;
 
-/**
- * @author ma2dev
- *
- */
 public class CsvTest {
 
-	/**
-	 * {@link billingSystem.dataFormat.csv.Csv#Csv()} のためのテスト・メソッド。
-	 */
 	@Test
 	public final void testCsv() {
 		Csv csv = new Csv();
 
-		String file1 = new String("dat/test/billingSystem/callInfo/template_callInfo.csv");
-		String file2 = new String("dat/test/billingSystem/callInfo/testCsv_out.csv");
+		String file1 = new String("dat/test/bcs/callInfo/template_callInfo.csv");
+		String file2 = new String("dat/test/bcs/callInfo/testCsv_out.csv");
 
 		try {
 			csv.read(new FileReader(file1));
@@ -42,7 +32,6 @@ public class CsvTest {
 			csv.write(new FileWriter(file2));
 
 			// commons-ioを使用する例
-			// TODO ファイル差分時のExceptionに対するTest
 			assertTrue("The files differ!", FileUtils.contentEquals(new File(file1), new File(file2)));
 
 			// JUnit-Addonsを使用する例
@@ -68,4 +57,5 @@ public class CsvTest {
 		assertEquals(0, csv.getRowSize());
 
 	}
+
 }
