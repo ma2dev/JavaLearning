@@ -1,21 +1,11 @@
-/**
- *
- */
-package billingSystem.dataFormat.csv;
+package com.github.ma2dev.bcs.dataFormat.csv;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-/**
- * @author ma2dev
- *
- */
 public class CellTest {
 
-	/**
-	 * {@link billingSystem.dataFormat.csv.Cell#Cell()} のためのテスト・メソッド。
-	 */
 	@Test
 	public final void testCell() {
 		Cell c = new Cell();
