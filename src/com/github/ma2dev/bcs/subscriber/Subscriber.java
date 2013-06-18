@@ -1,12 +1,15 @@
-package billingCalculationSystem.subscriber;
+package com.github.ma2dev.bcs.subscriber;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.github.ma2dev.bcs.call.CallHistory;
+import com.github.ma2dev.bcs.service.Service;
+
 /**
- * 契約者の状態を管理します。
+ * 契約者の情報を管理します。
  *
  * @author ma2dev
  *
@@ -22,6 +25,12 @@ public class Subscriber {
 
 	private int failure;
 
+	/**
+	 * コンストラクタ
+	 *
+	 * @param telnumber
+	 *            契約者電話番号
+	 */
 	public Subscriber(String telnumber) {
 		callHistoryList = new ArrayList<CallHistory>();
 		serviceInfo = new Service(telnumber);
@@ -31,6 +40,12 @@ public class Subscriber {
 		servicePrice = 0;
 	}
 
+	/**
+	 * 通話履歴を追加します。
+	 *
+	 * @param history
+	 *            通話履歴
+	 */
 	public void addCallHisotry(CallHistory history) {
 		callHistoryList.add(history);
 
@@ -39,6 +54,12 @@ public class Subscriber {
 		}
 	}
 
+	/**
+	 * サービス契約情報を設定します。
+	 *
+	 * @param service
+	 *            サービス契約情報
+	 */
 	public void setService(Service service) {
 		serviceInfo = service;
 	}
@@ -52,6 +73,9 @@ public class Subscriber {
 		return telnumber;
 	}
 
+	/**
+	 * 料金を計算します。
+	 */
 	public void calculate() {
 		// 通話料金計算
 		for (CallHistory history : callHistoryList) {
@@ -62,11 +86,21 @@ public class Subscriber {
 		servicePrice = serviceInfo.calculateServicePrice();
 	}
 
+	/**
+	 * 契約者の情報を明細の出力形式の文字列として返却します。
+	 */
 	public String toString() {
 		// TODO 集計期間を入れられるようにする
 		return telnumber + "," + "," + telPrice + "," + servicePrice + "," + failure;
 	}
 
+	/**
+	 * 通話履歴から通話料金を算出します。
+	 *
+	 * @param history
+	 *            計算対象の通話履歴
+	 * @return 通話料金
+	 */
 	private long calculateCallHistory(CallHistory history) {
 		// 家族無料通話対象の確認
 		boolean familyCallFlag = serviceInfo.isFamilyCallTelumber(history.getDstTelnumber());

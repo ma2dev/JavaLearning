@@ -1,6 +1,6 @@
-package billingCalculationSystem.dataFormat.csv;
+package com.github.ma2dev.bcs.dataFormat.csv;
 
-import billingCalculationSystem.dataFormat.IData;
+import com.github.ma2dev.bcs.dataFormat.IData;
 
 /**
  * CSVのセル情報を表現します。

@@ -1,4 +1,4 @@
-package billingCalculationSystem;
+package com.github.ma2dev.bcs;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +11,15 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 
-import billingCalculationSystem.subscriber.SubscriberManager;
+import com.github.ma2dev.bcs.subscriber.SubscriberManager;
 
+
+/**
+ * 通話履歴およびサービス契約情報から契約者の通話料金及びサービス契約料金を算出し、明細に出力します。
+ *
+ * @author ma2dev
+ *
+ */
 public class BillingCalculationSystem {
 	public static final String CALLINFO_OPTION_CHAR = "c";
 	public static final String SERVICEINFO_OPTION_CHAR = "s";

@@ -1,12 +1,16 @@
-package billingCalculationSystem.subscriber;
+package com.github.ma2dev.bcs.call;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import billingSystem.info.callInfo.CallInformation;
-
+/**
+ * 通話履歴を管理します。
+ *
+ * @author ma2dev
+ *
+ */
 public class CallHistory {
 
 	private String srcTelnumber;
@@ -15,7 +19,15 @@ public class CallHistory {
 	private Date endTime;
 	private int reason;
 
-	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+	// スレッド毎にインスタンスを保持
+	private final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+	/*
+	 * private static final ThreadLocal<DateFormat> df = new
+	 * ThreadLocal<DateFormat>() {
+	 *
+	 * @Override protected DateFormat initialValue() { return new
+	 * SimpleDateFormat("yyyyMMddHHmmss"); } };
+	 */
 
 	/**
 	 * 切断要因 正常
@@ -28,6 +40,22 @@ public class CallHistory {
 	public static final int END_REASON_ERROR = 1;
 	private static final String END_REASON_ERROR_STRING = "1"; // 文字列定義
 
+	/**
+	 * コンストラクタ
+	 *
+	 * @param srcTelnumber
+	 *            発信者電話番号
+	 * @param dstTelnumber
+	 *            着信者電話番号
+	 * @param startTime
+	 *            通話確立時刻
+	 * @param endTime
+	 *            通話切断時刻
+	 * @param reason
+	 *            切断様式
+	 * @throws ParseException
+	 *             文字列の解析に失敗した場合
+	 */
 	public CallHistory(String srcTelnumber, String dstTelnumber, String startTime, String endTime, String reason)
 			throws ParseException {
 		this.srcTelnumber = new String(srcTelnumber);
@@ -37,10 +65,20 @@ public class CallHistory {
 		this.reason = stringToEndReason(reason);
 	}
 
+	/**
+	 * 発信者電話番号を取得します。
+	 *
+	 * @return 発信者電話番号
+	 */
 	public String getSrcTelnumber() {
 		return srcTelnumber;
 	}
 
+	/**
+	 * 着信者電話番号を取得します。
+	 *
+	 * @return 着信者電話番号
+	 */
 	public String getDstTelnumber() {
 		return dstTelnumber;
 	}
@@ -96,7 +134,7 @@ public class CallHistory {
 	 * @return 切断要因
 	 */
 	private int stringToEndReason(final String s) {
-		int reason = CallInformation.END_REASON_ERROR;
+		int reason = END_REASON_ERROR;
 
 		if (s == null) {
 			// 切断要因が設定されていない場合エラーと判定する
@@ -104,12 +142,12 @@ public class CallHistory {
 		}
 
 		if (s.compareTo(END_REASON_NOMAL_STRING) == 0) {
-			reason = CallInformation.END_REASON_NORMAL;
+			reason = END_REASON_NORMAL;
 		} else if (s.compareTo(END_REASON_ERROR_STRING) == 0) {
-			reason = CallInformation.END_REASON_ERROR;
+			reason = END_REASON_ERROR;
 		} else {
 			// 未定義の値の場合エラーと判定する
-			reason = CallInformation.END_REASON_ERROR;
+			reason = END_REASON_ERROR;
 		}
 
 		return reason;

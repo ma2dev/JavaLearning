@@ -1,4 +1,4 @@
-package billingCalculationSystem.dataFormat.csv;
+package com.github.ma2dev.bcs.dataFormat.csv;
 
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import billingCalculationSystem.dataFormat.IData;
+import com.github.ma2dev.bcs.dataFormat.IData;
+
 
 /**
  * CSVファイルを表現します。<br>

@@ -1,12 +1,13 @@
-package billingCalculationSystem.subscriber;
+package com.github.ma2dev.bcs.subscriber;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import billingCalculationSystem.dataFormat.IData;
-import billingCalculationSystem.dataFormat.csv.Csv;
+import com.github.ma2dev.bcs.dataFormat.IData;
+import com.github.ma2dev.bcs.dataFormat.csv.Csv;
+
 
 /**
  * 契約者情報の読み込みを行います。

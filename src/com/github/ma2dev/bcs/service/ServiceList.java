@@ -1,4 +1,4 @@
-package billingCalculationSystem.subscriber;
+package com.github.ma2dev.bcs.service;
 
 /**
  * サービスを特定するユニークなIDを提供します。
