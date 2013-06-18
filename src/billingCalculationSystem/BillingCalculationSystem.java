@@ -13,6 +13,12 @@ import org.apache.commons.cli.Options;
 
 import billingCalculationSystem.subscriber.SubscriberManager;
 
+/**
+ * 通話履歴およびサービス契約情報から契約者の通話料金及びサービス契約料金を算出し、明細に出力します。
+ *
+ * @author ma2dev
+ *
+ */
 public class BillingCalculationSystem {
 	public static final String CALLINFO_OPTION_CHAR = "c";
 	public static final String SERVICEINFO_OPTION_CHAR = "s";

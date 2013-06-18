@@ -14,6 +14,12 @@ import java.util.Map;
 import billingCalculationSystem.conf.Configure;
 import billingCalculationSystem.conf.ConfigureServiceFee;
 
+/**
+ * 全契約者の情報を管理し、明細ファイルへの出力を行います。
+ *
+ * @author ma2dev
+ *
+ */
 public class SubscriberManager {
 
 	private List<Subscriber> subscriberList;
@@ -26,6 +32,25 @@ public class SubscriberManager {
 
 	private Configure configure;
 
+	/**
+	 * コンストラクタ<br>
+	 * 入力情報から、料金計算に必要な情報の構築を行います。
+	 *
+	 * @param subscriberInfoFile
+	 *            契約者の情報が含まれるファイル
+	 * @param callInfoFile
+	 *            呼情報ファイル
+	 * @param serviceInfoFile
+	 *            サービス情報ファイル
+	 * @param outputfile
+	 *            出力先(明細ファイル)
+	 * @param configFile
+	 *            定義ファイル(properties)
+	 * @throws IOException
+	 *             ファイル入力に失敗した場合
+	 * @throws ParseException
+	 *             文字列解析に失敗した場合
+	 */
 	public SubscriberManager(String subscriberInfoFile, String callInfoFile, String serviceInfoFile, String outputfile,
 			String configFile) throws IOException, ParseException {
 		subscriberList = new ArrayList<Subscriber>();
@@ -41,6 +66,11 @@ public class SubscriberManager {
 		build();
 	}
 
+	/**
+	 * 料金計算と明細の出力を行います。
+	 *
+	 * @throws IOException
+	 */
 	public void execute() throws IOException {
 		for (Subscriber subscriber : subscriberList) {
 			subscriber.calculate();

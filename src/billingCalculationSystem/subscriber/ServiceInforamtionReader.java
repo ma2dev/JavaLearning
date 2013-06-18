@@ -9,6 +9,12 @@ import billingCalculationSystem.conf.ConfigureServiceFee;
 import billingCalculationSystem.dataFormat.IData;
 import billingCalculationSystem.dataFormat.csv.Csv;
 
+/**
+ * サービス情報ファイルを読み込みます。
+ *
+ * @author ma2dev
+ *
+ */
 public class ServiceInforamtionReader {
 
 	private static final int SERVICEINFORMATION_NUM_OF_MINPARAM = 3;
@@ -80,6 +86,13 @@ public class ServiceInforamtionReader {
 		return true;
 	}
 
+	/**
+	 * 家族無料通話サービスの電話番号配列を組み立てます。
+	 *
+	 * @param list
+	 *            サービス契約情報の文字列のリスト(サービス情報ファイルの1行文のデータ配列)
+	 * @return 電話番号を文字列として格納した配列を返却します。
+	 */
 	private static List<String> buildFamilyCallTelnumberArray(List<IData> list) {
 		List<String> telnumberList = new ArrayList<String>();
 

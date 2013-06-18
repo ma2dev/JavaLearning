@@ -5,6 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 通話履歴を管理します。
+ *
+ * @author ma2dev
+ *
+ */
 public class CallHistory {
 
 	private String srcTelnumber;
@@ -34,6 +40,22 @@ public class CallHistory {
 	public static final int END_REASON_ERROR = 1;
 	private static final String END_REASON_ERROR_STRING = "1"; // 文字列定義
 
+	/**
+	 * コンストラクタ
+	 *
+	 * @param srcTelnumber
+	 *            発信者電話番号
+	 * @param dstTelnumber
+	 *            着信者電話番号
+	 * @param startTime
+	 *            通話確立時刻
+	 * @param endTime
+	 *            通話切断時刻
+	 * @param reason
+	 *            切断様式
+	 * @throws ParseException
+	 *             文字列の解析に失敗した場合
+	 */
 	public CallHistory(String srcTelnumber, String dstTelnumber, String startTime, String endTime, String reason)
 			throws ParseException {
 		this.srcTelnumber = new String(srcTelnumber);
@@ -43,10 +65,20 @@ public class CallHistory {
 		this.reason = stringToEndReason(reason);
 	}
 
+	/**
+	 * 発信者電話番号を取得します。
+	 *
+	 * @return 発信者電話番号
+	 */
 	public String getSrcTelnumber() {
 		return srcTelnumber;
 	}
 
+	/**
+	 * 着信者電話番号を取得します。
+	 *
+	 * @return 着信者電話番号
+	 */
 	public String getDstTelnumber() {
 		return dstTelnumber;
 	}
