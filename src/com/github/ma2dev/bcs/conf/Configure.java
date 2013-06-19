@@ -2,6 +2,7 @@ package com.github.ma2dev.bcs.conf;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Properties;
 
 /**
@@ -32,7 +33,10 @@ public class Configure {
 	 */
 	public Configure(final String propetiesfile) throws IOException {
 		properties = new Properties();
-		properties.load(new FileReader(propetiesfile));
+
+		Reader file = new FileReader(propetiesfile);
+		properties.load(file);
+		file.close();
 	}
 
 	/**

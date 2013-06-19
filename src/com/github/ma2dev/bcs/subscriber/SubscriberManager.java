@@ -18,7 +18,6 @@ import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
 import com.github.ma2dev.bcs.service.Service;
 import com.github.ma2dev.bcs.service.ServiceInforamtionReader;
 
-
 /**
  * 全契約者の情報を管理し、明細ファイルへの出力を行います。
  *
@@ -69,6 +68,10 @@ public class SubscriberManager {
 		this.configure = new Configure(configFile);
 
 		build();
+
+		this.subscriberInfoFile.close();
+		this.callInfoFile.close();
+		this.serviceInfoFile.close();
 	}
 
 	/**
@@ -82,6 +85,7 @@ public class SubscriberManager {
 			outputFile.write(subscriber.toString() + "\n");
 		}
 		outputFile.flush();
+		outputFile.close();
 	}
 
 	/**

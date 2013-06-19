@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
 
-
 /**
  * サービスを管理します。
  *
@@ -73,6 +72,11 @@ public class Service {
 	public void setCondition(String display, String interrupt, List<String> familyCall) {
 		serviceConditionDisplay = toBoolean(display);
 		serviceConditionInterrupt = toBoolean(interrupt);
+
+		for (String number : familyCall) {
+			familyCallTelnumberList.add(number);
+		}
+
 		if (familyCall.size() > 0) {
 			// 1件以上の登録で契約有りと見なす
 			serviceConditionFamilyCall = true;
