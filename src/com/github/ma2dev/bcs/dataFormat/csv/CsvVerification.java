@@ -85,35 +85,31 @@ public class CsvVerification {
 	/**
 	 * 列数の検証をします。<br>
 	 * 全ての行について指定された列数であることを検証します。<br>
-	 * なお、データが1行も無い場合に、0列あることを検証した場合にはtrueを返却します。
+	 * なお、検証対象のデータが1行も無い場合はfalseを返却します。
 	 *
 	 * @param size
 	 *            列数
 	 * @return 指定された行数ある場合はtrueを、無い場合はfalseを返却します。
 	 */
 	public boolean isColumnSize(int size) {
-		if (this.isRowSizeMoreThan(0) == true) {
-			for (int i = 0; i < csv.getRowSize(); i++) {
-				List<IData> line = csv.getCells(i);
-				if (line.size() != size) {
-					return false;
-				}
-			}
-			return true;
-		} else if (this.isRowSize(0) && size == 0) {
-			// データがないとき、列数0は真のためtrueを返却する。
-			return true;
+		if (this.isRowSizeMoreThan(0) == false) {
+			// 1行もデータが無い場合
+			return false;
 		}
 
-		// 行が無い場合
-		return false;
+		for (int i = 0; i < csv.getRowSize(); i++) {
+			List<IData> line = csv.getCells(i);
+			if (line.size() != size) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
 	 * 列数の検証をします。<br>
 	 * 指定した行について指定された列数であることを検証します。<br>
-	 * なお、指定した行が存在しない場合はfalseを返却します。<br>
-	 * このため、指定した行が存在しないとき、該当行に0列あることを検証した場合にはfalseを返却します。
+	 * なお、指定した行が存在しない場合はfalseを返却します。
 	 *
 	 * @param row
 	 *            行指定
@@ -135,13 +131,19 @@ public class CsvVerification {
 
 	/**
 	 * 列数の検証をします。<br>
-	 * 全ての行について指定された列数*より大きい*ことを検証します。
+	 * 全ての行について指定された列数*より大きい*ことを検証します。<br>
+	 * なお、検証対象のデータが1行も無い場合はfalseを返却します。
 	 *
 	 * @param size
 	 *            列数
 	 * @return 指定された列数*より大きい*場合はtrueを、以下の場合はfalseを返却します。
 	 */
 	public boolean isColumnSizeMoreThan(int size) {
+		if (this.isRowSizeMoreThan(0) == false) {
+			// 1行もデータが無い場合
+			return false;
+		}
+
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			List<IData> line = csv.getCells(i);
 			if (line.size() <= size) {
@@ -176,13 +178,19 @@ public class CsvVerification {
 
 	/**
 	 * 列数の検証をします。<br>
-	 * 全ての行について指定された列数*以上*であることを検証します。
+	 * 全ての行について指定された列数*以上*であることを検証します。<br>
+	 * なお、検証対象のデータが1行も無い場合はfalseを返却します。
 	 *
 	 * @param size
 	 *            列数
 	 * @return 指定された列数*以上*の場合はtrueを、より小さい場合はfalseを返却します。
 	 */
 	public boolean isColumnSizeMoreThanOrEqual(int size) {
+		if (this.isRowSizeMoreThan(0) == false) {
+			// 1行もデータが無い場合
+			return false;
+		}
+
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			List<IData> line = csv.getCells(i);
 			if (line.size() < size) {

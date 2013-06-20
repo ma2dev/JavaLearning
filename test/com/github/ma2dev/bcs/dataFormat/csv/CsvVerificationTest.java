@@ -76,7 +76,7 @@ public class CsvVerificationTest {
 		CsvVerification verification = new CsvVerification(csv);
 
 		assertThat(verification.isColumnSize(-1), is(false));
-		assertThat(verification.isColumnSize(0), is(true));
+		assertThat(verification.isColumnSize(0), is(false));
 		assertThat(verification.isColumnSize(1), is(false));
 
 		csv.setCell(0, 0, "x");
@@ -96,9 +96,8 @@ public class CsvVerificationTest {
 		CsvVerification verification = new CsvVerification(csv);
 
 		assertThat(verification.isColumnSize(0, -1), is(false));
-		assertThat(verification.isColumnSize(0, 0), is(false));
-		assertThat(verification.isColumnSize(0, 1), is(false));
-
+		assertThat(verification.isColumnSize(1, 0), is(false));
+		assertThat(verification.isColumnSize(2, 1), is(false));
 
 		csv.setCell(0, 0, "x");
 		csv.setCell(0, 1, "y");
@@ -120,7 +119,9 @@ public class CsvVerificationTest {
 		Csv csv = new Csv();
 		CsvVerification verification = new CsvVerification(csv);
 
-		// TODO データ未設定時
+		assertThat(verification.isColumnSizeMoreThan(-1), is(false));
+		assertThat(verification.isColumnSizeMoreThan(0), is(false));
+		assertThat(verification.isColumnSizeMoreThan(1), is(false));
 
 		csv.setCell(0, 0, "x");
 		csv.setCell(0, 1, "y");
@@ -140,7 +141,9 @@ public class CsvVerificationTest {
 		Csv csv = new Csv();
 		CsvVerification verification = new CsvVerification(csv);
 
-		// TODO データ未設定時
+		assertThat(verification.isColumnSizeMoreThan(0, -1), is(false));
+		assertThat(verification.isColumnSizeMoreThan(1, 0), is(false));
+		assertThat(verification.isColumnSizeMoreThan(2, 1), is(false));
 
 		csv.setCell(0, 0, "x");
 		csv.setCell(0, 1, "y");
@@ -160,9 +163,10 @@ public class CsvVerificationTest {
 		Csv csv = new Csv();
 		CsvVerification verification = new CsvVerification(csv);
 
-		// TODO データ未設定時
+		assertThat(verification.isColumnSizeMoreThanOrEqual(-1), is(false));
+		assertThat(verification.isColumnSizeMoreThanOrEqual(0), is(false));
+		assertThat(verification.isColumnSizeMoreThanOrEqual(1), is(false));
 
-		assertThat(verification.isColumnSizeMoreThanOrEqual(-1), is(true)); // 2列で-1列以上ある
 		csv.setCell(0, 0, "x");
 		assertThat(verification.isColumnSizeMoreThanOrEqual(-1), is(true)); // 2列で-1列以上ある
 
@@ -186,7 +190,9 @@ public class CsvVerificationTest {
 		Csv csv = new Csv();
 		CsvVerification verification = new CsvVerification(csv);
 
-		// TODO データ未設定時
+		assertThat(verification.isColumnSizeMoreThanOrEqual(0, -1), is(false));
+		assertThat(verification.isColumnSizeMoreThanOrEqual(1, 0), is(false));
+		assertThat(verification.isColumnSizeMoreThanOrEqual(2, 1), is(false));
 
 		csv.setCell(0, 0, "x");
 		csv.setCell(0, 1, "y");
