@@ -39,7 +39,8 @@ public class SubscriberManager {
 	/**
 	 * コンストラクタ<br>
 	 * 入力情報から、料金計算に必要な情報の構築を行います。
-	 *
+	 * @param configFile
+	 *            定義ファイル(properties)
 	 * @param subscriberInfoFile
 	 *            契約者の情報が含まれるファイル
 	 * @param callInfoFile
@@ -48,15 +49,14 @@ public class SubscriberManager {
 	 *            サービス情報ファイル
 	 * @param outputfile
 	 *            出力先(明細ファイル)
-	 * @param configFile
-	 *            定義ファイル(properties)
+	 *
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 * @throws ParseException
 	 *             文字列解析に失敗した場合
 	 */
-	public SubscriberManager(String subscriberInfoFile, String callInfoFile, String serviceInfoFile, String outputfile,
-			String configFile) throws IOException, ParseException {
+	public SubscriberManager(String configFile, String subscriberInfoFile, String callInfoFile, String serviceInfoFile,
+			String outputfile) throws IOException, ParseException {
 		subscriberList = new ArrayList<Subscriber>();
 		subscriberMap = new HashMap<String, Subscriber>();
 
