@@ -10,7 +10,6 @@ import java.util.StringTokenizer;
 
 import com.github.ma2dev.bcs.dataFormat.IData;
 
-
 /**
  * CSVファイルを表現します。<br>
  * コンストラクタでコンフィグを設定可能です。
@@ -54,7 +53,8 @@ public class Csv {
 	}
 
 	/**
-	 * 行と列を指定して情報を取得します。
+	 * 行と列を指定して情報を取得します。<br>
+	 * 該当の指定箇所にデータが無い場合、nullを返却します。
 	 *
 	 * @param row
 	 *            行
@@ -63,8 +63,14 @@ public class Csv {
 	 * @return 情報
 	 */
 	public IData getCell(final int row, final int column) {
-		List<IData> line = cellArray.get(row);
-		IData cell = line.get(column);
+		IData cell = null;
+		try {
+			List<IData> line = cellArray.get(row);
+			cell = line.get(column);
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+
 		return cell;
 	}
 
@@ -89,6 +95,61 @@ public class Csv {
 	}
 
 	/**
+	 * 行と列を指定して情報を設定します。<br>
+	 * 行および列の値は0から始まります。<br>
+	 * 指定された行・列に情報がすでに存在していた場合には、情報は置き換えられます。<br>
+	 * 指定された行・列とすでに設定済みの情報の間に空のセルが存在する場合、該当のセルには空文字が設定されます。<br>
+	 * すなわち、row:3, colum:3, data:"x"を下記のようなcsvオブジェクトに対して設定した場合、<br>
+	 * [a][b]<br>
+	 * 以下のようなcsvオブジェクトとなります。<br>
+	 * [a][b]<br>
+	 * []<br>
+	 * [] [] [z]<br>
+	 *
+	 * @param row
+	 *            行
+	 * @param column
+	 *            列
+	 * @param data
+	 *            情報
+	 */
+	public void setCell(final int row, final int column, final String data) {
+		IData inputData = new Cell(data);
+
+		List<IData> targetRow = null;
+		if (cellArray.size() <= row) {
+			// 設定対象の行がまだ無い場合
+			targetRow = new ArrayList<IData>();
+
+			// 空行の構築
+			for (int i = cellArray.size(); i < row; i++) {
+				List<IData> emptyData = new ArrayList<IData>();
+				emptyData.add(new Cell(""));
+				cellArray.add(emptyData);
+			}
+			cellArray.add(targetRow);
+		} else {
+			// 設定対象の行がすでにある場合
+			targetRow = cellArray.get(row);
+		}
+
+		// 列データの構築
+		if (targetRow.size() <= column) {
+			// 設定対象の列がまだ無い場合
+
+			// 空列の構築
+			for (int i = targetRow.size(); i < column; i++) {
+				IData emptyData = new Cell("");
+				targetRow.add(emptyData);
+			}
+			targetRow.add(inputData);
+		} else {
+			// 設定対象の列がすでにある場合
+			targetRow.set(column, inputData);
+		}
+	}
+
+	/**
 	 * Readerから読み込みます。
 	 *
 	 * @param reader
@@ -105,7 +166,8 @@ public class Csv {
 	}
 
 	/**
-	 * Writerに書き込みます。
+	 * Writerに書き込みます。<br>
+	 * 最終行に改行は入りません。
 	 *
 	 * @param writer
 	 *            Writerオブジェクト
@@ -113,11 +175,27 @@ public class Csv {
 	 *             書き込みに失敗した場合
 	 */
 	public void write(final Writer writer) throws IOException {
-		for (int i = 0; i < cellArray.size(); i++) {
-			writer.write(toStringOfLine(i));
-			writer.write('\n');
-		}
+		writer.write(toString());
 		writer.flush();
+	}
+
+	/**
+	 * csv形式の文字列として出力します。<br>
+	 * 最終行には改行は入りません。
+	 */
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+
+		for (int i = 0; i < cellArray.size(); i++) {
+			sb.append(toStringOfLine(i));
+			if (i != cellArray.size() - 1) {
+				// 最終行以外は改行を入れる
+				sb.append("\n");
+			}
+		}
+
+		return sb.toString();
 	}
 
 	/**
@@ -161,4 +239,5 @@ public class Csv {
 
 		return sb.toString();
 	}
+
 }
