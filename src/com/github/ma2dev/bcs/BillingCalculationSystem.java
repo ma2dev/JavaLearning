@@ -145,7 +145,7 @@ public class BillingCalculationSystem {
 		// main --------------------------------------------------------------
 		SubscriberManager manager;
 		try {
-			manager = new SubscriberManager(serviceInfoFile, callInfoFile, serviceInfoFile, outputFile, propertiesFile);
+			manager = new SubscriberManager(propertiesFile, serviceInfoFile, callInfoFile, serviceInfoFile, outputFile);
 			manager.execute();
 		} catch (IOException e) {
 			e.printStackTrace();

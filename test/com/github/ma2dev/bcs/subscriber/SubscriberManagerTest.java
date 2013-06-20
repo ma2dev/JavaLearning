@@ -41,7 +41,7 @@ public class SubscriberManagerTest {
 
 		SubscriberManager manager = null;
 		try {
-			manager = new SubscriberManager(subscriberInfoFile, callInfoFile, serviceInfoFile, outputfile, configFile);
+			manager = new SubscriberManager(configFile, subscriberInfoFile, callInfoFile, serviceInfoFile, outputfile);
 			manager.execute();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -61,7 +61,7 @@ public class SubscriberManagerTest {
 
 		SubscriberManager manager = null;
 		try {
-			manager = new SubscriberManager(subscriberInfoFile, callInfoFile, serviceInfoFile, outputfile, configFile);
+			manager = new SubscriberManager(configFile, subscriberInfoFile, callInfoFile, serviceInfoFile, outputfile);
 			manager.execute();
 		} catch (IOException e) {
 			e.printStackTrace();
