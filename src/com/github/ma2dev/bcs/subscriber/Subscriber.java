@@ -90,7 +90,7 @@ public class Subscriber {
 	 * 契約者の情報を明細の出力形式の文字列として返却します。
 	 */
 	public String toString() {
-		// TODO 集計期間を入れられるようにする
+		// TODO 集計期間には未対応
 		return telnumber + "," + "," + telPrice + "," + servicePrice + "," + failure;
 	}
 

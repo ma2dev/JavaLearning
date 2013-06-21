@@ -75,14 +75,22 @@ public class Csv {
 	}
 
 	/**
-	 * 行を指定して情報をListとして取得します。
+	 * 行を指定して情報をListとして取得します。<br>
+	 * 該当の指定行にデータが無い場合、nullを返却します。
 	 *
 	 * @param row
 	 *            行番号
 	 * @return 行の情報のcellのList
 	 */
 	public List<IData> getCells(final int row) {
-		return cellArray.get(row);
+		List<IData> list = null;
+		try {
+			list = cellArray.get(row);
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+
+		return list;
 	}
 
 	/**

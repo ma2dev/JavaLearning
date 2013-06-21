@@ -209,4 +209,32 @@ public class CsvVerificationTest {
 		csv.setCell(3, 0, "b");
 		assertThat(verification.isColumnSizeMoreThanOrEqual(3, 1), is(true));// 検証対象は1列分あり1列以上
 	}
+
+	@Test
+	public final void test桁数チェック() {
+		Csv csv = new Csv();
+		CsvVerification verification = new CsvVerification(csv);
+
+		// データ未設定はfalse
+		assertThat(verification.isDigit(0, 0, 0), is(false));
+		assertThat(verification.isDigit(0, 0, -1), is(false));
+		assertThat(verification.isDigit(0, 0, 1), is(false));
+		assertThat(verification.isDigit(1, 1, 0), is(false));
+		assertThat(verification.isDigit(-1, -1, 0), is(false));
+		assertThat(verification.isDigit(1, 1, 1), is(false));
+
+		csv.setCell(1, 1, "0123456789");
+		assertThat(verification.isDigit(1, 1, 9), is(false));
+		assertThat(verification.isDigit(1, 1, 10), is(true));
+		assertThat(verification.isDigit(1, 1, 11), is(false));
+
+		csv.setCell(1, 1, "あ"); // UTF-8で"あ"は、0xe38182 で3byte
+		assertThat(verification.isDigit(1, 1, 3), is(true));
+
+		csv.setCell(1, 1, "あa"); // UTF-8で"あ"は、0xe38182 で3byte
+		assertThat(verification.isDigit(1, 1, 4), is(true));
+
+		assertThat(verification.isDigit(1, 0, 0), is(true)); // 空文字
+	}
+
 }

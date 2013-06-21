@@ -79,7 +79,6 @@ public class CsvTest {
 		assertNotNull(csv);
 		assertNotNull(csv.getConfiguration());
 		assertEquals(0, csv.getRowSize());
-
 	}
 
 	@Test

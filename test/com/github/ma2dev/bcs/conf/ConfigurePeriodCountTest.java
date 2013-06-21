@@ -52,7 +52,7 @@ public class ConfigurePeriodCountTest {
 
 		int day = 0;
 
-		// XXX,0,-16,10.5
+		// X X X,0,-16,10.5
 		day = periodCount.getPreviousStartDay();
 		assertEquals(0, day);
 
