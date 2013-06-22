@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.call;
+package com.github.ma2dev.bcs.dataFormat.csv;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -9,9 +9,10 @@ import java.io.Reader;
 import org.junit.Test;
 
 import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
+import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
-public class CallInformationVerificationTest {
+public class CsvVerificationPropertiesTest {
 
 	@Test
 	public final void test正常ファイルの確認() {
@@ -27,9 +28,8 @@ public class CallInformationVerificationTest {
 		}
 
 		boolean ret = false;
-		CallInformationVerification verification = new CallInformationVerification();
 		try {
-			ret = verification.verificateCsv(csv, verificationFile);
+			ret = CsvVerificationProperties.verificateCsv(csv, verificationFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (IllegalDataFormatException e) {

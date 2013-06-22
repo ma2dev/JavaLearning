@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.call;
+package com.github.ma2dev.bcs.dataFormat.csv;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -7,29 +7,46 @@ import java.util.List;
 import java.util.Properties;
 
 import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
-import com.github.ma2dev.bcs.dataFormat.csv.Csv;
-import com.github.ma2dev.bcs.dataFormat.csv.CsvVerification;
 
 /**
- * 呼情報データの妥当性を検証する仕組みを提供します。
+ * CSVデータの妥当性を検証する仕組みを提供します。<br>
+ * 妥当性の検証にはpropertiesファイルに示された情報に従います。<br>
+ * <br>
+ * CSVデータの行数および列数の下限値、上限値は以下のkey(*.*)によって指定します。<br>
+ * *.*=[行数下限値],[行数上限値],[列数下限値],[列数上限値]<br>
+ * [行数下限値]: 行数の下限値を半角数字で指定します。省略可能です。<br>
+ * [行数上限値]: 行数の上限値を半角数字で指定します。省略可能です。<br>
+ * [列数下限値]: 列数の下限値を半角数字で指定します。省略可能です。<br>
+ * [列数上限値]: 列数の上限値を半角数字で指定します。列数の上限値は32767です。省略可能です。省略した場合は最大で列数の上限値まで走査します。<br>
+ * <br>
+ * CSVは列の情報に従ったデータを複数行持つことでデータを表現していることを期待し、各列のデータフォーマットを以下のように規定します。
+ * この規定に対しての妥当性を検証します。<br>
+ * 列のデータフォーマットは、対象列を以下のkey(*.[列]:列は0..nの半角数字)によって指定します。[列]番号は必ず連番であることを期待します。
+ * 欠番があった場合の動作は保証されません。<br>
+ * *.[列]=[桁数下限値],[桁数上限値],[型],[必須/非必須]<br>
+ * [桁数下限値]: 対象列のデータ桁数下限値を半角数字で指定します。<br>
+ * [桁数下限値]: 対象列のデータ桁数上限値を半角数字で指定します。<br>
+ * [型]: 対象データの型を指定します。指定は、半角英字を ALPHABET 、半角数字を NUMERIC とします。それらの条件を複数指定する場合は |
+ * で区切ります。すなわち、半角英数字の場合は ALPHABET|NUMERIC と指定できます。条件の順番は問いません。<br>
+ * [必須/非必須]: 対象列のデータが必須であるか、省略可能かを指定します。必須の場合 MUST を、省略可能な場合 OPTION を指定します。
  *
  * @author ma2dev
  *
  */
-public class CallInformationVerification {
+public class CsvVerificationProperties {
 
 	/** 行と列の妥当性情報のkey */
 	private static final String ROW_AND_COLUMN_KEY = "*.*";
 	/** 行と列の妥当性情報の要素数 */
 	private static final int ROW_AND_COLUMN_ELEMENT_NUM = 4;
-	/** 行と列の妥当性情報の最小行数を示すindex */
-	private static final int ROW_AND_COLUMN_INDEX_ROMMIN = 0;
-	/** 行と列の妥当性情報の最大行数を示すindex */
-	private static final int ROW_AND_COLUMN_INDEX_ROMMAX = 1;
-	/** 行と列の妥当性情報の最小列数を示すindex */
-	private static final int ROW_AND_COLUMN_INDEX_COLUMNMIN = 2;
-	/** 行と列の妥当性情報の最大列数を示すindex */
-	private static final int ROW_AND_COLUMN_INDEX_COLUMNMAX = 3;
+	/** 行と列の妥当性情報の行数下限値を示すindex */
+	private static final int ROW_AND_COLUMN_INDEX_ROMLOWER = 0;
+	/** 行と列の妥当性情報の行数上限値を示すindex */
+	private static final int ROW_AND_COLUMN_INDEX_ROMUPPER = 1;
+	/** 行と列の妥当性情報の列数下限値を示すindex */
+	private static final int ROW_AND_COLUMN_INDEX_COLUMNLOWER = 2;
+	/** 行と列の妥当性情報の列数上限値を示すindex */
+	private static final int ROW_AND_COLUMN_INDEX_COLUMNUPPER = 3;
 
 	/** 列の妥当性情報のkeyの接頭辞。この後に列番号が付属する */
 	private static final String COLUMN_KEY_PREFIX = "*.";
@@ -56,12 +73,18 @@ public class CallInformationVerification {
 	/** 列の妥当性情報の非必須を示す文字列 */
 	private static final String COLUMN_ELEMENT_MORO_OPTION = "OPTION";
 
+	/** 空文字だった場合や文字列変換に失敗した場合に返却する値 */
+	private static final int STRING_TO_INT_ERROR_VALUE = -1;
+
+	/** 列数のシステムとしての最大値 */
+	private static final int COLUMN_SYSTEM_UPPER = Short.MAX_VALUE;
+
 	/**
 	 * csvデータの妥当性を検証します。
 	 *
 	 * @param csv
 	 *            csvデータ
-	 * @param verificationFile
+	 * @param verificationReader
 	 *            妥当性検証のための定義ファイル
 	 * @return csvデータが妥当な場合trueを、そうで無い場合はIllegalDataFormatExceptionの例外をthrowします。<br>
 	 *         また、妥当性検証のための定義ファイルが不正な場合はIllegalArgumentExceptionをthrowします。
@@ -70,11 +93,14 @@ public class CallInformationVerification {
 	 *             ファイル読み込みに失敗した場合
 	 * @throws IllegalDataFormatException
 	 *             データが妥当で無い場合
+	 * @throws IllegalArgumentException
+	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
-	public boolean verificateCsv(Csv csv, Reader verificationFile) throws IOException, IllegalDataFormatException {
+	public static boolean verificateCsv(Csv csv, Reader verificationReader) throws IllegalDataFormatException,
+			IllegalArgumentException, IOException {
 		CsvVerification verification = new CsvVerification(csv);
 		Properties properties = new Properties();
-		properties.load(verificationFile);
+		properties.load(verificationReader);
 
 		// 列数と桁数の制限取得
 		String targetStr = properties.getProperty(ROW_AND_COLUMN_KEY);
@@ -88,42 +114,51 @@ public class CallInformationVerification {
 		}
 
 		// 列数と桁数の妥当性チェック
-		int rowMin = stringToInt(rowAndColumn.get(ROW_AND_COLUMN_INDEX_ROMMIN), -1);
-		int rowMax = stringToInt(rowAndColumn.get(ROW_AND_COLUMN_INDEX_ROMMAX), -1);
-		int columnMin = stringToInt(rowAndColumn.get(ROW_AND_COLUMN_INDEX_COLUMNMIN), -1);
-		int columnMax = stringToInt(rowAndColumn.get(ROW_AND_COLUMN_INDEX_COLUMNMAX), -1);
-		if (verificateRowAndColumn(verification, rowMin, rowMax, columnMin, columnMax) == false) {
+		int rowLower = stringToInt(rowAndColumn.get(ROW_AND_COLUMN_INDEX_ROMLOWER), STRING_TO_INT_ERROR_VALUE);
+		int rowUpper = stringToInt(rowAndColumn.get(ROW_AND_COLUMN_INDEX_ROMUPPER), STRING_TO_INT_ERROR_VALUE);
+		int columnLower = stringToInt(rowAndColumn.get(ROW_AND_COLUMN_INDEX_COLUMNLOWER), STRING_TO_INT_ERROR_VALUE);
+		int columnUpper = stringToInt(rowAndColumn.get(ROW_AND_COLUMN_INDEX_COLUMNUPPER), STRING_TO_INT_ERROR_VALUE);
+		if (columnUpper > COLUMN_SYSTEM_UPPER) {
+			throw new IllegalArgumentException("列数上限値違反[expected:" + COLUMN_SYSTEM_UPPER + ", actual:" + columnUpper
+					+ "]");
+		}
+		if (verificateRowAndColumn(verification, rowLower, rowUpper, columnLower, columnUpper) == false) {
 			throw new IllegalDataFormatException("列数と桁数の妥当性チェック違反");
+		}
+
+		// 列数上限値が設定されていない場合、許容最大数を設定
+		if (columnUpper == STRING_TO_INT_ERROR_VALUE) {
+			columnUpper = COLUMN_SYSTEM_UPPER;
 		}
 
 		// 列情報の妥当性チェック
 		// 列情報の妥当性チェック情報は最大列数分あることを期待する
-		for (int i = 0; i < columnMax; i++) {
+		for (int i = 0; i < columnUpper; i++) {
 			String key = COLUMN_KEY_PREFIX + i;
 			targetStr = properties.getProperty(key);
+			if (targetStr == null) {
+				// 列の走査が終わった場合
+				// columnUpperがCOLUMN_SYSTEM_UPPERの場合にのみ通ると期待される
+				// それ以外の場合、列情報として情報の欠落がある場合
+				break;
+			}
+
 			List<String> columnList = getSplitString(targetStr, csv.getConfiguration().getDelimiter(),
 					COLUMN_ELEMENT_NUM);
 			if (columnList.size() != COLUMN_ELEMENT_NUM) {
 				// 列の妥当性情報が不足している場合
-				throw new IllegalArgumentException("列の妥当性情報の要素数が想定値でない。" + "[expected:" + COLUMN_ELEMENT_NUM
-						+ ", actual:" + columnList.size() + "][properties.key:" + key + ", prpperties.value:"
-						+ targetStr + "]");
+				throw new IllegalArgumentException("列の妥当性情報の要素数が想定値でない。[expected:" + COLUMN_ELEMENT_NUM + ", actual:"
+						+ columnList.size() + "][properties.key:" + key + ", prpperties.value:" + targetStr + "]");
 			}
 
 			// 列情報の妥当性チェック
 			int targetColumn = i;
 			// [桁数下限値],[桁数上限値],[型],[必須/非必須]
-			int digitLower = stringToInt(columnList.get(COLUMN_ELEMENT_INDEX_DIGITLOWER), -1);
-			int digitUpper = stringToInt(columnList.get(COLUMN_ELEMENT_INDEX_DIGITUPPER), -1);
+			int digitLower = stringToInt(columnList.get(COLUMN_ELEMENT_INDEX_DIGITLOWER), STRING_TO_INT_ERROR_VALUE);
+			int digitUpper = stringToInt(columnList.get(COLUMN_ELEMENT_INDEX_DIGITUPPER), STRING_TO_INT_ERROR_VALUE);
 			String type = columnList.get(COLUMN_ELEMENT_INDEX_TYPE);
 			String mOrO = columnList.get(COLUMN_ELEMENT_INDEX_MORO);
-			try {
-				verificateColumn(verification, targetColumn, digitLower, digitUpper, type, mOrO);
-			} catch (IllegalDataFormatException e) {
-				// IllegalDataFormatExceptionのみcatch
-				// TODO Exception内容のlogging
-				return false;
-			}
+			verificateColumn(verification, targetColumn, digitLower, digitUpper, type, mOrO);
 		}
 
 		return true;
@@ -142,7 +177,7 @@ public class CallInformationVerification {
 	 *            と同じ効果を得ます。
 	 * @return 分割した文字列の配列
 	 */
-	private List<String> getSplitString(String str, String regex, int limit) {
+	private static List<String> getSplitString(String str, String regex, int limit) {
 		List<String> list = new ArrayList<String>();
 
 		for (String st : str.split(regex)) {
@@ -161,7 +196,7 @@ public class CallInformationVerification {
 	 *            空文字だった場合や文字列変換に失敗した場合に返却する値
 	 * @return int値
 	 */
-	private int stringToInt(String target, int returunThenError) {
+	private static int stringToInt(String target, int returunThenError) {
 		int toInt = 0;
 		try {
 			toInt = Integer.parseInt(target);
@@ -177,38 +212,38 @@ public class CallInformationVerification {
 	 *
 	 * @param target
 	 *            妥当性検証対象データ
-	 * @param rowMin
+	 * @param rowLower
 	 *            最小行数
-	 * @param rowMax
+	 * @param rowUpper
 	 *            最大行数
-	 * @param columnMin
+	 * @param columnLower
 	 *            最小列数
-	 * @param columnMax
+	 * @param columnUpper
 	 *            最大列数
 	 * @return 妥当な場合はtrueを返却します。妥当で無い場合はIllegalDataFormatExceptionの例外をthrowします。
 	 * @throws IllegalDataFormatException
 	 *             データが妥当で無い場合
 	 */
-	private boolean verificateRowAndColumn(CsvVerification target, int rowMin, int rowMax, int columnMin, int columnMax)
-			throws IllegalDataFormatException {
-		if (rowMin >= 0) {
-			if (target.isRowSizeMoreThanOrEqual(rowMin) == false) {
-				throw new IllegalDataFormatException("行数と列数の妥当性:最小行数違反");
+	private static boolean verificateRowAndColumn(CsvVerification target, int rowLower, int rowUpper, int columnLower,
+			int columnUpper) throws IllegalDataFormatException {
+		if (rowLower >= 0) {
+			if (target.isRowSizeMoreThanOrEqual(rowLower) == false) {
+				throw new IllegalDataFormatException("行数と列数の妥当性:行数下限値違反");
 			}
 		}
-		if (rowMax >= 0) {
-			if (target.isRowSizeLessThanOrEqual(rowMax) == false) {
-				throw new IllegalDataFormatException("行数と列数の妥当性:最大行数違反");
+		if (rowUpper >= 0) {
+			if (target.isRowSizeLessThanOrEqual(rowUpper) == false) {
+				throw new IllegalDataFormatException("行数と列数の妥当性:行数上限値違反");
 			}
 		}
-		if (columnMin >= 0) {
-			if (target.isColumnSizeMoreThanOrEqual(columnMin) == false) {
-				throw new IllegalDataFormatException("行数と列数の妥当性:最小列数違反");
+		if (columnLower >= 0) {
+			if (target.isColumnSizeMoreThanOrEqual(columnLower) == false) {
+				throw new IllegalDataFormatException("行数と列数の妥当性:列数下限値違反");
 			}
 		}
-		if (columnMax >= 0) {
-			if (target.isColumnSizeLessThanOrEqual(columnMin) == false) {
-				throw new IllegalDataFormatException("行数と列数の妥当性:最大列数違反");
+		if (columnUpper >= 0) {
+			if (target.isColumnSizeLessThanOrEqual(columnLower) == false) {
+				throw new IllegalDataFormatException("行数と列数の妥当性:列数上限値違反");
 			}
 		}
 
@@ -235,7 +270,7 @@ public class CallInformationVerification {
 	 * @throws IllegalDataFormatException
 	 *             データが妥当で無い場合
 	 */
-	private boolean verificateColumn(CsvVerification target, int targetColumn, int digitLower, int digitUpper,
+	private static boolean verificateColumn(CsvVerification target, int targetColumn, int digitLower, int digitUpper,
 			String type, String mOrO) throws IllegalDataFormatException, IllegalArgumentException {
 		boolean mustFlag = false;
 		if (mOrO.equals(COLUMN_ELEMENT_MORO_MUST)) {
@@ -290,7 +325,7 @@ public class CallInformationVerification {
 	 *            解析対象文字列
 	 * @return 解析対象文字列に"ALPHABET"があればtrueを返却し、なければfalseを返却します。
 	 */
-	private boolean analyzeTypeAlphabet(String type) {
+	private static boolean analyzeTypeAlphabet(String type) {
 		for (String st : type.split(COLUMN_ELEMENT_TYPE_DELIMITER)) {
 			if (st.equals(COLUMN_ELEMENT_TYPE_ALPHABET)) {
 				return true;
@@ -308,7 +343,7 @@ public class CallInformationVerification {
 	 *            解析対象文字列
 	 * @return 解析対象文字列に"NUMERIC"があればtrueを返却し、なければfalseを返却します。
 	 */
-	private boolean analyzeTypeNumeric(String type) {
+	private static boolean analyzeTypeNumeric(String type) {
 		for (String st : type.split(COLUMN_ELEMENT_TYPE_DELIMITER)) {
 			if (st.equals(COLUMN_ELEMENT_TYPE_NUMERIC)) {
 				return true;
