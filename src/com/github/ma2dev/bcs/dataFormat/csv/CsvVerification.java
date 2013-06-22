@@ -96,7 +96,6 @@ public class CsvVerification {
 	 * @return 指定された行数*以下*の場合はtrueを、より大きい場合はfalseを返却します。
 	 */
 	public boolean isRowSizeLessThanOrEqual(int size) {
-		// TODO UT未実施
 		return !(isRowSizeMoreThan(size));
 	}
 
@@ -252,8 +251,18 @@ public class CsvVerification {
 	 * @return 指定された列数*以下*の場合はtrueを、より大きい場合はfalseを返却します。
 	 */
 	public boolean isColumnSizeLessThanOrEqual(int size) {
-		// TODO UT未実施
-		return !(isColumnSizeMoreThan(size));
+		if (this.isConstructed() == false) {
+			// 1行もデータが無い場合
+			return false;
+		}
+
+		for (int i = 0; i < csv.getRowSize(); i++) {
+			List<IData> line = csv.getCells(i);
+			if (line.size() > size) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	// 桁数チェック --------------------------------------------------------------
@@ -281,6 +290,104 @@ public class CsvVerification {
 		int length = str.getBytes().length; // バイト数取得
 		if (byteNumber != length) {
 			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * 指定列のデータ桁数下限値を検証します。<br>
+	 * 検証桁数以上の場合にtrueを、検証桁数よりも小さい場合にfalseを返却します。<br>
+	 * 桁数は半角数字(バイト数)でのチェックとします。<br>
+	 * なお、必須時に指定した行列のデータが存在しない場合はfalseを返却します。<br>
+	 * また、検証対象のデータが1行も無い場合はfalseを返却します。
+	 *
+	 * @param column
+	 *            列
+	 * @param digitLow
+	 *            下限桁数
+	 * @param must
+	 *            必須(true)/非必須(false)を指定
+	 * @return
+	 */
+	public boolean isColumnDigitLower(int column, int digitLow, boolean must) {
+		if (this.isConstructed() == false) {
+			// 1行もデータが無い場合
+			return false;
+		}
+		if (must == true) {
+			if (isColumnMust(column) == false) {
+				// 必須チェック
+				return false;
+			}
+		}
+
+		for (int i = 0; i < csv.getRowSize(); i++) {
+			IData data = csv.getCell(i, column);
+			if (must == false && data == null) {
+				// 非必須時はnullを許容
+				continue;
+			}
+
+			String str = (String) data.getData();
+			if (must == false && str.equals("")) {
+				// 非必須時は空文字を許容
+				continue;
+			}
+
+			int length = str.getBytes().length; // バイト数取得
+			if (length < digitLow) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * 指定列のデータ桁数上限値を検証します。<br>
+	 * 検証桁数以下の場合にtrueを、検証桁数よりも大きい場合にfalseを返却します。<br>
+	 * 桁数は半角数字(バイト数)でのチェックとします。<br>
+	 * なお、指定した行列のデータが存在しない場合はfalseを返却します。<br>
+	 * また、検証対象のデータが1行も無い場合はfalseを返却します。
+	 *
+	 * @param column
+	 *            列
+	 * @param digitUpper
+	 *            上限桁数
+	 * @param must
+	 *            必須(true)/非必須(false)を指定
+	 * @return
+	 */
+	public boolean isColumnDigitUpper(int column, int digitUpper, boolean must) {
+		if (this.isConstructed() == false) {
+			// 1行もデータが無い場合
+			return false;
+		}
+		if (must == true) {
+			if (isColumnMust(column) == false) {
+				// 必須チェック
+				return false;
+			}
+		}
+
+		for (int i = 0; i < csv.getRowSize(); i++) {
+			IData data = csv.getCell(i, column);
+			if (must == false && data == null) {
+				// 非必須時はnullを許容
+				continue;
+			}
+
+			String str = (String) data.getData();
+			if (must == false && str.equals("")) {
+				// 非必須時は空文字を許容
+				continue;
+			}
+
+			int length = str.getBytes().length; // バイト数取得
+			if (length > digitUpper) {
+				return false;
+			}
 		}
 
 		return true;
@@ -318,48 +425,28 @@ public class CsvVerification {
 		return true;
 	}
 
+	// 型チェック ----------------------------------------------------------------
 	/**
-	 * 指定列のデータ桁数最小値を検証します。
+	 * 列要素のデータ型の検証をします。<br>
+	 * 全ての行について指定された列のデータ型が指定の文字範囲であることを検証します。<br>
+	 * 必須指定の場合、指定された列がnullもしくは空文字の場合はfalseを返却します。<br>
+	 * なお、検証対象のデータが1行も無い場合はfalseを返却します。
+	 *
 	 *
 	 * @param column
 	 *            列
-	 * @param placeMin
-	 *            最小桁数
-	 * @param must
-	 *            必須(true)/非必須(false)を指定
-	 * @return
-	 */
-	public boolean isColumnPlaceMin(int column, int placeMin, boolean must) {
-		// TODO 未実装
-		return false;
-	}
-
-	/**
-	 * 指定列のデータ桁数最大値を検証します。
-	 *
-	 * @param column
-	 *            列
-	 * @param placeMax
-	 *            最大桁数
-	 * @param must
-	 *            必須(true)/非必須(false)を指定
-	 * @return
-	 */
-	public boolean isColumnPlaceMax(int column, int placeMin, boolean must) {
-		// TODO 未実装
-		return false;
-	}
-
-	/**
-	 *
-	 * @param column
 	 * @param typeAlphabet
-	 * @param typeNumber
+	 *            半角英字で構成されていることを検証する場合はtrueを設定し、そうで無い場合はfalseを設定します。<br>
+	 * @param typeNumeric
+	 *            半角数字で構成されていることを検証する場合はtrueを設定し、そうで無い場合はfalseを設定します。<br>
 	 * @param must
-	 * @return
+	 *            検証する列要素が必須の場合trueを、非必須の場合falseを設定します。<br>
+	 *            trueとした場合、検証する列要素がnullまたは空文字の場合falseを返却します。<br>
+	 *            falseとした場合、検証する列要素がnullまたは空文字の場合には検証を行わず、
+	 *            次の行の該当列の要素の検証を引き続き実施します。
+	 * @return 指定された列要素のデータ型が指定された型である場合はtrueを、そうで無い場合はfalseを返却します。
 	 */
-	public boolean isColumnType(int column, boolean typeAlphabet, boolean typeNumber, boolean must) {
-		// TODO UT未実施
+	public boolean isColumnType(int column, boolean typeAlphabet, boolean typeNumeric, boolean must) {
 		if (this.isConstructed() == false) {
 			// 1行もデータが無い場合
 			return false;
@@ -374,20 +461,20 @@ public class CsvVerification {
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			IData data = csv.getCell(i, column);
 			String s = (String) data.getData();
-			if (typeAlphabet == true && typeNumber == false) {
+			if (typeAlphabet == true && typeNumeric == false) {
 				if (isAlphabet(s) == false) {
 					return false;
 				}
-			} else if (typeAlphabet == false && typeNumber == true) {
-				if (isNumber(s) == false) {
+			} else if (typeAlphabet == false && typeNumeric == true) {
+				if (isNumeric(s) == false) {
 					return false;
 				}
-			} else if (typeAlphabet == true && typeNumber == true) {
-				if (isAlphabetAndNumber(s) == false) {
+			} else if (typeAlphabet == true && typeNumeric == true) {
+				if (isAlphabetNumeric(s) == false) {
 					return false;
 				}
 			} else {
-				if (isAlphabetAndNumber(s)) {
+				if (isAlphabetNumeric(s)) {
 					return false;
 				}
 			}
@@ -402,7 +489,7 @@ public class CsvVerification {
 	 *            検証対象文字列
 	 * @return 半角英数字のみで構成されている場合はtrueを、そうで無い場合はfalseを返却します。
 	 */
-	private boolean isAlphabetAndNumber(String s) {
+	private boolean isAlphabetNumeric(String s) {
 		return s.matches(VERIFICATION_MATCH_ALPHABET_AND_NUMBER);
 	}
 
@@ -424,7 +511,7 @@ public class CsvVerification {
 	 *            検証対象文字列
 	 * @return 半角数字のみで構成されている場合はtrueを、そうで無い場合はfalseを返却します。
 	 */
-	private boolean isNumber(String s) {
+	private boolean isNumeric(String s) {
 		return s.matches(VERIFICATION_MATCH_NUMBER);
 	}
 
