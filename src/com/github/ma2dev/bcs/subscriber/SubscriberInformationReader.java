@@ -30,7 +30,7 @@ public class SubscriberInformationReader {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public static List<Subscriber> readFromCsv(final Reader reader) throws IOException {
+	public static List<Subscriber> readFromCsv(Reader reader) throws IOException {
 		Csv serviceInfoCsv = new Csv();
 		serviceInfoCsv.read(reader);
 
@@ -68,7 +68,7 @@ public class SubscriberInformationReader {
 	 * @throws IllegalArgumentException
 	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
-	public static List<Subscriber> readFromCsv(final Reader csvReader, final Reader verificationReader)
+	public static List<Subscriber> readFromCsv(Reader csvReader, Reader verificationReader)
 			throws IOException, IllegalArgumentException, IllegalDataFormatException {
 		Csv csv = new Csv();
 		csv.read(csvReader);

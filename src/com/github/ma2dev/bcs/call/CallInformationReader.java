@@ -37,7 +37,7 @@ public class CallInformationReader {
 	 * @throws ParseException
 	 *             csvファイル中の日付情報の変換に失敗した場合
 	 */
-	public static List<CallHistory> readFromCsv(final Reader reader) throws IOException, ParseException {
+	public static List<CallHistory> readFromCsv(Reader reader) throws IOException, ParseException {
 		Csv csv = new Csv();
 		csv.read(reader);
 
@@ -79,7 +79,7 @@ public class CallInformationReader {
 	 * @throws IllegalArgumentException
 	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
-	public static List<CallHistory> readFromCsv(final Reader csvReader, Reader verificationReader) throws IOException,
+	public static List<CallHistory> readFromCsv(Reader csvReader, Reader verificationReader) throws IOException,
 			ParseException, IllegalDataFormatException, IllegalArgumentException {
 		Csv csv = new Csv();
 		csv.read(csvReader);

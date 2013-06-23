@@ -9,7 +9,6 @@ import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
 import com.github.ma2dev.bcs.dataFormat.IData;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
-
 /**
  * サービス情報ファイルを読み込みます。
  *
@@ -36,8 +35,7 @@ public class ServiceInforamtionReader {
 	 * @throws IOException
 	 *             ファイル読み込みに失敗した場合
 	 */
-	public static List<Service> readFromCsv(final Reader serviceInfo, final ConfigureServiceFee servicePrice)
-			throws IOException {
+	public static List<Service> readFromCsv(Reader serviceInfo, ConfigureServiceFee servicePrice) throws IOException {
 		Csv serviceInfoCsv = new Csv();
 		serviceInfoCsv.read(serviceInfo);
 
@@ -73,7 +71,7 @@ public class ServiceInforamtionReader {
 	 *            呼情報のリスト
 	 * @return 問題が無ければtrueを、問題があればfalseを返却します。
 	 */
-	private static boolean checkFormat(final List<IData> list) {
+	private static boolean checkFormat(List<IData> list) {
 		// 最小パラメータ数(必須のみ)
 		if (list.size() < SERVICEINFORMATION_NUM_OF_MINPARAM) {
 			return false;

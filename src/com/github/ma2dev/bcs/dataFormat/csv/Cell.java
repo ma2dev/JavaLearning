@@ -26,7 +26,7 @@ public class Cell implements IData {
 	 * @param data
 	 *            データ
 	 */
-	public Cell(final String data) {
+	public Cell(String data) {
 		setData(data);
 	}
 
@@ -45,7 +45,7 @@ public class Cell implements IData {
 	 * @param data
 	 *            データ
 	 */
-	public void setData(final String data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

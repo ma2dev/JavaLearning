@@ -8,7 +8,6 @@ import com.github.ma2dev.bcs.dataFormat.IData;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 import com.github.ma2dev.bcs.service.ServiceList;
 
-
 /**
  * サービス料金定義を提供します。<br>
  * 定義値として、小数点を含む場合、整数を表現していない文字列についてはエラーと判定します。
@@ -37,7 +36,7 @@ public class ConfigureServiceFee {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public ConfigureServiceFee(final String filename) throws IOException {
+	public ConfigureServiceFee(String filename) throws IOException {
 		dataList = readFromCsv(filename);
 	}
 
@@ -48,7 +47,7 @@ public class ConfigureServiceFee {
 	 *            サービス種別
 	 * @return 料金
 	 */
-	public long getPrice(final int serviceKind) {
+	public long getPrice(int serviceKind) {
 		long price = 0;
 
 		switch (serviceKind) {
@@ -77,7 +76,7 @@ public class ConfigureServiceFee {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	private List<IData> readFromCsv(final String filename) throws IOException {
+	private List<IData> readFromCsv(String filename) throws IOException {
 		Csv csv = new Csv();
 		csv.read(new FileReader(filename));
 
@@ -95,7 +94,7 @@ public class ConfigureServiceFee {
 	 *            index
 	 * @return 値を返却します。正しく値が取得できない場合はLong.MIN_VALUEを返却します。
 	 */
-	private long getLongValueFromData(final int index) {
+	private long getLongValueFromData(int index) {
 		String data = null;
 		long l = 0;
 
