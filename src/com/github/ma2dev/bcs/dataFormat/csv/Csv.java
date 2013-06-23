@@ -38,7 +38,7 @@ public class Csv {
 	 * @param config
 	 *            コンフィグ
 	 */
-	public Csv(final CsvConfiguration config) {
+	public Csv(CsvConfiguration config) {
 		this.config = config;
 		cellArray = new ArrayList<List<IData>>();
 	}
@@ -62,7 +62,7 @@ public class Csv {
 	 *            列
 	 * @return 情報
 	 */
-	public IData getCell(final int row, final int column) {
+	public IData getCell(int row, int column) {
 		IData cell = null;
 		try {
 			List<IData> line = cellArray.get(row);
@@ -75,14 +75,22 @@ public class Csv {
 	}
 
 	/**
-	 * 行を指定して情報をListとして取得します。
+	 * 行を指定して情報をListとして取得します。<br>
+	 * 該当の指定行にデータが無い場合、nullを返却します。
 	 *
 	 * @param row
 	 *            行番号
 	 * @return 行の情報のcellのList
 	 */
-	public List<IData> getCells(final int row) {
-		return cellArray.get(row);
+	public List<IData> getCells(int row) {
+		List<IData> list = null;
+		try {
+			list = cellArray.get(row);
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+
+		return list;
 	}
 
 	/**
@@ -113,7 +121,7 @@ public class Csv {
 	 * @param data
 	 *            情報
 	 */
-	public void setCell(final int row, final int column, final String data) {
+	public void setCell(int row, int column, String data) {
 		IData inputData = new Cell(data);
 
 		List<IData> targetRow = null;
@@ -157,7 +165,7 @@ public class Csv {
 	 * @throws IOException
 	 *             読み込みに失敗した場合
 	 */
-	public void read(final Reader reader) throws IOException {
+	public void read(Reader reader) throws IOException {
 		String line;
 		LineNumberReader lineNumberReader = new LineNumberReader(reader);
 		while ((line = lineNumberReader.readLine()) != null) {
@@ -174,7 +182,7 @@ public class Csv {
 	 * @throws IOException
 	 *             書き込みに失敗した場合
 	 */
-	public void write(final Writer writer) throws IOException {
+	public void write(Writer writer) throws IOException {
 		writer.write(toString());
 		writer.flush();
 	}
@@ -205,7 +213,7 @@ public class Csv {
 	 *            1行のcsv形式の文字列
 	 * @return Cellのリスト
 	 */
-	private List<IData> getCellOfLine(final String line) {
+	private List<IData> getCellOfLine(String line) {
 		List<IData> list = new ArrayList<IData>();
 		StringTokenizer st = new StringTokenizer(line, config.getDelimiter());
 
@@ -225,7 +233,7 @@ public class Csv {
 	 *            指定行
 	 * @return csv形式の文字列
 	 */
-	private String toStringOfLine(final int rowNumber) {
+	private String toStringOfLine(int rowNumber) {
 		StringBuffer sb = new StringBuffer();
 
 		List<IData> line = cellArray.get(rowNumber);

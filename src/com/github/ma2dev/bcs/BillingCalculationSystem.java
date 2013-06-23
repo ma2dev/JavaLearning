@@ -11,8 +11,8 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 
+import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.subscriber.SubscriberManager;
-
 
 /**
  * 通話履歴およびサービス契約情報から契約者の通話料金及びサービス契約料金を算出し、明細に出力します。
@@ -151,6 +151,10 @@ public class BillingCalculationSystem {
 			e.printStackTrace();
 		} catch (java.text.ParseException e) {
 			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalDataFormatException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -160,7 +164,7 @@ public class BillingCalculationSystem {
 	 * @param options
 	 *            オプション情報
 	 */
-	private static void showUsage(final Options options) {
+	private static void showUsage(Options options) {
 		HelpFormatter help = new HelpFormatter();
 		// ヘルプを出力
 		help.printHelp("BillingCalculationSystem", options, true);

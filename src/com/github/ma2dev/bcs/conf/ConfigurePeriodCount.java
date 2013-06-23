@@ -7,7 +7,6 @@ import java.util.List;
 import com.github.ma2dev.bcs.dataFormat.IData;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
-
 /**
  * 集計期間定義を提供します。<br>
  * 定義値として、小数点を含む場合、整数を表現していない文字列、負値についてはエラーと判定します。
@@ -41,7 +40,7 @@ public class ConfigurePeriodCount {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	public ConfigurePeriodCount(final String filename) throws IOException {
+	public ConfigurePeriodCount(String filename) throws IOException {
 		dataList = readFromCsv(filename);
 	}
 
@@ -91,7 +90,7 @@ public class ConfigurePeriodCount {
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
 	 */
-	private List<IData> readFromCsv(final String filename) throws IOException {
+	private List<IData> readFromCsv(String filename) throws IOException {
 		Csv csv = new Csv();
 		csv.read(new FileReader(filename));
 
@@ -109,7 +108,7 @@ public class ConfigurePeriodCount {
 	 *            index
 	 * @return 値を取得します。値が正しく取得できなかった場合は0を返却します。
 	 */
-	private int getDay(final int index) {
+	private int getDay(int index) {
 		int day = 0;
 		String data = null;
 

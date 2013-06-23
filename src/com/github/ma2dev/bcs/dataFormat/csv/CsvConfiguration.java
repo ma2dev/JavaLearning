@@ -25,7 +25,7 @@ public class CsvConfiguration {
 	 * @param delimiter
 	 *            デリミタとなる文字列
 	 */
-	public CsvConfiguration(final String delimiter) {
+	public CsvConfiguration(String delimiter) {
 		setDelimiter(delimiter);
 	}
 
@@ -44,7 +44,7 @@ public class CsvConfiguration {
 	 * @param delimiter
 	 *            デリミタ
 	 */
-	public void setDelimiter(final String delimiter) {
+	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
 	}
 
