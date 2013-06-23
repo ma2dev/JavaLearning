@@ -1,7 +1,7 @@
 package com.github.ma2dev.bcs.dataFormat.csv;
 
 /**
- * CSVの設定を管理する。
+ * CSVの設定を管理します。
  *
  * @author ma2dev
  *
@@ -9,28 +9,47 @@ package com.github.ma2dev.bcs.dataFormat.csv;
 public class CsvConfiguration {
 
 	private String delimiter;
+	private int columnLimit;
 
 	/**
 	 * コンストラクタ<br>
-	 * 設定値はデフォルトが使用される。
+	 * 設定値はデフォルトが使用されます。<br>
+	 * デリミタ:","<br>
+	 * 列数上限値:{@link Short#MAX_VALUE}
 	 */
 	public CsvConfiguration() {
 		delimiter = ","; // default
+		columnLimit = Short.MAX_VALUE; // csvの列数上限値を設定
 	}
 
 	/**
 	 * コンストラクタ<br>
-	 * デリミタを指定できる。
+	 * デリミタを指定できます。<br>
+	 * 他の設定値はデフォルト
 	 *
 	 * @param delimiter
 	 *            デリミタとなる文字列
 	 */
-	public CsvConfiguration(final String delimiter) {
+	public CsvConfiguration(String delimiter) {
+		this();
 		setDelimiter(delimiter);
 	}
 
 	/**
-	 * 現在のデリミタを取得する。
+	 * コンストラクタ<br>
+	 * CSVの列数上限値を設定できます。<br>
+	 * 他の設定値はデフォルト
+	 *
+	 * @param columnLimit
+	 *            列数上限値
+	 */
+	public CsvConfiguration(int columnLimit) {
+		this();
+		setColumnLimit(columnLimit);
+	}
+
+	/**
+	 * 現在のデリミタを取得します。
 	 *
 	 * @return デリミタ
 	 */
@@ -39,13 +58,32 @@ public class CsvConfiguration {
 	}
 
 	/**
-	 * デリミタを設定する。
+	 * デリミタを設定します。
 	 *
 	 * @param delimiter
 	 *            デリミタ
 	 */
-	public void setDelimiter(final String delimiter) {
+	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
+	}
+
+	/**
+	 * CSVの列数上限値を取得します。
+	 *
+	 * @return 列数上限値
+	 */
+	public int getColumnLimit() {
+		return columnLimit;
+	}
+
+	/**
+	 * CSVの列数上限値を設定します。
+	 *
+	 * @param columnLimit
+	 *            列数上限値
+	 */
+	public void setColumnLimit(int columnLimit) {
+		this.columnLimit = columnLimit;
 	}
 
 }

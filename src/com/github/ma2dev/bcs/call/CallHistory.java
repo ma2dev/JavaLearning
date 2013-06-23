@@ -119,7 +119,7 @@ public class CallHistory {
 	 * @throws ParseException
 	 *             変換に失敗した場合
 	 */
-	private Date stringToDate(final String s) throws ParseException {
+	private Date stringToDate(String s) throws ParseException {
 		if (s == null) {
 			return null;
 		}
@@ -133,7 +133,7 @@ public class CallHistory {
 	 *            切断要因の文字列
 	 * @return 切断要因
 	 */
-	private int stringToEndReason(final String s) {
+	private int stringToEndReason(String s) {
 		int reason = END_REASON_ERROR;
 
 		if (s == null) {

@@ -11,8 +11,8 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 
+import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.subscriber.SubscriberManager;
-
 
 /**
  * 通話履歴およびサービス契約情報から契約者の通話料金及びサービス契約料金を算出し、明細に出力します。
@@ -144,13 +144,32 @@ public class BillingCalculationSystem {
 
 		// main --------------------------------------------------------------
 		SubscriberManager manager;
+		boolean result = true;
 		try {
 			manager = new SubscriberManager(propertiesFile, serviceInfoFile, callInfoFile, serviceInfoFile, outputFile);
 			manager.execute();
 		} catch (IOException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			System.err.println("ファイル入出力に異常がありました。");
+			result = false;
 		} catch (java.text.ParseException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			System.err.println("呼情報ファイル入力でエラーになりました。");
+			System.err.println("呼情報ファイルの日付情報がIF規定に違反している可能性があります。");
+			result = false;
+		} catch (IllegalArgumentException e) {
+			// e.printStackTrace();
+			System.err.println("入力値に異常があります。");
+			result = false;
+		} catch (IllegalDataFormatException e) {
+			// e.printStackTrace();
+			System.err.println("外部入力ファイルの妥当性検証でエラーになりました。");
+			result = false;
+		}
+		if (result == true) {
+			System.out.println("プログラムは正常終了しました。");
+		} else {
+			System.out.println("プログラムは異常終了しました。");
 		}
 	}
 
@@ -160,7 +179,7 @@ public class BillingCalculationSystem {
 	 * @param options
 	 *            オプション情報
 	 */
-	private static void showUsage(final Options options) {
+	private static void showUsage(Options options) {
 		HelpFormatter help = new HelpFormatter();
 		// ヘルプを出力
 		help.printHelp("BillingCalculationSystem", options, true);
