@@ -86,8 +86,10 @@ public class CsvVerificationProperties {
 	 *            csvデータ
 	 * @param verificationReader
 	 *            妥当性検証のための定義ファイル
-	 * @return csvデータが妥当な場合trueを、そうで無い場合はIllegalDataFormatExceptionの例外をthrowします。<br>
-	 *         また、妥当性検証のための定義ファイルが不正な場合はIllegalArgumentExceptionをthrowします。
+	 * @return csvデータが妥当な場合trueを、そうで無い場合は{@link IllegalDataFormatException}
+	 *         をthrowします。<br>
+	 *         また、妥当性検証のための定義ファイルが不正な場合は{@link IllegalArgumentException}
+	 *         をthrowします。
 	 *
 	 * @throws IOException
 	 *             ファイル読み込みに失敗した場合
@@ -173,14 +175,14 @@ public class CsvVerificationProperties {
 	 *            分割文字
 	 * @param limit
 	 *            分割結果のしきい値<br>
-	 *            期待する配列の要素数を設定します。これにより、<i>str.split(regex, limit)</i>
+	 *            期待する配列の要素数を設定します。これにより、{@link String#split(String, int)}
 	 *            と同じ効果を得ます。
 	 * @return 分割した文字列の配列
 	 */
 	private static List<String> getSplitString(String str, String regex, int limit) {
 		List<String> list = new ArrayList<String>();
 
-		for (String st : str.split(regex)) {
+		for (String st : str.split(regex, limit)) {
 			list.add(st);
 		}
 
@@ -220,7 +222,8 @@ public class CsvVerificationProperties {
 	 *            最小列数
 	 * @param columnUpper
 	 *            最大列数
-	 * @return 妥当な場合はtrueを返却します。妥当で無い場合はIllegalDataFormatExceptionの例外をthrowします。
+	 * @return 妥当な場合はtrueを返却します。妥当で無い場合は{@link IllegalDataFormatException}
+	 *         をthrowします。
 	 * @throws IllegalDataFormatException
 	 *             データが妥当で無い場合
 	 */
@@ -265,10 +268,14 @@ public class CsvVerificationProperties {
 	 *            型
 	 * @param mOrO
 	 *            必須(MUST)/非必須(OPTION)
-	 * @return 妥当な場合はtrueを返却します。妥当で無い場合はIllegalDataFormatExceptionの例外をthrowします。<br>
-	 *         また、妥当性検証のための定義ファイルが不正な場合はIllegalArgumentExceptionをthrowします。
+	 * @return 妥当な場合はtrueを返却します。妥当で無い場合は{@link IllegalDataFormatException}
+	 *         をthrowします。<br>
+	 *         また、妥当性検証のための定義ファイルが不正な場合は{@link IllegalArgumentException}
+	 *         をthrowします。
 	 * @throws IllegalDataFormatException
 	 *             データが妥当で無い場合
+	 * @throws IllegalArgumentException
+	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
 	private static boolean verificateColumn(CsvVerification target, int targetColumn, int digitLower, int digitUpper,
 			String type, String mOrO) throws IllegalDataFormatException, IllegalArgumentException {
@@ -299,7 +306,7 @@ public class CsvVerificationProperties {
 		}
 		if (target.isColumnDigitUpper(targetColumn, digitUpper, mustFlag) == false) {
 			// 桁数上限値の確認
-			throw new IllegalDataFormatException("列の妥当性:桁数上限値違反 [column:" + targetColumn + ", lower:" + digitUpper
+			throw new IllegalDataFormatException("列の妥当性:桁数上限値違反 [column:" + targetColumn + ", upper:" + digitUpper
 					+ ", must:" + mustFlag + "]");
 		}
 

@@ -460,6 +460,11 @@ public class CsvVerification {
 
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			IData data = csv.getCell(i, column);
+			if (data == null) {
+				// データがnullの場合は次のデータをチェック
+				// ここにはmust==falseの場合のみ通る
+				continue;
+			}
 			String s = (String) data.getData();
 			if (typeAlphabet == true && typeNumeric == false) {
 				if (isAlphabet(s) == false) {

@@ -36,7 +36,11 @@ public class CallInformationReader {
 	 *             ファイル読み込みに失敗した場合
 	 * @throws ParseException
 	 *             csvファイル中の日付情報の変換に失敗した場合
+	 * @deprecated この関数はデータの妥当性を検証しないため推奨されません。
+	 *             {@link CallInformationReader#readFromCsv(Reader, Reader)}
+	 *             を使用してください。
 	 */
+	@Deprecated
 	public static List<CallHistory> readFromCsv(Reader reader) throws IOException, ParseException {
 		Csv csv = new Csv();
 		csv.read(reader);
@@ -86,7 +90,22 @@ public class CallInformationReader {
 
 		List<CallHistory> list = null;
 		if (CsvVerificationProperties.verificateCsv(csv, verificationReader)) {
-			list = readFromCsv(csvReader);
+			list = new ArrayList<CallHistory>();
+
+			CallHistory callHistory = null;
+			List<IData> cellList = null;
+			for (int i = 0; i < csv.getRowSize(); i++) {
+				cellList = csv.getCells(i);
+
+				String srcTelNum = (String) cellList.get(CALLINFORMATION_COLOUMN_SRC_TEL_NUM).getData();
+				String dstTelNum = (String) cellList.get(CALLINFORMATION_COLOUMN_DST_TEL_NUM).getData();
+				String startTime = (String) cellList.get(CALLINFORMATION_COLOUMN_START_TIME).getData();
+				String endTime = (String) cellList.get(CALLINFORMATION_COLOUMN_END_TIME).getData();
+				String reason = (String) cellList.get(CALLINFORMATION_COLOUMN_REASON).getData();
+
+				callHistory = new CallHistory(srcTelNum, dstTelNum, startTime, endTime, reason);
+				list.add(callHistory);
+			}
 		}
 
 		return list;

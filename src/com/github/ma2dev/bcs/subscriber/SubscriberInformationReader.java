@@ -29,7 +29,11 @@ public class SubscriberInformationReader {
 	 * @return 契約者情報のリスト
 	 * @throws IOException
 	 *             ファイル入力に失敗した場合
+	 * @deprecated この関数はデータの妥当性を検証しないため推奨されません。
+	 *             {@link SubscriberInformationReader#readFromCsv(Reader, Reader)}
+	 *             を使用してください。
 	 */
+	@Deprecated
 	public static List<Subscriber> readFromCsv(Reader reader) throws IOException {
 		Csv serviceInfoCsv = new Csv();
 		serviceInfoCsv.read(reader);
@@ -68,14 +72,22 @@ public class SubscriberInformationReader {
 	 * @throws IllegalArgumentException
 	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
-	public static List<Subscriber> readFromCsv(Reader csvReader, Reader verificationReader)
-			throws IOException, IllegalArgumentException, IllegalDataFormatException {
+	public static List<Subscriber> readFromCsv(Reader csvReader, Reader verificationReader) throws IOException,
+			IllegalArgumentException, IllegalDataFormatException {
 		Csv csv = new Csv();
 		csv.read(csvReader);
 
 		List<Subscriber> list = null;
 		if (CsvVerificationProperties.verificateCsv(csv, verificationReader)) {
-			list = readFromCsv(csvReader);
+			list = new ArrayList<Subscriber>();
+			Subscriber subscriber = null;
+			List<IData> cellList = null;
+			for (int i = 0; i < csv.getRowSize(); i++) {
+				cellList = csv.getCells(i);
+				String telnumber = (String) cellList.get(SUBSCRIBERINFORMATION_TEL_NUM).getData();
+				subscriber = new Subscriber(telnumber);
+				list.add(subscriber);
+			}
 		}
 
 		return list;

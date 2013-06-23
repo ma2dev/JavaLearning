@@ -15,6 +15,7 @@ import com.github.ma2dev.bcs.call.CallHistory;
 import com.github.ma2dev.bcs.call.CallInformationReader;
 import com.github.ma2dev.bcs.conf.Configure;
 import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
+import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.service.Service;
 import com.github.ma2dev.bcs.service.ServiceInforamtionReader;
 
@@ -39,6 +40,7 @@ public class SubscriberManager {
 	/**
 	 * コンストラクタ<br>
 	 * 入力情報から、料金計算に必要な情報の構築を行います。
+	 *
 	 * @param configFile
 	 *            定義ファイル(properties)
 	 * @param subscriberInfoFile
@@ -54,9 +56,13 @@ public class SubscriberManager {
 	 *             ファイル入力に失敗した場合
 	 * @throws ParseException
 	 *             文字列解析に失敗した場合
+	 * @throws IllegalDataFormatException
+	 *             契約者情報ファイル、呼情報ファイル、サービス情報ファイルのデータが妥当で無い場合
+	 * @throws IllegalArgumentException
+	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
 	public SubscriberManager(String configFile, String subscriberInfoFile, String callInfoFile, String serviceInfoFile,
-			String outputfile) throws IOException, ParseException {
+			String outputfile) throws IOException, ParseException, IllegalArgumentException, IllegalDataFormatException {
 		subscriberList = new ArrayList<Subscriber>();
 		subscriberMap = new HashMap<String, Subscriber>();
 
@@ -95,17 +101,30 @@ public class SubscriberManager {
 	 *             ファイル入力に失敗した場合
 	 * @throws ParseException
 	 *             データ変換に失敗した場合
+	 * @throws IllegalDataFormatException
+	 *             契約者情報ファイル、呼情報ファイル、サービス情報ファイルのデータが妥当で無い場合
+	 * @throws IllegalArgumentException
+	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
-	private void build() throws IOException, ParseException {
+	private void build() throws IOException, ParseException, IllegalArgumentException, IllegalDataFormatException {
+		// 妥当性検証用の定義ファイル準備
+		String verificationSubscriberFile = configure.get(Configure.CONFIGURE_VERIFICATION_SUBSCRIBER_FILEPATH);
+		String verificationCallInfoFile = configure.get(Configure.CONFIGURE_VERIFICATION_CALLINFO_FILEPATH);
+		String verificationServiceInfoFile = configure.get(Configure.CONFIGURE_VERIFICATION_SERVICEINFO_FILEPATH);
+		Reader verificationSubscriberReader = new FileReader(verificationSubscriberFile);
+		Reader verificationCallInfoReader = new FileReader(verificationCallInfoFile);
+		Reader verificationServiceInfoReader = new FileReader(verificationServiceInfoFile);
+
 		// 契約者一覧の作成
-		List<Subscriber> subscriberList = SubscriberInformationReader.readFromCsv(subscriberInfoFile);
+		List<Subscriber> subscriberList = SubscriberInformationReader.readFromCsv(subscriberInfoFile,
+				verificationSubscriberReader);
 		for (Subscriber subscriber : subscriberList) {
 			this.subscriberList.add(subscriber);
 			this.subscriberMap.put(subscriber.getTelnumber(), subscriber);
 		}
 
 		// 通話履歴の設定
-		List<CallHistory> callHistoryList = CallInformationReader.readFromCsv(callInfoFile);
+		List<CallHistory> callHistoryList = CallInformationReader.readFromCsv(callInfoFile, verificationCallInfoReader);
 		for (CallHistory history : callHistoryList) {
 			String srcTelnumber = history.getSrcTelnumber();
 			Subscriber targetSubscriber = subscriberMap.get(srcTelnumber);
@@ -120,7 +139,8 @@ public class SubscriberManager {
 		// 価格情報の取得
 		ConfigureServiceFee serviceFee = new ConfigureServiceFee(
 				configure.get(Configure.CONFIGURE_SERVICE_FEE_FILEPATH));
-		List<Service> serviceInfoList = ServiceInforamtionReader.readFromCsv(serviceInfoFile, serviceFee);
+		List<Service> serviceInfoList = ServiceInforamtionReader.readFromCsv(serviceInfoFile, serviceFee,
+				verificationServiceInfoReader);
 		for (Service service : serviceInfoList) {
 			String telnumber = service.getTelnumber();
 			Subscriber targetSubscriber = subscriberMap.get(telnumber);

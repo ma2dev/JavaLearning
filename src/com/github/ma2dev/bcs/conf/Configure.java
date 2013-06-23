@@ -12,14 +12,17 @@ import java.util.Properties;
  *
  */
 public class Configure {
-	/**
-	 * 集計期間の定義ファイルパス
-	 */
+	/** 集計期間の定義ファイルパス */
 	public static final String CONFIGURE_PERIOD_COUNT_FILEPATH = "configure.periodcount.filepath";
-	/**
-	 * サービス料金の定義ファイルパス
-	 */
+	/** サービス料金の定義ファイルパス */
 	public static final String CONFIGURE_SERVICE_FEE_FILEPATH = "configure.servicefee.filepath";
+
+	/** 契約者情報ファイルの妥当性検証定義ファイルパス */
+	public static final String CONFIGURE_VERIFICATION_SUBSCRIBER_FILEPATH = "configure.verification.properties.subscriber.filepath";
+	/** 呼情報ファイルの妥当性検証定義ファイルパス */
+	public static final String CONFIGURE_VERIFICATION_CALLINFO_FILEPATH = "configure.verification.properties.callinfo.filepath";
+	/** サービス情報ファイルの妥当性検証定義ファイルパス */
+	public static final String CONFIGURE_VERIFICATION_SERVICEINFO_FILEPATH = "configure.verification.properties.serviceinfo.filepath";
 
 	private Properties properties;
 
