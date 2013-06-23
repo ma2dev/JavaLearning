@@ -6,8 +6,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
-
 import com.github.ma2dev.bcs.dataFormat.IData;
 
 /**
@@ -215,12 +213,11 @@ public class Csv {
 	 */
 	private List<IData> getCellOfLine(String line) {
 		List<IData> list = new ArrayList<IData>();
-		StringTokenizer st = new StringTokenizer(line, config.getDelimiter());
 
-		Cell c;
-		while (st.hasMoreElements()) {
-			c = new Cell(st.nextToken());
-			list.add(c);
+		IData data = null;
+		for (String s : line.split(config.getDelimiter(), config.getColumnLimit())) {
+			data = new Cell(s);
+			list.add(data);
 		}
 
 		return list;
@@ -241,6 +238,7 @@ public class Csv {
 			sb.append(line.get(i).getData());
 
 			if (i != line.size() - 1) {
+				// 行末以外はデリミタを入れる
 				sb.append(config.getDelimiter());
 			}
 		}
