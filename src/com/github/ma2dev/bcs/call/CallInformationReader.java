@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.ma2dev.bcs.dataFormat.IData;
 import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
@@ -18,6 +21,9 @@ import com.github.ma2dev.bcs.dataFormat.csv.Csv;
  *
  */
 public class CallInformationReader {
+
+	/** logger */
+	private static final Logger log = LoggerFactory.getLogger(CallInformationReader.class);
 
 	private static final int CALLINFORMATION_COLOUMN_SRC_TEL_NUM = 0;
 	private static final int CALLINFORMATION_COLOUMN_DST_TEL_NUM = 1;
@@ -73,15 +79,11 @@ public class CallInformationReader {
 	 *            csvファイル
 	 * @param verificationReader
 	 *            妥当性検証のための定義ファイル
-	 * @return 呼情報のlistを返却します。妥当性の検証に失敗した場合もしくはNGとなった場合はnullを返却します。
+	 * @return 呼情報のリストを返却します。妥当性の検証で問題が検出された場合はnullを返却します。
 	 * @throws IOException
 	 *             ファイル読み込みに失敗した場合
 	 * @throws ParseException
 	 *             csvファイル中の日付情報の変換に失敗した場合
-	 * @throws IllegalDataFormatException
-	 *             データが妥当で無い場合
-	 * @throws IllegalArgumentException
-	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
 	public static List<CallHistory> readFromCsv(Reader csvReader, Reader verificationReader) throws IOException,
 			ParseException, IllegalDataFormatException, IllegalArgumentException {
@@ -106,6 +108,8 @@ public class CallInformationReader {
 				callHistory = new CallHistory(srcTelNum, dstTelNum, startTime, endTime, reason);
 				list.add(callHistory);
 			}
+		} else {
+			log.error("呼情報ファイルの妥当性判定で問題が検出されました");
 		}
 
 		return list;

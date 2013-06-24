@@ -301,7 +301,7 @@ public class CsvVerification {
 		String str = (String) data.getData();
 		int length = str.getBytes().length; // バイト数取得
 		if (byteNumber != length) {
-			log.info("Digit:: row: {}, column: {}, expected: {}, actual: {}", row, column, byteNumber, length);
+			log.info("row: {}, column: {}, expected: {}, actual: {}", row, column, byteNumber, length);
 			return false;
 		}
 
@@ -350,7 +350,7 @@ public class CsvVerification {
 
 			int length = str.getBytes().length; // バイト数取得
 			if (length < digitLow) {
-				log.info("DigitLower:: row: {}, column: {}, expected: {}, actual: {}", i, column, digitLow, length);
+				log.info("row: {}, column: {}, expected: {}, actual: {}", i, column, digitLow, length);
 				return false;
 			}
 		}
@@ -400,7 +400,7 @@ public class CsvVerification {
 
 			int length = str.getBytes().length; // バイト数取得
 			if (length > digitUpper) {
-				log.info("DigitUpper:: row: {}, column: {}, expected: {}, actual: {}", i, column, digitUpper, length);
+				log.info("row: {}, column: {}, expected: {}, actual: {}", i, column, digitUpper, length);
 				return false;
 			}
 		}
@@ -422,7 +422,7 @@ public class CsvVerification {
 	public boolean isColumnMust(int column) {
 		if (this.isConstructed() == false) {
 			// 1行もデータが無い場合
-			log.info("ColumnMust:: all data are null");
+			log.info("all data are null");
 			return false;
 		}
 
@@ -430,13 +430,13 @@ public class CsvVerification {
 			IData data = csv.getCell(i, column);
 			if (data == null) {
 				// null
-				log.info("ColumnMust:: data is null : row: {}, column: {}", i, column);
+				log.info("data is null : row: {}, column: {}", i, column);
 				return false;
 			}
 			String s = (String) data.getData();
 			if (s.equals("")) {
 				// 空文字
-				log.info("ColumnMust:: data is empty char : row: {}, column: {}", i, column);
+				log.info("data is empty char : row: {}, column: {}", i, column);
 				return false;
 			}
 		}
@@ -486,23 +486,23 @@ public class CsvVerification {
 			String s = (String) data.getData();
 			if (typeAlphabet == true && typeNumeric == false) {
 				if (isAlphabet(s) == false) {
-					log.info("ColumnTyep:: not alphabet [{}]", s);
+					log.info("type not alphabet [{}]", s);
 					return false;
 				}
 			} else if (typeAlphabet == false && typeNumeric == true) {
 				if (isNumeric(s) == false) {
-					log.info("ColumnTyep:: not numeric [{}]", s);
+					log.info("type not numeric [{}]", s);
 					return false;
 				}
 			} else if (typeAlphabet == true && typeNumeric == true) {
 				if (isAlphabetNumeric(s) == false) {
-					log.info("ColumnTyep:: not alphabet and not numeric [{}]", s);
+					log.info("type not alphabet and not numeric [{}]", s);
 					return false;
 				}
 			} else {
 				// 半角英数字で無い場合
 				if (isAlphabetNumeric(s)) {
-					log.info("ColumnTyep:: alphabet or numeric [{}]", s);
+					log.info("type alphabet or numeric [{}]", s);
 					return false;
 				}
 			}
