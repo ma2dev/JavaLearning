@@ -4,6 +4,4 @@
 *.jar
 *.war
 *.ear
-
-# folder
-bin
+/bin
