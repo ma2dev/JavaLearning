@@ -13,7 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
 public class SubscriberManagerTest {
@@ -49,8 +48,6 @@ public class SubscriberManagerTest {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-		} catch (IllegalDataFormatException e) {
-			e.printStackTrace();
 		}
 
 		assertNotNull(manager);
@@ -72,8 +69,6 @@ public class SubscriberManagerTest {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalDataFormatException e) {
 			e.printStackTrace();
 		}
 

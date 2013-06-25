@@ -11,7 +11,6 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 
-import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.subscriber.SubscriberManager;
 
 /**
@@ -160,10 +159,6 @@ public class BillingCalculationSystem {
 		} catch (IllegalArgumentException e) {
 			// e.printStackTrace();
 			System.err.println("入力値に異常があります。");
-			result = false;
-		} catch (IllegalDataFormatException e) {
-			// e.printStackTrace();
-			System.err.println("外部入力ファイルの妥当性検証でエラーになりました。");
 			result = false;
 		}
 		if (result == true) {

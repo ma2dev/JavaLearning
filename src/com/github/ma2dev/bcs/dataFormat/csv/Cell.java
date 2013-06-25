@@ -13,10 +13,12 @@ public class Cell implements IData {
 	private String data;
 
 	/**
-	 * コンストラクタ
+	 * コンストラクタ<br>
+	 * 空文字が設定されます。
+	 *
 	 */
 	public Cell() {
-		data = null;
+		data = new String("");
 	}
 
 	/**
@@ -50,7 +52,7 @@ public class Cell implements IData {
 	}
 
 	/**
-	 * データの文字列町を取得します。
+	 * データの文字列長を取得します。
 	 *
 	 * @return 文字列長
 	 */

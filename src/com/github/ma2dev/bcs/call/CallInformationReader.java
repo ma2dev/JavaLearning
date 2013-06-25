@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.ma2dev.bcs.dataFormat.IData;
-import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
@@ -86,7 +85,7 @@ public class CallInformationReader {
 	 *             csvファイル中の日付情報の変換に失敗した場合
 	 */
 	public static List<CallHistory> readFromCsv(Reader csvReader, Reader verificationReader) throws IOException,
-			ParseException, IllegalDataFormatException, IllegalArgumentException {
+			ParseException {
 		Csv csv = new Csv();
 		csv.read(csvReader);
 
