@@ -1,5 +1,6 @@
 package com.github.ma2dev.bcs.dataFormat.csv;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
@@ -181,8 +182,9 @@ public class Csv {
 	 *             書き込みに失敗した場合
 	 */
 	public void write(Writer writer) throws IOException {
-		writer.write(toString());
-		writer.flush();
+		BufferedWriter bw = new BufferedWriter(writer);
+		bw.write(toString());
+		bw.flush();
 	}
 
 	/**

@@ -146,8 +146,8 @@ public class BillingCalculationSystem {
 		SubscriberManager manager;
 		boolean result = true;
 		try {
-			manager = new SubscriberManager(propertiesFile, serviceInfoFile, callInfoFile, serviceInfoFile, outputFile);
-			manager.execute();
+			manager = new SubscriberManager(propertiesFile, serviceInfoFile, callInfoFile, serviceInfoFile);
+			manager.execute(outputFile);
 		} catch (IOException e) {
 			// e.printStackTrace();
 			System.err.println("ファイル入出力に異常がありました。");

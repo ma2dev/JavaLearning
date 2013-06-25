@@ -90,6 +90,25 @@ public class CsvTest {
 	}
 
 	@Test
+	public final void test空行を含む場合のデータ読み込み() {
+		try {
+			// ファイルの準備
+			File tmpFile = File.createTempFile("CsvTest_emptyLine", "csv");
+			String path = tmpFile.getPath();
+			String body = "1,2,3\n\n4,5,6\n";
+			Writer w = new FileWriter(tmpFile);
+			w.write(body);
+			w.close();
+
+			Csv csv = new Csv();
+			csv.read(new FileReader(path));
+			assertThat(csv.toString(), is("1,2,3\n\n4,5,6")); // 最終行の改行はない
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public final void testデータ設定() {
 		Csv csv = new Csv();
 
