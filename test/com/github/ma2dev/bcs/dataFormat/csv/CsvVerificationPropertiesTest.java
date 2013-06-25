@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.Reader;
 import org.junit.Test;
 
-import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
@@ -31,8 +30,6 @@ public class CsvVerificationPropertiesTest {
 		try {
 			ret = CsvVerificationProperties.verificateCsv(csv, verificationFile);
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (IllegalDataFormatException e) {
 			e.printStackTrace();
 		}
 

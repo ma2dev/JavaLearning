@@ -1,6 +1,10 @@
 package com.github.ma2dev.bcs.dataFormat.csv;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.ma2dev.bcs.dataFormat.IData;
 
 /**
@@ -10,6 +14,8 @@ import com.github.ma2dev.bcs.dataFormat.IData;
  *
  */
 public class CsvVerification {
+
+	private static final Logger log = LoggerFactory.getLogger(CsvVerification.class);
 
 	private static final String VERIFICATION_MATCH_ALPHABET = "^[A-Za-z]+$";
 	private static final String VERIFICATION_MATCH_NUMBER = "^[0-9]+$";
@@ -39,6 +45,7 @@ public class CsvVerification {
 			return true;
 		}
 
+		log.debug("csv row size == 0");
 		return false;
 	}
 
@@ -54,6 +61,7 @@ public class CsvVerification {
 		if (csv.getRowSize() == size) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -69,6 +77,7 @@ public class CsvVerification {
 		if (csv.getRowSize() > size) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -165,6 +174,7 @@ public class CsvVerification {
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			List<IData> line = csv.getCells(i);
 			if (line.size() <= size) {
+				log.info("index: {}, expected: {}, actual: {}", i, size, line.size());
 				return false;
 			}
 		}
@@ -212,6 +222,7 @@ public class CsvVerification {
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			List<IData> line = csv.getCells(i);
 			if (line.size() < size) {
+				log.info("index: {}, expected: {}, actual: {}", i, size, line.size());
 				return false;
 			}
 		}
@@ -259,6 +270,7 @@ public class CsvVerification {
 		for (int i = 0; i < csv.getRowSize(); i++) {
 			List<IData> line = csv.getCells(i);
 			if (line.size() > size) {
+				log.info("index: {}, expected: {}, actual: {}", i, size, line.size());
 				return false;
 			}
 		}
@@ -289,6 +301,7 @@ public class CsvVerification {
 		String str = (String) data.getData();
 		int length = str.getBytes().length; // バイト数取得
 		if (byteNumber != length) {
+			log.info("row: {}, column: {}, expected: {}, actual: {}", row, column, byteNumber, length);
 			return false;
 		}
 
@@ -337,6 +350,7 @@ public class CsvVerification {
 
 			int length = str.getBytes().length; // バイト数取得
 			if (length < digitLow) {
+				log.info("row: {}, column: {}, expected: {}, actual: {}", i, column, digitLow, length);
 				return false;
 			}
 		}
@@ -386,6 +400,7 @@ public class CsvVerification {
 
 			int length = str.getBytes().length; // バイト数取得
 			if (length > digitUpper) {
+				log.info("row: {}, column: {}, expected: {}, actual: {}", i, column, digitUpper, length);
 				return false;
 			}
 		}
@@ -407,6 +422,7 @@ public class CsvVerification {
 	public boolean isColumnMust(int column) {
 		if (this.isConstructed() == false) {
 			// 1行もデータが無い場合
+			log.info("all data are null");
 			return false;
 		}
 
@@ -414,11 +430,13 @@ public class CsvVerification {
 			IData data = csv.getCell(i, column);
 			if (data == null) {
 				// null
+				log.info("data is null : row: {}, column: {}", i, column);
 				return false;
 			}
 			String s = (String) data.getData();
 			if (s.equals("")) {
 				// 空文字
+				log.info("data is empty char : row: {}, column: {}", i, column);
 				return false;
 			}
 		}
@@ -468,18 +486,23 @@ public class CsvVerification {
 			String s = (String) data.getData();
 			if (typeAlphabet == true && typeNumeric == false) {
 				if (isAlphabet(s) == false) {
+					log.info("type not alphabet [{}]", s);
 					return false;
 				}
 			} else if (typeAlphabet == false && typeNumeric == true) {
 				if (isNumeric(s) == false) {
+					log.info("type not numeric [{}]", s);
 					return false;
 				}
 			} else if (typeAlphabet == true && typeNumeric == true) {
 				if (isAlphabetNumeric(s) == false) {
+					log.info("type not alphabet and not numeric [{}]", s);
 					return false;
 				}
 			} else {
+				// 半角英数字で無い場合
 				if (isAlphabetNumeric(s)) {
+					log.info("type alphabet or numeric [{}]", s);
 					return false;
 				}
 			}
