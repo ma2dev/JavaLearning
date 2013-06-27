@@ -1,22 +1,21 @@
 <configuration>
-	<timestamp key="bySecond" datePattern="yyyyMMdd" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%method:%line] - %msg%n
-			</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%method:%line] - %msg%n</pattern>
 		</encoder>
 	</appender>
 
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>logs/bcs-${bySecond}.log</file>
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/bcs.log</file>
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%method:%line] - %msg%n
-			</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%method:%line] - %msg%n</pattern>
 		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>logs/bcs.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+			<MaxHistory>7</MaxHistory>
+		</rollingPolicy>
 	</appender>
-
-	<logger name="chapters.configuration" level="INFO" />
 
 	<root level="debug">
 		<appender-ref ref="STDOUT" />

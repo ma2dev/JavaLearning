@@ -1,5 +1,7 @@
 package com.github.ma2dev.bcs.dataFormat.csv;
 
+import java.util.Objects;
+
 import com.github.ma2dev.bcs.dataFormat.IData;
 
 /**
@@ -48,7 +50,8 @@ public class Cell implements IData {
 	 *            データ
 	 */
 	public void setData(String data) {
-		this.data = data;
+		// data は null ではないことを期待
+		this.data = Objects.requireNonNull(data, "data must not be null.");
 	}
 
 	/**

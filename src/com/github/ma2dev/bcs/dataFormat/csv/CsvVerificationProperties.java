@@ -172,9 +172,10 @@ public class CsvVerificationProperties {
 	 * @param regex
 	 *            分割文字
 	 * @param limit
-	 *            分割結果のしきい値<br>
+	 *            分割結果の上限値<br>
 	 *            期待する配列の要素数を設定します。これにより、{@link String#split(String, int)}
-	 *            と同じ効果を得ます。
+	 *            と同じ効果を得ます。<br>
+	 *            上限を設けない場合は負値を設定します。
 	 * @return 分割した文字列の配列
 	 */
 	private static List<String> getSplitString(String str, String regex, int limit) {
