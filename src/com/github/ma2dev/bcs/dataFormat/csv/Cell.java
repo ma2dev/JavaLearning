@@ -1,5 +1,7 @@
 package com.github.ma2dev.bcs.dataFormat.csv;
 
+import java.util.Objects;
+
 import com.github.ma2dev.bcs.dataFormat.IData;
 
 /**
@@ -13,10 +15,12 @@ public class Cell implements IData {
 	private String data;
 
 	/**
-	 * コンストラクタ
+	 * コンストラクタ<br>
+	 * 空文字が設定されます。
+	 *
 	 */
 	public Cell() {
-		data = null;
+		data = new String("");
 	}
 
 	/**
@@ -46,11 +50,12 @@ public class Cell implements IData {
 	 *            データ
 	 */
 	public void setData(String data) {
-		this.data = data;
+		// data は null ではないことを期待
+		this.data = Objects.requireNonNull(data, "data must not be null.");
 	}
 
 	/**
-	 * データの文字列町を取得します。
+	 * データの文字列長を取得します。
 	 *
 	 * @return 文字列長
 	 */

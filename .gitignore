@@ -7,3 +7,4 @@
 /bin
 /lib
 /logs/*.log
+/logs/*.zip

@@ -5,12 +5,12 @@ import java.io.Reader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.ma2dev.bcs.dataFormat.IData;
-import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
@@ -25,10 +25,15 @@ public class CallInformationReader {
 	/** logger */
 	private static final Logger log = LoggerFactory.getLogger(CallInformationReader.class);
 
+	/** 発信者電話番号のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_SRC_TEL_NUM = 0;
+	/** 着信者電話番号のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_DST_TEL_NUM = 1;
+	/** 通話開始時刻のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_START_TIME = 2;
+	/** 通話終了時刻のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_END_TIME = 3;
+	/** 切断要因のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_REASON = 4;
 
 	/**
@@ -86,10 +91,14 @@ public class CallInformationReader {
 	 *             csvファイル中の日付情報の変換に失敗した場合
 	 */
 	public static List<CallHistory> readFromCsv(Reader csvReader, Reader verificationReader) throws IOException,
-			ParseException, IllegalDataFormatException, IllegalArgumentException {
+			ParseException {
+		// nullチェック
+		Objects.requireNonNull(csvReader, "csvReader must not be null.");
+		Objects.requireNonNull(verificationReader, "verificationReader must not be null.");
+
 		Csv csv = new Csv();
 		csv.read(csvReader);
-
+		
 		List<CallHistory> list = null;
 		if (CsvVerificationProperties.verificateCsv(csv, verificationReader)) {
 			list = new ArrayList<CallHistory>();

@@ -18,7 +18,6 @@ import com.github.ma2dev.bcs.call.CallHistory;
 import com.github.ma2dev.bcs.call.CallInformationReader;
 import com.github.ma2dev.bcs.conf.Configure;
 import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
-import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.service.Service;
 import com.github.ma2dev.bcs.service.ServiceInforamtionReader;
 
@@ -58,13 +57,9 @@ public class SubscriberManager {
 	 *             ファイル入力に失敗した場合
 	 * @throws ParseException
 	 *             文字列解析に失敗した場合
-	 * @throws IllegalDataFormatException
-	 *             契約者情報ファイル、呼情報ファイル、サービス情報ファイルのデータが妥当で無い場合
-	 * @throws IllegalArgumentException
-	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
 	public SubscriberManager(String configFile, String subscriberInfoFile, String callInfoFile, String serviceInfoFile)
-			throws IOException, ParseException, IllegalArgumentException, IllegalDataFormatException {
+			throws IOException, ParseException {
 		subscriberList = new ArrayList<Subscriber>();
 		subscriberMap = new HashMap<String, Subscriber>();
 
@@ -108,12 +103,8 @@ public class SubscriberManager {
 	 *             ファイル入力に失敗した場合
 	 * @throws ParseException
 	 *             データ変換に失敗した場合
-	 * @throws IllegalDataFormatException
-	 *             契約者情報ファイル、呼情報ファイル、サービス情報ファイルのデータが妥当で無い場合
-	 * @throws IllegalArgumentException
-	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
-	private boolean build() throws IOException, ParseException, IllegalArgumentException, IllegalDataFormatException {
+	private boolean build() throws IOException, ParseException {
 		// 妥当性検証用の定義ファイル準備
 		String verificationSubscriberFile = configure.get(Configure.CONFIGURE_VERIFICATION_SUBSCRIBER_FILEPATH);
 		String verificationCallInfoFile = configure.get(Configure.CONFIGURE_VERIFICATION_CALLINFO_FILEPATH);

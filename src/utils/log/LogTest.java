@@ -17,16 +17,18 @@ public class LogTest {
 			s = args[0];
 		}
 
+		String k = null;
 		try {
 
 			log.info("Parsing integer: {}", s);
 
+			s = null;
 			Integer.parseInt(s);
 
 			log.info("success: parse integer");
 
 		} catch (NumberFormatException nfe) {
-			log.error("Exception caught: ", nfe);
+			log.error("Exception caught [{}]: ", k, nfe);
 		}
 	}
 }

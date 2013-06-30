@@ -96,7 +96,6 @@ public class CsvVerificationProperties {
 	 *             ファイル読み込みに失敗した場合
 	 */
 	public static boolean verificateCsv(Csv csv, Reader verificationReader) throws IOException {
-		CsvVerification verification = new CsvVerification(csv);
 		Properties properties = new Properties();
 		properties.load(verificationReader);
 
@@ -120,7 +119,7 @@ public class CsvVerificationProperties {
 			log.error("列数上限値違反 [expected: {}, actual: {}]", COLUMN_SYSTEM_UPPER, columnUpper);
 			return false;
 		}
-		if (verificateRowAndColumn(verification, rowLower, rowUpper, columnLower, columnUpper) == false) {
+		if (verificateRowAndColumn(csv, rowLower, rowUpper, columnLower, columnUpper) == false) {
 			log.error("列数と桁数の妥当性チェック違反");
 			return false;
 		}
@@ -158,7 +157,7 @@ public class CsvVerificationProperties {
 			int digitUpper = stringToInt(columnList.get(COLUMN_ELEMENT_INDEX_DIGITUPPER), STRING_TO_INT_ERROR_VALUE);
 			String type = columnList.get(COLUMN_ELEMENT_INDEX_TYPE);
 			String mOrO = columnList.get(COLUMN_ELEMENT_INDEX_MORO);
-			verificateColumn(verification, targetColumn, digitLower, digitUpper, type, mOrO);
+			verificateColumn(csv, targetColumn, digitLower, digitUpper, type, mOrO);
 		}
 
 		return true;
@@ -172,9 +171,10 @@ public class CsvVerificationProperties {
 	 * @param regex
 	 *            分割文字
 	 * @param limit
-	 *            分割結果のしきい値<br>
+	 *            分割結果の上限値<br>
 	 *            期待する配列の要素数を設定します。これにより、{@link String#split(String, int)}
-	 *            と同じ効果を得ます。
+	 *            と同じ効果を得ます。<br>
+	 *            上限を設けない場合は負値を設定します。
 	 * @return 分割した文字列の配列
 	 */
 	private static List<String> getSplitString(String str, String regex, int limit) {
@@ -210,7 +210,7 @@ public class CsvVerificationProperties {
 	/**
 	 * 行数と列数の妥当性を検証します。
 	 *
-	 * @param target
+	 * @param csv
 	 *            妥当性検証対象データ
 	 * @param rowLower
 	 *            最小行数
@@ -222,28 +222,27 @@ public class CsvVerificationProperties {
 	 *            最大列数
 	 * @return 妥当な場合はtrueを返却します。妥当で無い場合はfalseを返却します。
 	 */
-	private static boolean verificateRowAndColumn(CsvVerification target, int rowLower, int rowUpper, int columnLower,
-			int columnUpper) {
+	private static boolean verificateRowAndColumn(Csv csv, int rowLower, int rowUpper, int columnLower, int columnUpper) {
 		if (rowLower >= 0) {
-			if (target.isRowSizeMoreThanOrEqual(rowLower) == false) {
+			if (CsvVerification.isRowSizeMoreThanOrEqual(csv, rowLower) == false) {
 				log.error("行数と列数の妥当性: 行数下限値違反 [RowLoer: {}]", rowLower);
 				return false;
 			}
 		}
 		if (rowUpper >= 0) {
-			if (target.isRowSizeLessThanOrEqual(rowUpper) == false) {
+			if (CsvVerification.isRowSizeLessThanOrEqual(csv, rowUpper) == false) {
 				log.error("行数と列数の妥当性: 行数上限値違反 [RowUpper: {}]", rowUpper);
 				return false;
 			}
 		}
 		if (columnLower >= 0) {
-			if (target.isColumnSizeMoreThanOrEqual(columnLower) == false) {
+			if (CsvVerification.isColumnSizeMoreThanOrEqual(csv, columnLower) == false) {
 				log.error("行数と列数の妥当性: 列数下限値違反 [ColumnLower: {}]", columnLower);
 				return false;
 			}
 		}
 		if (columnUpper >= 0) {
-			if (target.isColumnSizeLessThanOrEqual(columnUpper) == false) {
+			if (CsvVerification.isColumnSizeLessThanOrEqual(csv, columnUpper) == false) {
 				log.error("行数と列数の妥当性: 列数上限値違反 [ColumnUpper: {}]", columnUpper);
 				return false;
 			}
@@ -255,7 +254,7 @@ public class CsvVerificationProperties {
 	/**
 	 * 列の妥当性を検証します。
 	 *
-	 * @param target
+	 * @param csv
 	 *            妥当性検証対象データ
 	 * @param targetColumn
 	 *            対象列番号
@@ -269,13 +268,13 @@ public class CsvVerificationProperties {
 	 *            必須(MUST)/非必須(OPTION)
 	 * @return 妥当な場合はtrueを返却します。妥当で無い場合はfalseを返却します。
 	 */
-	private static boolean verificateColumn(CsvVerification target, int targetColumn, int digitLower, int digitUpper,
-			String type, String mOrO) {
+	private static boolean verificateColumn(Csv csv, int targetColumn, int digitLower, int digitUpper, String type,
+			String mOrO) {
 		boolean mustFlag = false;
 		if (mOrO.equals(COLUMN_ELEMENT_MORO_MUST)) {
 			// 必須
 			// 要素の有無を確認
-			if (target.isColumnMust(targetColumn) == false) {
+			if (CsvVerification.isColumnMust(csv, targetColumn) == false) {
 				// 要素が無い列がある場合にエラーとする
 				log.error("列の妥当性: 要素必須違反 [column: {}]", targetColumn);
 				return false;
@@ -292,12 +291,12 @@ public class CsvVerificationProperties {
 		}
 
 		// 桁数の確認
-		if (target.isColumnDigitLower(targetColumn, digitLower, mustFlag) == false) {
+		if (CsvVerification.isColumnDigitLower(csv, targetColumn, digitLower, mustFlag) == false) {
 			// 桁数下限値の確認
 			log.error("列の妥当性: 桁数下限値違反 [column: {}, lower: {}, must: {}]", targetColumn, digitLower, mustFlag);
 			return false;
 		}
-		if (target.isColumnDigitUpper(targetColumn, digitUpper, mustFlag) == false) {
+		if (CsvVerification.isColumnDigitUpper(csv, targetColumn, digitUpper, mustFlag) == false) {
 			// 桁数上限値の確認
 			log.error("列の妥当性: 桁数上限値違反 [column: {}, upper: {}, must: {}]", targetColumn, digitUpper, mustFlag);
 			return false;
@@ -308,7 +307,7 @@ public class CsvVerificationProperties {
 		boolean typeNumeric = false;
 		typeAlphabet = analyzeTypeAlphabet(type);
 		typeNumeric = analyzeTypeNumeric(type);
-		if (target.isColumnType(targetColumn, typeAlphabet, typeNumeric, mustFlag) == false) {
+		if (CsvVerification.isColumnType(csv, targetColumn, typeAlphabet, typeNumeric, mustFlag) == false) {
 			// 型の確認
 			log.error("列の妥当性: 型違反 [column: {}, alphabet: {}, numeric: {}, must: {}]", targetColumn, typeAlphabet,
 					typeNumeric, mustFlag);
