@@ -1,43 +1,34 @@
 package utils.log;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LogTest {
-	// ログインスタンスを取得
-	public static Log log = LogFactory.getLog(LogTest.class);
 
-	public static void main(String args[]) {
-		// 　致命的なエラーの出力
-		log.fatal("fatalメッセージ");
+	private static Logger log = LoggerFactory.getLogger(LogTest.class.getName());
 
-		// 　通常のエラーの出力
-		log.error("errorメッセージ");
+	public static void main(String[] args) {
 
-		// 警告の出力
-		log.warn("warnメッセージ");
+		String s = null;
 
-		// 情報の出力
-		log.info("infoメッセージ");
+		log.info("Starting my application...");
 
-		// デバッグ情報の出力
-		log.debug("debugメッセージ");
+		if (args != null && args.length > 0) {
+			s = args[0];
+		}
 
-		// 詳細なデバッグの出力
-		log.trace("traceメッセージ");
-
+		String k = null;
 		try {
-			throw new Exception("Error Message");
-		} catch (Exception e) {
-			// Exceptionのスタックトレースを出力
-			log.error("Error Occurs:", e);
-		} finally {
-			int[] ary = new int[10000];
-			if (log.isDebugEnabled()) {
-				for (int i = 0; i < 10000; i++) {
-					log.debug("array[" + i + "]=" + ary[i]);
-				}
-			}
+
+			log.info("Parsing integer: {}", s);
+
+			s = null;
+			Integer.parseInt(s);
+
+			log.info("success: parse integer");
+
+		} catch (NumberFormatException nfe) {
+			log.error("Exception caught [{}]: ", k, nfe);
 		}
 	}
 }

@@ -5,16 +5,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.ma2dev.bcs.call.CallHistory;
 import com.github.ma2dev.bcs.service.Service;
 
 /**
  * 契約者の情報を管理します。
- *
+ * 
  * @author ma2dev
- *
+ * 
  */
 public class Subscriber {
+	/** logger */
+	private static final Logger log = LoggerFactory.getLogger(Subscriber.class);
 
 	private List<CallHistory> callHistoryList;
 	private Service serviceInfo;
@@ -27,7 +32,7 @@ public class Subscriber {
 
 	/**
 	 * コンストラクタ
-	 *
+	 * 
 	 * @param telnumber
 	 *            契約者電話番号
 	 */
@@ -42,7 +47,7 @@ public class Subscriber {
 
 	/**
 	 * 通話履歴を追加します。
-	 *
+	 * 
 	 * @param history
 	 *            通話履歴
 	 */
@@ -56,7 +61,7 @@ public class Subscriber {
 
 	/**
 	 * サービス契約情報を設定します。
-	 *
+	 * 
 	 * @param service
 	 *            サービス契約情報
 	 */
@@ -66,7 +71,7 @@ public class Subscriber {
 
 	/**
 	 * 契約者電話番号を取得します。<br>
-	 *
+	 * 
 	 * @return 電話番号
 	 */
 	public String getTelnumber() {
@@ -96,7 +101,7 @@ public class Subscriber {
 
 	/**
 	 * 通話履歴から通話料金を算出します。
-	 *
+	 * 
 	 * @param history
 	 *            計算対象の通話履歴
 	 * @return 通話料金
@@ -125,11 +130,22 @@ public class Subscriber {
 
 	/**
 	 * 通話時間を求めます。<br>
-	 * 通話時間は秒で返却されます。
-	 *
+	 * 通話時間は秒で返却されます。<br>
+	 * 時刻情報のすくなくとも一方がnullの場合、0(秒)を返却します。
+	 * 
+	 * @param startTime
+	 *            開始時刻
+	 * @param endTime
+	 *            終了時刻
+	 * 
 	 * @return 通話時間(秒)
 	 */
 	private long talkTime(Date startTime, Date endTime) {
+		if (startTime == null || endTime == null) {
+			log.debug("startTime or endTime are null.");
+			return 0;
+		}
+
 		long start = startTime.getTime();
 		long end = endTime.getTime();
 

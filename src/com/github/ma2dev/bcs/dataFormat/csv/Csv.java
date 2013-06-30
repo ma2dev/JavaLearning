@@ -1,11 +1,14 @@
 package com.github.ma2dev.bcs.dataFormat.csv;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import com.github.ma2dev.bcs.dataFormat.IData;
 
 /**
@@ -37,7 +40,7 @@ public class Csv {
 	 *            コンフィグ
 	 */
 	public Csv(CsvConfiguration config) {
-		this.config = config;
+		this.config = Objects.requireNonNull(config, "config must not be null.");
 		cellArray = new ArrayList<List<IData>>();
 	}
 
@@ -120,7 +123,14 @@ public class Csv {
 	 *            情報
 	 */
 	public void setCell(int row, int column, String data) {
-		IData inputData = new Cell(data);
+		if (row < 0) {
+			throw new IllegalArgumentException("row must not be less than zero.");
+		}
+		if (column < 0) {
+			throw new IllegalArgumentException("column must not be less than zero.");
+		}
+
+		IData inputData = new Cell(Objects.requireNonNull(data, "config must not be null."));
 
 		List<IData> targetRow = null;
 		if (cellArray.size() <= row) {
@@ -165,7 +175,8 @@ public class Csv {
 	 */
 	public void read(Reader reader) throws IOException {
 		String line;
-		LineNumberReader lineNumberReader = new LineNumberReader(reader);
+		LineNumberReader lineNumberReader = new LineNumberReader(Objects.requireNonNull(reader,
+				"reader must not be null."));
 		while ((line = lineNumberReader.readLine()) != null) {
 			cellArray.add(getCellOfLine(line));
 		}
@@ -181,8 +192,9 @@ public class Csv {
 	 *             書き込みに失敗した場合
 	 */
 	public void write(Writer writer) throws IOException {
-		writer.write(toString());
-		writer.flush();
+		BufferedWriter bw = new BufferedWriter(Objects.requireNonNull(writer, "writer must not be null."));
+		bw.write(toString());
+		bw.flush();
 	}
 
 	/**

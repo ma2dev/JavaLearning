@@ -13,13 +13,13 @@ public class CsvConfiguration {
 
 	/**
 	 * コンストラクタ<br>
-	 * 設定値はデフォルトが使用されます。<br>
-	 * デリミタ:","<br>
-	 * 列数上限値:{@link Short#MAX_VALUE}
+	 * 設定値は以下のデフォルトが使用されます。<br>
+	 * デリミタ: ","<br>
+	 * 列数上限値: -1 (上限無し)
 	 */
 	public CsvConfiguration() {
 		delimiter = ","; // default
-		columnLimit = Short.MAX_VALUE; // csvの列数上限値を設定
+		columnLimit = -1; // csvの列数上限値を設定
 	}
 
 	/**
@@ -41,10 +41,29 @@ public class CsvConfiguration {
 	 * 他の設定値はデフォルト
 	 *
 	 * @param columnLimit
-	 *            列数上限値
+	 *            列数上限値<br>
+	 *            上限値は{@link String#split(String, int)}
+	 *            の第2引数と同様です。上限を設定しない場合は負値を設定します。
 	 */
 	public CsvConfiguration(int columnLimit) {
 		this();
+		setColumnLimit(columnLimit);
+	}
+
+	/**
+	 * コンストラクタ<br>
+	 * デリミタおよびCSVの列数上限値を設定できます。
+	 *
+	 * @param delimiter
+	 *            デリミタとなる文字列
+	 * @param columnLimit
+	 *            列数上限値<br>
+	 *            上限値は{@link String#split(String, int)}
+	 *            の第2引数と同様です。上限を設定しない場合は負値を設定します。
+	 */
+	public CsvConfiguration(String delimiter, int columnLimit) {
+		this();
+		setDelimiter(delimiter);
 		setColumnLimit(columnLimit);
 	}
 
@@ -70,7 +89,9 @@ public class CsvConfiguration {
 	/**
 	 * CSVの列数上限値を取得します。
 	 *
-	 * @return 列数上限値
+	 * @return 列数上限値<br>
+	 *         上限値は{@link String#split(String, int)}
+	 *         の第2引数と同様です。負値の場合は上限が無いことを意味します。
 	 */
 	public int getColumnLimit() {
 		return columnLimit;
@@ -80,7 +101,9 @@ public class CsvConfiguration {
 	 * CSVの列数上限値を設定します。
 	 *
 	 * @param columnLimit
-	 *            列数上限値
+	 *            列数上限値<br>
+	 *            上限値は{@link String#split(String, int)}
+	 *            の第2引数と同様です。上限を設定しない場合は負値を設定します。
 	 */
 	public void setColumnLimit(int columnLimit) {
 		this.columnLimit = columnLimit;

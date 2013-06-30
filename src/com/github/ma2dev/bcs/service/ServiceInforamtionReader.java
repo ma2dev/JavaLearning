@@ -5,9 +5,11 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
 import com.github.ma2dev.bcs.dataFormat.IData;
-import com.github.ma2dev.bcs.dataFormat.IllegalDataFormatException;
 import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
 
@@ -18,6 +20,9 @@ import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
  *
  */
 public class ServiceInforamtionReader {
+
+	/** logger */
+	private static final Logger log = LoggerFactory.getLogger(ServiceInforamtionReader.class);
 
 	private static final int SERVICEINFORMATION_TEL_NUM = 0;
 	private static final int SERVICEINFORMATION_DISPLAY_CONDITION = 1;
@@ -76,16 +81,12 @@ public class ServiceInforamtionReader {
 	 *            サービス料金定義情報
 	 * @param verificationReader
 	 *            妥当性検証のための定義ファイル
-	 * @return サービス情報のリスト
+	 * @return サービス情報のリストを返却します。妥当性の検証で問題が検出された場合はnullを返却します。
 	 * @throws IOException
 	 *             ファイル読み込みに失敗した場合
-	 * @throws IllegalDataFormatException
-	 *             データが妥当で無い場合
-	 * @throws IllegalArgumentException
-	 *             妥当性検証のための定義ファイルが不正な場合
 	 */
 	public static List<Service> readFromCsv(Reader csvReader, ConfigureServiceFee servicePrice,
-			Reader verificationReader) throws IOException, IllegalArgumentException, IllegalDataFormatException {
+			Reader verificationReader) throws IOException {
 		Csv csv = new Csv();
 		csv.read(csvReader);
 
@@ -108,6 +109,8 @@ public class ServiceInforamtionReader {
 
 				list.add(service);
 			}
+		} else {
+			log.error("サービス情報ファイルの妥当性判定で問題が検出されました");
 		}
 
 		return list;
