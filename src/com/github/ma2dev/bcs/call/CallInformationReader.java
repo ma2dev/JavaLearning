@@ -5,6 +5,7 @@ import java.io.Reader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,15 @@ public class CallInformationReader {
 	/** logger */
 	private static final Logger log = LoggerFactory.getLogger(CallInformationReader.class);
 
+	/** 発信者電話番号のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_SRC_TEL_NUM = 0;
+	/** 着信者電話番号のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_DST_TEL_NUM = 1;
+	/** 通話開始時刻のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_START_TIME = 2;
+	/** 通話終了時刻のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_END_TIME = 3;
+	/** 切断要因のカラム位置 */
 	private static final int CALLINFORMATION_COLOUMN_REASON = 4;
 
 	/**
@@ -86,9 +92,13 @@ public class CallInformationReader {
 	 */
 	public static List<CallHistory> readFromCsv(Reader csvReader, Reader verificationReader) throws IOException,
 			ParseException {
+		// nullチェック
+		Objects.requireNonNull(csvReader, "csvReader must not be null.");
+		Objects.requireNonNull(verificationReader, "verificationReader must not be null.");
+
 		Csv csv = new Csv();
 		csv.read(csvReader);
-
+		
 		List<CallHistory> list = null;
 		if (CsvVerificationProperties.verificateCsv(csv, verificationReader)) {
 			list = new ArrayList<CallHistory>();

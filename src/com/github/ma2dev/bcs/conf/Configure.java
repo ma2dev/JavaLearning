@@ -35,9 +35,8 @@ public class Configure {
 	 *             ファイル入力に失敗した場合
 	 */
 	public Configure(String propetiesfile) throws IOException {
-		properties = new Properties();
-
 		Reader file = new FileReader(propetiesfile);
+		properties = new Properties();
 		properties.load(file);
 		file.close();
 	}

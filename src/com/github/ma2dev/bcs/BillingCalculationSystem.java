@@ -10,16 +10,22 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.ma2dev.bcs.subscriber.SubscriberManager;
 
 /**
  * 通話履歴およびサービス契約情報から契約者の通話料金及びサービス契約料金を算出し、明細に出力します。
- *
+ * 
  * @author ma2dev
- *
+ * 
  */
 public class BillingCalculationSystem {
+
+	/** logger */
+	private static final Logger log = LoggerFactory.getLogger(BillingCalculationSystem.class);
+
 	public static final String CALLINFO_OPTION_CHAR = "c";
 	public static final String SERVICEINFO_OPTION_CHAR = "s";
 	public static final String OUTPUT_OPTION_CHAR = "o";
@@ -30,6 +36,8 @@ public class BillingCalculationSystem {
 	 *            オプションについては実行時に表示されるUsage参照。
 	 */
 	public static void main(String[] args) {
+		log.info("プログラムの実行を開始します。");
+
 		// オプションチェック ---------------------------------------------------------
 		Options options = new Options();
 
@@ -163,14 +171,16 @@ public class BillingCalculationSystem {
 		}
 		if (result == true) {
 			System.out.println("プログラムは正常終了しました。");
+			log.info("プログラムは正常終了しました。");
 		} else {
 			System.out.println("プログラムは異常終了しました。");
+			log.error("プログラムは異常終了しました。");
 		}
 	}
 
 	/**
 	 * Usage出力
-	 *
+	 * 
 	 * @param options
 	 *            オプション情報
 	 */

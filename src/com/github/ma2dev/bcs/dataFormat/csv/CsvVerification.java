@@ -21,6 +21,14 @@ public class CsvVerification {
 	private static final String VERIFICATION_MATCH_NUMBER = "^[0-9]+$";
 	private static final String VERIFICATION_MATCH_ALPHABET_AND_NUMBER = "^[0-9A-Za-z]+$";
 
+	/**
+	 * デフォルトコンストラクタ<br>
+	 * staticメソッドのみのためインスタンスは生成させない。
+	 */
+	private CsvVerification() {
+		; // 何も行わない
+	}
+
 	// nullチェック --------------------------------------------------------------
 	/**
 	 * 検証対象のcsvデータにデータが構築さているかを検証します。<br>
@@ -329,6 +337,12 @@ public class CsvVerification {
 				continue;
 			}
 			String s = (String) data.getData();
+			if (s.equals("")) {
+				// データが空の場合は次のデータをチェック
+				// ここにはmust==falseの場合のみ通る
+				continue;
+			}
+			
 			if (typeAlphabet == true && typeNumeric == false) {
 				if (CsvVerification.isAlphabet(s) == false) {
 					log.info("type not alphabet [{}]", s);
