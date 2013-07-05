@@ -112,6 +112,7 @@ public class CsvVerification {
 	public static boolean isColumnSizeMoreThanOrEqual(Csv csv, int size) {
 		if (CsvVerification.isConstructed(csv) == false) {
 			// 1行もデータが無い場合
+			log.info("no data.");
 			return false;
 		}
 
@@ -139,6 +140,7 @@ public class CsvVerification {
 	public static boolean isColumnSizeLessThanOrEqual(Csv csv, int size) {
 		if (CsvVerification.isConstructed(csv) == false) {
 			// 1行もデータが無い場合
+			log.info("no data.");
 			return false;
 		}
 

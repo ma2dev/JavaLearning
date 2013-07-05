@@ -3,6 +3,9 @@ package com.github.ma2dev.bcs.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
 
 /**
@@ -12,6 +15,8 @@ import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
  *
  */
 public class Service {
+	/** logger */
+	private static final Logger log = LoggerFactory.getLogger(Service.class);
 
 	private String telnumber;
 	private List<String> familyCallTelnumberList;
@@ -104,6 +109,7 @@ public class Service {
 		// 無料通話サービスの場合
 		for (String targetTelnumber : familyCallTelnumberList) {
 			if (targetTelnumber.compareTo(dstTelnumber) == 0) {
+				log.debug("Family free - srcTelNum: {}, dstTelNum: {}", targetTelnumber, dstTelnumber);
 				return true;
 			}
 		}

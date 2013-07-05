@@ -111,6 +111,7 @@ public class Subscriber {
 		boolean familyCallFlag = serviceInfo.isFamilyCallTelumber(history.getDstTelnumber());
 		if (familyCallFlag == true) {
 			// 家族無料通話に該当する場合は無料。
+			log.debug("Family free.");
 			return 0;
 		}
 
