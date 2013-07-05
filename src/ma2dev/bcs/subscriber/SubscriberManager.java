@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.subscriber;
+package ma2dev.bcs.subscriber;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,15 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ma2dev.bcs.call.CallHistory;
+import ma2dev.bcs.call.CallInformationReader;
+import ma2dev.bcs.conf.Configure;
+import ma2dev.bcs.conf.ConfigureServiceFee;
+import ma2dev.bcs.service.Service;
+import ma2dev.bcs.service.ServiceInforamtionReader;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.ma2dev.bcs.call.CallHistory;
-import com.github.ma2dev.bcs.call.CallInformationReader;
-import com.github.ma2dev.bcs.conf.Configure;
-import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
-import com.github.ma2dev.bcs.service.Service;
-import com.github.ma2dev.bcs.service.ServiceInforamtionReader;
 
 /**
  * 全契約者の情報を管理し、明細ファイルへの出力を行います。

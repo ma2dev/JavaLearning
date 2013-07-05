@@ -1,6 +1,7 @@
 package com.github.ma2dev.bcs.dataFormat.csv;
 
 import static org.junit.Assert.*;
+import ma2dev.bcs.dataFormat.csv.CsvConfiguration;
 
 import org.junit.Test;
 

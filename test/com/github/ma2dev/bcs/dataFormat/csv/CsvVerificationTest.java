@@ -2,6 +2,8 @@ package com.github.ma2dev.bcs.dataFormat.csv;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
+import ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.dataFormat.csv.CsvVerification;
 
 import org.junit.Test;
 

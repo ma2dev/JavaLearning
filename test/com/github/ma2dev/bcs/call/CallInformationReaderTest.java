@@ -10,6 +10,9 @@ import java.io.Reader;
 import java.text.ParseException;
 import java.util.List;
 
+import ma2dev.bcs.call.CallHistory;
+import ma2dev.bcs.call.CallInformationReader;
+
 import org.junit.Test;
 
 public class CallInformationReaderTest {

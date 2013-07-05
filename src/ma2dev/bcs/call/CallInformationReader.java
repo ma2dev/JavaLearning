@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.call;
+package ma2dev.bcs.call;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import ma2dev.bcs.dataFormat.IData;
+import ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.ma2dev.bcs.dataFormat.IData;
-import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
-import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
 /**
  * 呼情報のデータの読み込みを行います。

@@ -11,11 +11,12 @@ import java.io.Reader;
 import java.io.Writer;
 import java.text.ParseException;
 
+import ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.subscriber.SubscriberManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.ma2dev.bcs.dataFormat.csv.Csv;
 
 public class SubscriberManagerTest {
 

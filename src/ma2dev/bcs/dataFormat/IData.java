@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.dataFormat;
+package ma2dev.bcs.dataFormat;
 
 /**
  * データの汎用フォーマット

@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
+import ma2dev.bcs.subscriber.Subscriber;
+import ma2dev.bcs.subscriber.SubscriberInformationReader;
+
 import org.junit.Test;
 
 public class SubscriberInformationReaderTest {

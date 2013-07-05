@@ -1,11 +1,11 @@
-package com.github.ma2dev.bcs.dataFormat.csv;
+package ma2dev.bcs.dataFormat.csv;
 
 import java.util.List;
 
+import ma2dev.bcs.dataFormat.IData;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.ma2dev.bcs.dataFormat.IData;
 
 /**
  * CSVデータの妥当性を検証する仕組みを提供します。<br>

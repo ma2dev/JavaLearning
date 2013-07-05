@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.dataFormat.csv;
+package ma2dev.bcs.dataFormat.csv;
 
 import java.io.IOException;
 import java.io.Reader;

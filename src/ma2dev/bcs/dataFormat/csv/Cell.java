@@ -1,8 +1,8 @@
-package com.github.ma2dev.bcs.dataFormat.csv;
+package ma2dev.bcs.dataFormat.csv;
 
 import java.util.Objects;
 
-import com.github.ma2dev.bcs.dataFormat.IData;
+import ma2dev.bcs.dataFormat.IData;
 
 /**
  * CSVのセル情報を表現します。

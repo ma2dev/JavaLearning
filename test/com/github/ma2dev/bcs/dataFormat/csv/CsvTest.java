@@ -11,13 +11,14 @@ import java.io.Reader;
 import java.io.Writer;
 
 import junitx.framework.FileAssert;
+import ma2dev.bcs.dataFormat.IData;
+import ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.dataFormat.csv.CsvConfiguration;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.ma2dev.bcs.dataFormat.IData;
 
 public class CsvTest {
 	private String outputfile = "dat/test/bcs/callInfo/testCsv_out.csv";

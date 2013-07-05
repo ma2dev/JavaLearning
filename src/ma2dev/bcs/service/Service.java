@@ -1,12 +1,12 @@
-package com.github.ma2dev.bcs.service;
+package ma2dev.bcs.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ma2dev.bcs.conf.ConfigureServiceFee;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
 
 /**
  * サービスを管理します。

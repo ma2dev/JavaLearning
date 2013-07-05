@@ -1,15 +1,15 @@
-package com.github.ma2dev.bcs.subscriber;
+package ma2dev.bcs.subscriber;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ma2dev.bcs.call.CallHistory;
+import ma2dev.bcs.service.Service;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.ma2dev.bcs.call.CallHistory;
-import com.github.ma2dev.bcs.service.Service;
 
 /**
  * 契約者の情報を管理します。

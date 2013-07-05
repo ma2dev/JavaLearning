@@ -1,16 +1,16 @@
-package com.github.ma2dev.bcs.subscriber;
+package ma2dev.bcs.subscriber;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import ma2dev.bcs.dataFormat.IData;
+import ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.ma2dev.bcs.dataFormat.IData;
-import com.github.ma2dev.bcs.dataFormat.csv.Csv;
-import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
 
 /**
  * 契約者情報の読み込みを行います。
