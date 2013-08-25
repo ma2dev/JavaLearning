@@ -16,7 +16,6 @@ public class FindLsReader {
 
 	private static final String CONF_KEYLIST_KEY = "KEY_LIST";
 	private static final String CONF_INPUTFILE_KEY = "INPUTFILE";
-	private static final String CONF_INPUTFILE_ENCODE_KEY = "INPUTFILE_ENCODE";
 
 	private static final String SPLIT_CHAR = ",";
 
@@ -38,7 +37,6 @@ public class FindLsReader {
 	private List<String> searchPathList;
 	private List<String> replacedSearchPathList;
 	private List<String> inputfileList;
-	private String inputfileEncode;
 
 	private PathInfo pathInfo;
 
@@ -46,18 +44,11 @@ public class FindLsReader {
 		searchPathList = getPropertiesValueList(properties);
 		replacedSearchPathList = createMatchSearchPath(searchPathList);
 		inputfileList = getInputfileList(properties);
-		inputfileEncode = properties.getProperty(CONF_INPUTFILE_ENCODE_KEY);
 
 		pathInfo = new PathInfo();
 	}
 
 	public boolean read() throws IOException {
-		boolean flag = true;
-		if (inputfileEncode == null || inputfileEncode.equals("")) {
-			System.err.println("properties: " + CONF_INPUTFILE_ENCODE_KEY + " is illegal.");
-			return false;
-		}
-
 		if (inputfileList == null) {
 			System.err.println("properties: " + CONF_INPUTFILE_KEY + " is illegal.");
 			return false;
@@ -70,7 +61,7 @@ public class FindLsReader {
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				if (isLsString(line) == false) {
-					//System.out.println("Not target(illegal) -> " + line);
+					// System.out.println("Not target(illegal) -> " + line);
 					continue;
 				}
 
@@ -79,19 +70,20 @@ public class FindLsReader {
 				// System.out.println("size: " + size);
 				String hit = getPath(splitedStr[LS_STRING_COLUMN_INDEX_FILENAME]);
 				if (hit == null) {
-					//System.out.println("Not target(not hit) -> " + line);
+					// System.out.println("Not target(not hit) -> " + line);
 					continue;
 				} else {
-					//System.out.println("Target(hit) -> " + hit + ", " + line);
+					// System.out.println("Target(hit) -> " + hit + ", " +
+					// line);
 				}
 
 				pathInfo.add(hit, size);
 			}
-			
+
 			br.close();
 		}
 
-		return flag;
+		return true;
 	}
 
 	/**
@@ -368,7 +360,7 @@ public class FindLsReader {
 			BufferedReader br = new BufferedReader(new FileReader(args[0]));
 			properties.load(br);
 			FindLsReader findLsReader = new FindLsReader(properties);
-			//findLsReader.printOnPropertiesValueList();
+			// findLsReader.printOnPropertiesValueList();
 			findLsReader.read();
 			findLsReader.printResult();
 		} catch (IOException e) {
