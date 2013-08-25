@@ -1,7 +1,9 @@
-package com.github.ma2dev.bcs;
+package ma2dev.bcs;
 
 import java.io.File;
 import java.io.IOException;
+
+import ma2dev.bcs.subscriber.SubscriberManager;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
@@ -12,8 +14,6 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.ma2dev.bcs.subscriber.SubscriberManager;
 
 /**
  * 通話履歴およびサービス契約情報から契約者の通話料金及びサービス契約料金を算出し、明細に出力します。
@@ -36,8 +36,6 @@ public class BillingCalculationSystem {
 	 *            オプションについては実行時に表示されるUsage参照。
 	 */
 	public static void main(String[] args) {
-		log.info("プログラムの実行を開始します。");
-
 		// オプションチェック ---------------------------------------------------------
 		Options options = new Options();
 
@@ -150,6 +148,8 @@ public class BillingCalculationSystem {
 		}
 
 		// main --------------------------------------------------------------
+		log.info("プログラムの実行を開始します。");
+
 		SubscriberManager manager;
 		boolean result = true;
 		try {
@@ -158,15 +158,19 @@ public class BillingCalculationSystem {
 		} catch (IOException e) {
 			// e.printStackTrace();
 			System.err.println("ファイル入出力に異常がありました。");
+			log.error("ファイル入出力に異常がありました。");
 			result = false;
 		} catch (java.text.ParseException e) {
 			// e.printStackTrace();
 			System.err.println("呼情報ファイル入力でエラーになりました。");
 			System.err.println("呼情報ファイルの日付情報がIF規定に違反している可能性があります。");
+			log.error("呼情報ファイル入力でエラーになりました。");
+			log.error("呼情報ファイルの日付情報がIF規定に違反している可能性があります。");
 			result = false;
 		} catch (IllegalArgumentException e) {
 			// e.printStackTrace();
 			System.err.println("入力値に異常があります。");
+			log.error("入力値に異常があります。");
 			result = false;
 		}
 		if (result == true) {

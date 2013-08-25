@@ -6,10 +6,11 @@ import static org.junit.Assert.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import org.junit.Test;
 
-import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
-import com.github.ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
+
+import org.junit.Test;
 
 public class CsvVerificationPropertiesTest {
 

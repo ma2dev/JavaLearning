@@ -1,17 +1,17 @@
-package com.github.ma2dev.bcs.service;
+package ma2dev.bcs.service;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import ma2dev.bcs.conf.ConfigureServiceFee;
+import ma2dev.bcs.dataFormat.IData;
+import ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
-import com.github.ma2dev.bcs.dataFormat.IData;
-import com.github.ma2dev.bcs.dataFormat.csv.Csv;
-import com.github.ma2dev.bcs.dataFormat.csv.CsvVerificationProperties;
 
 /**
  * サービス情報ファイルを読み込みます。

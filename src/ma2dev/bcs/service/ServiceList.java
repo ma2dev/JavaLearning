@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.service;
+package ma2dev.bcs.service;
 
 /**
  * サービスを特定するユニークなIDを提供します。

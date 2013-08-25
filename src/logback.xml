@@ -18,7 +18,7 @@
 		</rollingPolicy>
 	</appender>
 
-	<logger name="com.github.ma2dev.bcs" level="INFO" additivity="false">
+	<logger name="ma2dev.bcs" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</logger>

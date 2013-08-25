@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import ma2dev.bcs.conf.Configure;
+import ma2dev.bcs.conf.ConfigureServiceFee;
+import ma2dev.bcs.service.ServiceList;
 
-import com.github.ma2dev.bcs.service.ServiceList;
+import org.junit.Test;
 
 public class ConfigureServiceFeeTest {
 

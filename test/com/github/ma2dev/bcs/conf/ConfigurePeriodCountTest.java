@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import ma2dev.bcs.conf.Configure;
+import ma2dev.bcs.conf.ConfigurePeriodCount;
+
 import org.junit.Test;
 
 public class ConfigurePeriodCountTest {

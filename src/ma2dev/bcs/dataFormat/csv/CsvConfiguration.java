@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.dataFormat.csv;
+package ma2dev.bcs.dataFormat.csv;
 
 /**
  * CSVの設定を管理します。

@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
-import org.junit.Test;
+import ma2dev.bcs.conf.ConfigureServiceFee;
+import ma2dev.bcs.service.Service;
+import ma2dev.bcs.service.ServiceInforamtionReader;
 
-import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
+import org.junit.Test;
 
 public class ServiceInforamtionReaderTest {
 

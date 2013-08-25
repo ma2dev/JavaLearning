@@ -8,12 +8,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ma2dev.bcs.call.CallHistory;
+import ma2dev.bcs.conf.ConfigureServiceFee;
+import ma2dev.bcs.service.Service;
+import ma2dev.bcs.subscriber.Subscriber;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.ma2dev.bcs.call.CallHistory;
-import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
-import com.github.ma2dev.bcs.service.Service;
 
 public class SubscriberTest {
 

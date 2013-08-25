@@ -1,0 +1,35 @@
+[root@centos6 ~]# find /nas1/ -ls
+650544    4 drwxr-xr-x   3 root     root         4096  8月 23 21:38 /nas2/
+650700    4 drwxr-xr-x   4 root     root         4096  8月 23 21:39 /nas2/dist_data
+651055    4 drwxr-xr-x   4 root     root         4096  8月 23 21:38 /nas2/dist_data/so
+659403    4 drwxr-xr-x   6 root     root         4096  8月 23 21:38 /nas2/dist_data/so/cuscon
+674250    4 drwxr-xr-x   2 root     root         4096  8月 23 21:39 /nas2/dist_data/so/cuscon/20130820
+674258    4 -rw-r--r--   1 root     root          103  8月 23 21:39 /nas2/dist_data/so/cuscon/20130820/dummy.txt
+674241    4 drwxr-xr-x   2 root     root         4096  8月 23 21:42 /nas2/dist_data/so/cuscon/20130822
+674270    4 -rw-r--r--   1 root     root            2  8月 23 21:41 /nas2/dist_data/so/cuscon/20130822/dummy2.txt
+674260    4 -rw-r--r--   1 root     root          103  8月 23 21:40 /nas2/dist_data/so/cuscon/20130822/dummy.txt
+674249    4 drwxr-xr-x   2 root     root         4096  8月 23 21:42 /nas2/dist_data/so/cuscon/20130821
+674259    4 -rw-r--r--   1 root     root          103  8月 23 21:40 /nas2/dist_data/so/cuscon/20130821/dummy.txt
+674267    4 -rw-r--r--   1 root     root          114  8月 23 21:41 /nas2/dist_data/so/cuscon/20130821/dummy1.txt
+674220    4 drwxr-xr-x   2 root     root         4096  8月 23 21:43 /nas2/dist_data/so/cuscon/20130823
+674273    4 -rw-r--r--   1 root     root           29  8月 23 21:43 /nas2/dist_data/so/cuscon/20130823/dummy3.txt
+674261    4 -rw-r--r--   1 root     root          103  8月 23 21:40 /nas2/dist_data/so/cuscon/20130823/dummy.txt
+674251    4 drwxr-xr-x   6 root     root         4096  8月 23 21:39 /nas2/dist_data/so/msems_cuscon
+674255    4 drwxr-xr-x   2 root     root         4096  8月 23 21:40 /nas2/dist_data/so/msems_cuscon/20130820
+674263    4 -rw-r--r--   1 root     root          103  8月 23 21:40 /nas2/dist_data/so/msems_cuscon/20130820/dummy.txt
+674253    4 drwxr-xr-x   2 root     root         4096  8月 23 21:42 /nas2/dist_data/so/msems_cuscon/20130822
+674271    4 -rw-r--r--   1 root     root            2  8月 23 21:42 /nas2/dist_data/so/msems_cuscon/20130822/dummy2.txt
+674264    4 -rw-r--r--   1 root     root          103  8月 23 21:40 /nas2/dist_data/so/msems_cuscon/20130822/dummy.txt
+674254    4 drwxr-xr-x   2 root     root         4096  8月 23 21:41 /nas2/dist_data/so/msems_cuscon/20130821
+674262    4 -rw-r--r--   1 root     root          103  8月 23 21:40 /nas2/dist_data/so/msems_cuscon/20130821/dummy.txt
+674268    4 -rw-r--r--   1 root     root          114  8月 23 21:41 /nas2/dist_data/so/msems_cuscon/20130821/dummy1.txt
+674252    4 drwxr-xr-x   2 root     root         4096  8月 23 21:43 /nas2/dist_data/so/msems_cuscon/20130823
+674275    4 -rw-r--r--   1 root     root           29  8月 23 21:43 /nas2/dist_data/so/msems_cuscon/20130823/dummy3.txt
+674265    4 -rw-r--r--   1 root     root          103  8月 23 21:40 /nas2/dist_data/so/msems_cuscon/20130823/dummy.txt
+674256    4 drwxr-xr-x   3 root     root         4096  8月 23 21:39 /nas2/dist_data/eq
+674257    4 drwxr-xr-x   2 root     root         4096  8月 23 21:43 /nas2/dist_data/eq/future
+674274    4 -rw-r--r--   1 root     root           29  8月 23 21:43 /nas2/dist_data/eq/future/dummy3.txt
+674272    4 -rw-r--r--   1 root     root            2  8月 23 21:43 /nas2/dist_data/eq/future/dummy2.txt
+674266    4 -rw-r--r--   1 root     root          103  8月 23 21:40 /nas2/dist_data/eq/future/dummy.txt
+674269    4 -rw-r--r--   1 root     root          114  8月 23 21:41 /nas2/dist_data/eq/future/dummy1.txt
+[root@centos6 ~]# 

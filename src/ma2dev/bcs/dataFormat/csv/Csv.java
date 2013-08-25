@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.dataFormat.csv;
+package ma2dev.bcs.dataFormat.csv;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.github.ma2dev.bcs.dataFormat.IData;
+import ma2dev.bcs.dataFormat.IData;
 
 /**
  * CSVファイルを表現します。<br>

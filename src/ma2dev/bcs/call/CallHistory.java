@@ -1,4 +1,4 @@
-package com.github.ma2dev.bcs.call;
+package ma2dev.bcs.call;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.text.ParseException;
 import java.util.GregorianCalendar;
 
+import ma2dev.bcs.call.CallHistory;
+
 import org.junit.Test;
 
 public class CallHistoryTest {

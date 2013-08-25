@@ -1,11 +1,11 @@
-package com.github.ma2dev.bcs.conf;
+package ma2dev.bcs.conf;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import com.github.ma2dev.bcs.dataFormat.IData;
-import com.github.ma2dev.bcs.dataFormat.csv.Csv;
+import ma2dev.bcs.dataFormat.IData;
+import ma2dev.bcs.dataFormat.csv.Csv;
 
 /**
  * 集計期間定義を提供します。<br>

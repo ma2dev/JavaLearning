@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ma2dev.bcs.conf.ConfigureServiceFee;
+import ma2dev.bcs.service.Service;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.ma2dev.bcs.conf.ConfigureServiceFee;
 
 public class ServiceTest {
 
