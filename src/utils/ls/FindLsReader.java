@@ -21,6 +21,7 @@ public class FindLsReader {
 
 	private static final int LS_STRING_COLUMN_NUM = 11;
 	private static final String LS_STRING_SPLIT_REGEX = "\\s+";
+	private static final String LS_STRING_LINE_HEAD_REGEX = "^\\s+";
 	private static final String VERIFICATION_MATCH_NUMBER = "^[0-9]+$";
 
 	// file type by ls
@@ -56,12 +57,17 @@ public class FindLsReader {
 
 		for (String inputfile : inputfileList) {
 			// open input file.
+			System.out.println(inputfile);
 			BufferedReader br = new BufferedReader(new FileReader(inputfile));
 
+			String tmp_line = null;
 			String line = null;
-			while ((line = br.readLine()) != null) {
+			int cnt = 0;
+			while ((tmp_line = br.readLine()) != null) {
+				// space of line head to ""
+				line = tmp_line.replaceAll(LS_STRING_LINE_HEAD_REGEX, "");
 				if (isLsString(line) == false) {
-					// System.out.println("Not target(illegal) -> " + line);
+					System.err.println("Not target(illegal) -> " + line);
 					continue;
 				}
 
@@ -70,7 +76,7 @@ public class FindLsReader {
 				// System.out.println("size: " + size);
 				String hit = getPath(splitedStr[LS_STRING_COLUMN_INDEX_FILENAME]);
 				if (hit == null) {
-					// System.out.println("Not target(not hit) -> " + line);
+					System.err.println("Not target(not hit) -> " + line);
 					continue;
 				} else {
 					// System.out.println("Target(hit) -> " + hit + ", " +
@@ -78,6 +84,10 @@ public class FindLsReader {
 				}
 
 				pathInfo.add(hit, size);
+				cnt++;
+				if ((cnt % 100000) == 0) {
+					System.out.println(cnt + " line read.");
+				}
 			}
 
 			br.close();
@@ -142,6 +152,7 @@ public class FindLsReader {
 		boolean result = true;
 
 		if (s == null) {
+			System.err.println("isLsString null.");
 			return false;
 		}
 
@@ -149,17 +160,24 @@ public class FindLsReader {
 		String[] splitedStr = s.split(LS_STRING_SPLIT_REGEX, 0);
 		int num = splitedStr.length;
 		if (num != LS_STRING_COLUMN_NUM) {
+			// System.err.println("column number error: " + s);
+			// for (int i = 0; i < splitedStr.length; i++) {
+			// System.out.println(i + " [" + splitedStr[i] +"]");
+			// }
+			// System.exit(1);
 			return false;
 		}
 
 		// check2: 1st colomn is number.
 		if (splitedStr[0].matches(VERIFICATION_MATCH_NUMBER) == false) {
+			// System.err.println("1st column is not number: " + s);
 			return false;
 		}
 
 		// check3: file type is normal file.
 		String filetype = splitedStr[LS_STRING_COLUMN_INDEX_FILETYPE];
 		if (filetype.charAt(0) == LS_STRING_COLUMN_IGNORE_FILETYPE_CHAR) {
+			// System.err.println("type is not file: " + s);
 			return false;
 		}
 
