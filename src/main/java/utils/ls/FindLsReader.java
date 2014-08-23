@@ -2,8 +2,10 @@ package utils.ls;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +18,12 @@ public class FindLsReader {
 
 	private static final String CONF_KEYLIST_KEY = "KEY_LIST";
 	private static final String CONF_INPUTFILE_KEY = "INPUTFILE";
+	private static final String CONF_ENCODE_TYPE_KEY = "ENCODE_TYPE";
 
 	private static final String SPLIT_CHAR = ",";
 
 	private static final int LS_STRING_COLUMN_NUM = 11;
 	private static final String LS_STRING_SPLIT_REGEX = "\\s+";
-	private static final String LS_STRING_LINE_HEAD_REGEX = "^\\s+";
 	private static final String VERIFICATION_MATCH_NUMBER = "^[0-9]+$";
 
 	// file type by ls
@@ -40,11 +42,13 @@ public class FindLsReader {
 	private List<String> inputfileList;
 
 	private PathInfo pathInfo;
+	private String encodeType;
 
 	public FindLsReader(Properties properties) {
 		searchPathList = getPropertiesValueList(properties);
 		replacedSearchPathList = createMatchSearchPath(searchPathList);
 		inputfileList = getInputfileList(properties);
+		encodeType = getEncodeType(properties);
 
 		pathInfo = new PathInfo();
 	}
@@ -58,14 +62,16 @@ public class FindLsReader {
 		for (String inputfile : inputfileList) {
 			// open input file.
 			System.out.println(inputfile);
-			BufferedReader br = new BufferedReader(new FileReader(inputfile));
+			// BufferedReader br = new BufferedReader(new
+			// FileReader(inputfile));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(
+					inputfile), encodeType));
 
 			String tmp_line = null;
 			String line = null;
 			int cnt = 0;
 			while ((tmp_line = br.readLine()) != null) {
-				// space of line head to ""
-				line = tmp_line.replaceAll(LS_STRING_LINE_HEAD_REGEX, "");
+				line = tmp_line.replaceAll("^\\s+", "");
 				if (isLsString(line) == false) {
 					System.err.println("Not target(illegal) -> " + line);
 					continue;
@@ -73,6 +79,7 @@ public class FindLsReader {
 
 				String[] splitedStr = line.split(LS_STRING_SPLIT_REGEX, 0);
 				long size = Long.parseLong(splitedStr[LS_STRING_COLUMN_INDEX_SIZE]);
+				long blocksize = Long.parseLong(splitedStr[1]);
 				// System.out.println("size: " + size);
 				String hit = getPath(splitedStr[LS_STRING_COLUMN_INDEX_FILENAME]);
 				if (hit == null) {
@@ -83,7 +90,7 @@ public class FindLsReader {
 					// line);
 				}
 
-				pathInfo.add(hit, size);
+				pathInfo.add(hit, size, blocksize);
 				cnt++;
 				if ((cnt % 100000) == 0) {
 					System.out.println(cnt + " line read.");
@@ -141,7 +148,8 @@ public class FindLsReader {
 
 		String newStr = null;
 		for (String s : before) {
-			newStr = new String("(" + s.replaceAll(REPLACE_YYYYMMDD_FROM, REPLACE_YYYYMMDD_TO) + ")" + "(.*)");
+			newStr = new String("(" + s.replaceAll(REPLACE_YYYYMMDD_FROM, REPLACE_YYYYMMDD_TO)
+					+ ")" + "(.*)");
 			list.add(newStr);
 		}
 
@@ -263,6 +271,16 @@ public class FindLsReader {
 		return list;
 	}
 
+	private String getEncodeType(Properties properties) {
+		String value = properties.getProperty(CONF_ENCODE_TYPE_KEY);
+		if (value == null) {
+			System.err.println("properties: " + CONF_ENCODE_TYPE_KEY + " is illegal.");
+			return null;
+		}
+
+		return value;
+	}
+
 	/**
 	 * Debug print.
 	 */
@@ -306,7 +324,7 @@ public class FindLsReader {
 			pathMap = new HashMap<String, PathDetailInfo>();
 		}
 
-		public boolean add(String path, long size) {
+		public boolean add(String path, long size, long blocksize) {
 			if (path == null) {
 				return false;
 			}
@@ -314,11 +332,11 @@ public class FindLsReader {
 			PathDetailInfo detailInfo = pathMap.get(path);
 			if (detailInfo == null) {
 				detailInfo = new PathDetailInfo(path); // init
-				detailInfo.add(size); // num = 1
+				detailInfo.add(size, blocksize); // num = 1
 				keyList.add(path);
 				pathMap.put(path, detailInfo);
 			} else {
-				detailInfo.add(size);
+				detailInfo.add(size, blocksize);
 			}
 
 			return true;
@@ -340,11 +358,13 @@ public class FindLsReader {
 			private String path;
 			private long size;
 			private long num;
+			private long blocksize;
 
 			public PathDetailInfo(String path) {
 				this.path = path;
 				size = 0;
 				num = 0;
+				blocksize = 0;
 			}
 
 			/**
@@ -357,11 +377,16 @@ public class FindLsReader {
 				num++;
 			}
 
+			public void add(long size, long blocksize) {
+				this.add(size);
+				this.blocksize += blocksize;
+			}
+
 			/**
 			 * print
 			 */
 			public void printOn() {
-				System.out.println(path + "\t" + num + "\t" + size);
+				System.out.println(path + "\t" + num + "\t" + size + "\t" + blocksize);
 			}
 		}
 	}

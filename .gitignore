@@ -8,3 +8,4 @@
 /lib
 /logs/*.log
 /logs/*.zip
+/target/
